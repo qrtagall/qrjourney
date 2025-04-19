@@ -204,7 +204,7 @@
       const timestamp = getReadableTimestamp();
       const hash = await sha256(timestamp + SALT);
       const id = `${timestamp}_${hash.substring(0, 15)}`;
-      const url = `https://qrtagall.com?id=${id}`;
+      const url = `https://process.qrtagall.com?id=${id}`;
 
       document.getElementById("qrIdLabel").innerText = id;
 
