@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QRTagall - Tag Anything. Know Everything.</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <style>
+    /* Core Colors */
+    :root {
+      --primary: #0077cc;
+      --accent: #00cc88;
+      --dark: #2b2b2b;
+      --light: #f4f4f4;
+      --text: #333333;
+      --danger: #ff4444;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--light);
+      color: var(--text);
+    }
+
+    header {
+      background-color: var(--dark);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    #startBtn {
+      background-color: var(--primary);
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #startBtn:hover {
+      background-color: #005fa3;
+    }
+
+    main {
+      padding: 40px;
+      max-width: 1000px;
+      margin: 40px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .intro {
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .intro h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .intro strong {
+      color: var(--accent);
+    }
+
+    #popupModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #popupModalContent {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      border-top: 6px solid var(--accent);
+    }
+
+    .closeBtn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 22px;
+      color: #bbb;
+      cursor: pointer;
+    }
+
+    .closeBtn:hover {
+      color: var(--danger);
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      margin: 5px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #00aa77;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>QRTagAll</h1>
+    <button id="startBtn">Journey starts here →</button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>What is QR-Tag-All?</h2>
+      <p>
+        <strong>QRTagAll</strong> is a universal digital tagging system that lets you assign a smart identity to <em>any</em> physical object—be it a plant, ID card, tool, piece of furniture, or even yourself. With just a QR code, you can claim ownership, upload useful information, and decide exactly what the world sees when they scan it.
+      </p>
+
+      <p>
+        🔹 <strong>For Personal Use:</strong><br>
+        Use QRTagAll to attach critical information to your personal belongings. Track warranty cards, upload purchase bills, pin repair history, or store emergency contacts on your laptop, mobile, or even your wristband. Have a fancy indoor plant? Add watering schedules, care routines, and growth photos accessible to anyone who scans it. Misplace your wallet? Add a recovery message and contact for finders.
+      </p>
+
+      <p>
+        🔹 <strong>For Enterprises:</strong><br>
+        Whether you run a factory or a farm, QRTagAll helps streamline logistics. Tag tools, machines, inventory, or even raw materials with QR-based identity. Attach maintenance logs, compliance documents, or sensor data. Use it to track shipments, authenticate assets, or manage ownership transfers. From warehouse stock to delivery boxes—QRTagAll fits in every step of the supply chain.
+      </p>
+
+      <p>
+        It also extends to <strong>identity tagging</strong> for employees or volunteers, <strong>buy/sell listing</strong> by scanning a product on sale, or even temporary info display in exhibitions and events.
+      </p>
+
+      <p>
+        It's smart, scalable, privacy-friendly, and can grow with your use case—be it home, office, school, or shop. No app installs. No centralized database needed. Just a QR, and you're in control.
+      </p>
+
+      <p style="font-weight: bold; font-size: 1.1em;">
+        Tag it. Own it. Share it. 🔁
+      </p>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="popupModal">
+    <div id="popupModalContent">
+      <span class="closeBtn" onclick="closeModal()">×</span>
+      <h3>🎉 Your Universal QR is ready!</h3>
+      <p id="qrIdLabel" style="font-size:12px; color:gray;"></p>
+      <div id="popupQR" style="margin:20px auto;">
+        <canvas id="popupQRCanvas"></canvas>
+      </div>
+      <button onclick="printQR()">🖨️ Print</button>
+      <button onclick="goNext()">➡️ Next</button>
+    </div>
+  </div>
+
+  <script>
+    const SALT = "QRTagall@2025";
+
+    async function sha256(input) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(input);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function getReadableTimestamp() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const padMs = n => n.toString().padStart(3, '0');
+      return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${padMs(now.getMilliseconds())}`;
+    }
+
+    async function generateSecureQR() {
+      const timestamp = getReadableTimestamp();
+      const hash = await sha256(timestamp + SALT);
+      const id = `${timestamp}_${hash.substring(0, 15)}`;
+      const url = `https://qrtagall.com?id=${id}`;
+
+      document.getElementById("qrIdLabel").innerText = id;
+
+      const canvas = document.getElementById("popupQRCanvas");
+      QRCode.toCanvas(canvas, url, { width: 200 }, err => {
+        if (err) return console.error(err);
+      });
+    }
+
+    function printQR() {
+      const canvas = document.getElementById("popupQRCanvas");
+      const win = window.open('', 'Print QR', 'width=400,height=400');
+      win.document.write('<img src="' + canvas.toDataURL() + '"/>');
+      win.document.close();
+      win.print();
+    }
+
+    function goNext() {
+      alert("Next step will be available soon...\nMeantime, Print it and keep all ready.");
+      closeModal();
+    }
+
+    function closeModal() {
+      document.getElementById("popupModal").style.display = "none";
+    }
+
+    document.getElementById("startBtn").onclick = async () => {
+      document.getElementById("popupModal").style.display = "flex";
+      await generateSecureQR();
+    };
+  </script>
+
+</body>
+</html>
