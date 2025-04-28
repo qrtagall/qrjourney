@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Us - QRTagAll</title>
+    <title>Contact Us - QRTagAll</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         :root {
             --primary: #0077cc;
             --accent: #00cc88;
             --dark: #2b2b2b;
-            --light: #f4f4f4;
+            --light: #f9f9f9;
             --text: #333333;
         }
 
@@ -61,13 +61,9 @@
             background: none;
             border: none;
             color: white;
-            font-size: clamp(20px, 5vw, 26px); /* 🔥 Larger icon font */
-            padding: 8px 14px; /* 🔥 Bigger click area */
+            font-size: clamp(16px, 4vw, 20px);
             cursor: pointer;
-            border-radius: 6px;
-            transition: background-color 0.2s;
         }
-
         #menuContent {
             display: none;
             position: absolute;
@@ -92,27 +88,39 @@
             background: #f0f0f0;
         }
 
-        /* Main Area */
+        /* Main */
         main {
-            max-width: 900px;
+            max-width: 700px;
             margin: 120px auto 40px;
             background: white;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
         }
         main h2 {
             color: var(--primary);
             font-size: clamp(22px, 5vw, 28px);
+            margin-bottom: 20px;
         }
-        main h3 {
-            color: var(--primary);
-            font-size: clamp(18px, 4vw, 24px);
-        }
-        p {
+        main p {
             font-size: clamp(15px, 4vw, 17px);
             line-height: 1.7;
             margin-bottom: 20px;
+        }
+        .emailBtn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .emailBtn:hover {
+            background-color: #00aa77;
         }
 
         @media (max-width: 600px) {
@@ -149,8 +157,8 @@
                     <a class="menuC" href="https://qrtagall.com">Main Page</a>
                     <a class="menuC" href="/usecases.html">Use Cases</a>
                     <a class="menuC" href="/privacy.html">Privacy Policy</a>
-                    <a class="menuC" href="/terms.html">Terms of Service</a>
                     <a class="menuC" href="/about.html">About Us</a>
+                    <a class="menuC" href="/terms.html">Terms of Service</a>
                     <a class="menuC" href="/contact.html">Contact Us</a>
                 </div>
             </div>
@@ -158,23 +166,16 @@
     </div>
 </div>
 
-<!-- Main About Us Content -->
+<!-- Main Content -->
 <main>
-    <h2>About Us</h2>
+    <h2>Contact Us</h2>
 
-    <p>QRTagAll was founded with a simple idea — to bridge the gap between the physical and digital worlds using technology that is simple, universal, and privacy-friendly.</p>
+    <p>We would love to hear from you! Whether you have a question, feedback, or a partnership idea — feel free to reach out.</p>
 
-    <p>We are a small team of engineers, technologists, and innovators who believe that ownership of digital metadata should belong to individuals, not corporations. Our platform is designed to empower users to organize, manage, and share information about any physical asset in the easiest possible way — using a QR code.</p>
+    <p>Email us anytime at:</p>
 
-    <p>Our team prefers to stay behind the scenes, focusing on building products that work quietly but effectively. We value simplicity, user control, transparency, and low-cost innovation.</p>
+    <a href="mailto:qrtagall@gmail.com" class="emailBtn">📧 Email QRTagAll</a>
 
-    <p>QRTagAll runs on open principles: your assets, your information, your choice. We use freely available infrastructure like Google Drive and Google Sheets to minimize operational costs and maximize accessibility.</p>
-
-    <p>While we remain a bit anonymous by design, our commitment to delivering secure, scalable, and reliable solutions is absolute.</p>
-
-    <h3>Contact</h3>
-    <p>If you need to reach us, feel free to drop an email at:<br>
-        <strong>Email:</strong> qrtagall@gmail.com</p>
 </main>
 
 <!-- Menu Script -->
