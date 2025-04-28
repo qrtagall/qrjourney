@@ -306,7 +306,7 @@
         const id = `${timestamp}_${hash.substring(0, 15)}`;
         const url = `https://process.qrtagall.com?id=${id}`;
 
-        document.getElementById("qrIdLabel").innerText = `ID: ${id}`;// id;
+        document.getElementById("qrIdLabel").innerText =  id;
 
         const canvas = document.getElementById("popupQRCanvas");
         QRCode.toCanvas(canvas, url, { width: 200 }, err => {
