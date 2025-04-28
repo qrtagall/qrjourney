@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Use Cases - QRTagAll</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         :root {
             --primary: #0077cc;
@@ -90,37 +91,47 @@
 
         /* Main */
         main {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 120px auto 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
         }
         main h2 {
+            text-align: center;
             color: var(--primary);
-            font-size: clamp(22px, 5vw, 28px);
-            margin-bottom: 20px;
+            font-size: clamp(22px, 5vw, 32px);
+            margin-bottom: 30px;
         }
-        .usecase {
-            margin-bottom: 25px;
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
         }
-        .usecase h3 {
-            margin-bottom: 8px;
-            font-size: clamp(18px, 4vw, 24px);
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+        .card h3 {
+            font-size: clamp(18px, 4vw, 22px);
             color: var(--primary);
+            margin-bottom: 10px;
         }
-        p {
+        .card p {
             font-size: clamp(15px, 4vw, 17px);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            text-align: justify; /* 🔥 New: Justify text */
+            text-align: justify;
         }
 
         @media (max-width: 600px) {
             main {
                 margin: 100px 10px 20px;
-                padding: 20px;
             }
             #topbarContent {
                 flex-direction: column;
@@ -151,8 +162,8 @@
                     <a class="menuC" href="https://qrtagall.com">Main Page</a>
                     <a class="menuC" href="/usecases.html">Use Cases</a>
                     <a class="menuC" href="/privacy.html">Privacy Policy</a>
-                    <a class="menuC" href="/about.html">About Us</a>
                     <a class="menuC" href="/terms.html">Terms of Service</a>
+                    <a class="menuC" href="/about.html">About Us</a>
                     <a class="menuC" href="/contact.html">Contact Us</a>
                 </div>
             </div>
@@ -162,58 +173,91 @@
 
 <!-- Main Content -->
 <main>
-    <h2>Use Cases</h2>
+    <h2>Explore QRTagAll Use Cases</h2>
 
-    <div class="usecase">
-        <h3>🔹 Personal Belongings</h3>
-        <p>Tag your wallet, bag, laptop, mobile, or keys. Add emergency contacts, recovery messages, or warranty info — always accessible with a scan.</p>
+    <div class="grid">
+
+        <div class="card">
+            <h3>Medical Records Organizer</h3>
+            <p>Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files.</p>
+        </div>
+
+        <div class="card">
+            <h3>Appliance Warranty & Repair Logs</h3>
+            <p>Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable.</p>
+        </div>
+
+        <div class="card">
+            <h3>Educational Certificates Holder</h3>
+            <p>Students can link degrees, awards, training certifications under one smart QR identity.</p>
+        </div>
+
+        <div class="card">
+            <h3>House Ownership & Repair History</h3>
+            <p>Blueprints, approvals, maintenance history — attach everything securely to your home’s QR.</p>
+        </div>
+
+        <div class="card">
+            <h3>Vehicle History Recorder</h3>
+            <p>Cars, bikes, trucks — QR holds purchase, insurance, servicing and resale trust details.</p>
+        </div>
+
+        <div class="card">
+            <h3>Plant & Tree Tagging</h3>
+            <p>Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks.</p>
+        </div>
+
+        <div class="card">
+            <h3>Artworks and Antiques Provenance</h3>
+            <p>Boost trust by storing ownership transfer, exhibitions, restoration info under QR tags.</p>
+        </div>
+
+        <div class="card">
+            <h3>Rental Equipment Tracking</h3>
+            <p>Manage rental history, damages, condition reports of cameras, tools, bikes through QR.</p>
+        </div>
+
+        <div class="card">
+            <h3>Event Management</h3>
+            <p>QRs at events for navigation, stall details, security protocols, visitor feedback links.</p>
+        </div>
+
+        <div class="card">
+            <h3>Lost and Found Recovery</h3>
+            <p>Attach QR to bags, gadgets, pets — making owner info recoverable without exposing privacy.</p>
+        </div>
+
+        <div class="card">
+            <h3>Supply Chain Authenticity</h3>
+            <p>Prove origin, transfers, repairs across manufacturer, retailer, and service chain easily.</p>
+        </div>
+
+        <div class="card">
+            <h3>Community Sharing Items</h3>
+            <p>QRs for lending libraries, shared tools, community gardens with lending and usage history.</p>
+        </div>
+
+        <div class="card">
+            <h3>Memory Vault for Heirlooms</h3>
+            <p>Attach emotional stories, photos, timelines to family jewels, watches, vintage items.</p>
+        </div>
+
+        <div class="card">
+            <h3>Construction Equipment Tracking</h3>
+            <p>Track cranes, excavators, mixers with rental history, damage notes, and safety checks via QR.</p>
+        </div>
+
+        <div class="card">
+            <h3>Farm Produce Traceability</h3>
+            <p>Link mango crates, wheat bags to farm origin, harvest dates, pesticide-free certifications.</p>
+        </div>
+
+        <div class="card">
+            <h3>Digital Business Cards</h3>
+            <p>Professionals attach QR to visiting cards linking to resumes, portfolios, LinkedIn profiles.</p>
+        </div>
+
     </div>
-
-    <div class="usecase">
-        <h3>🔹 Warranty & Bills</h3>
-        <p>Store invoices, bills, warranty certificates — linked directly to the physical product with a QR. Access them instantly anytime.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Indoor Plants</h3>
-        <p>Attach watering schedules, fertilizer routines, and growth tracking notes to your indoor plants for easy care and record-keeping.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Identity Cards</h3>
-        <p>Tag employee IDs, student badges, or volunteer passes with personalized details, emergency contacts, and optional roles or access rights.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Asset Tracking</h3>
-        <p>Factories and farms can tag tools, machines, or inventory items to track movement, maintenance, compliance certificates, and usage history.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Repair Records</h3>
-        <p>Log repairs, servicing dates, and spare part histories for appliances, vehicles, or industrial machines. Scan QR to check latest maintenance.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Event Management</h3>
-        <p>Use QRTags at exhibitions, conferences, and pop-ups to share event schedules, product info, or registration forms instantly.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Temporary Info Displays</h3>
-        <p>Use QR for temporary listings like rental products, parking spots, art installations, or real estate info displays — easy to manage and update.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Medical Documents</h3>
-        <p>Store your important medical reports, prescriptions, allergies, or doctor details and make them accessible quickly through your personal QR.</p>
-    </div>
-
-    <div class="usecase">
-        <h3>🔹 Lost & Found</h3>
-        <p>Stick a QR to your valuables. If lost, a good Samaritan can scan and contact you without revealing your personal number.</p>
-    </div>
-
 </main>
 
 <!-- Menu Script -->
