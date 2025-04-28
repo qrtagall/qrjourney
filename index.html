@@ -1,385 +1,318 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>QRTagall - Tag Anything. Know Everything.</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-  <style>
-    /* Core Colors */
-    :root {
-      --primary: #0077cc;
-      --accent: #00cc88;
-      --dark: #2b2b2b;
-      --light: #f4f4f4;
-      --text: #333333;
-      --danger: #ff4444;
-    }
+    <meta charset="UTF-8">
+    <title>QRTagAll - Tag Anything. Know Everything.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--light);
-      color: var(--text);
-      font-size: 16px;
-    }
+    <style>
+        /* Core Colors */
+        :root {
+            --primary: #0077cc;
+            --accent: #00cc88;
+            --dark: #2b2b2b;
+            --light: #f4f4f4;
+            --text: #333333;
+            --danger: #ff4444;
+        }
 
-    /* New Topbar */
-    #taglineWrapper {
-      text-align: center;
-      font-size: 20px;
-      color: #ffffff; /* Default text color: White */
-      background: #000; /* Black ribbon */
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 10px 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--light);
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            font-size: 16px;
+        }
 
-    #taglineWrapper a {
-      color: #FFA500;
-      font-weight: bold;
-      text-decoration: none;
-      margin-right: 8px;
-    }
+        /* Topbar */
+        #taglineWrapper {
+            text-align: center;
+            background: #000;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        #topbarContent {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        #logoSection a {
+            color: #FFA500;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 22px;
+        }
+        #taglineSection {
+            font-size: clamp(14px, 3vw, 18px);
+            color: #ffffff;
+        }
+        #menuSection {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #menuDropdown button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: clamp(16px, 4vw, 20px);
+            cursor: pointer;
+        }
 
-    #taglineWrapper span {
-      font-size: 15px;
-    }
+        #menuContent {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 30px;
+            background: #fff;
+            color: #333;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            min-width: 150px;
+            overflow: hidden;
+        }
+        #menuContent a.menuC {
+            font-weight: normal;
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            white-space: nowrap;
+        }
+        #menuContent a.menuC:hover {
+            background: #f0f0f0;
+        }
 
-    #versionTagx {
-      color: #aaaaaa;
-      font-size: 10px;
-      margin-left: 8px;
-    }
+        /* Main Area */
+        main {
+            padding: 100px 20px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .intro {
+            font-size: clamp(16px, 4vw, 18px);
+            line-height: 1.7;
+        }
+        .intro h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .intro strong {
+            color: var(--accent);
+        }
 
-    main {
-      padding: 80px 20px 40px; /* Top padding increased to avoid hidden content under fixed ribbon */
-      max-width: 1000px;
-      margin: 0 auto;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
+        #startBtn {
+            background-color: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #startBtn:hover {
+            background-color: #005fa3;
+        }
 
-    #startBtn {
-      background-color: var(--primary);
-      border: none;
-      padding: 10px 20px;
-      color: white;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 20px;
-    }
+        /* Modal */
+        #popupModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        #popupModalContent {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 320px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            position: relative;
+            border-top: 6px solid var(--accent);
+        }
+        .closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            color: #bbb;
+            cursor: pointer;
+        }
+        .closeBtn:hover {
+            color: var(--danger);
+        }
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            margin: 5px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #00aa77;
+        }
 
-    #startBtn:hover {
-      background-color: #005fa3;
-    }
+        /* Mobile Friendly */
+        @media (max-width: 600px) {
+            main {
+                margin: 100px 10px 20px;
+                padding: 20px;
+            }
+            #topbarContent {
+                flex-direction: column;
+                gap: 10px;
+            }
+            #logoSection, #taglineSection, #menuSection {
+                text-align: center;
+            }
+        }
+    </style>
 
-    .intro {
-      font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .intro h2 {
-      color: var(--primary);
-      margin-bottom: 20px;
-    }
-
-    .intro strong {
-      color: var(--accent);
-    }
-
-    #popupModal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #popupModalContent {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      width: 320px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      position: relative;
-      border-top: 6px solid var(--accent);
-    }
-
-    .closeBtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 22px;
-      color: #bbb;
-      cursor: pointer;
-    }
-
-    .closeBtn:hover {
-      color: var(--danger);
-    }
-
-    button {
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 18px;
-      margin: 5px;
-      border-radius: 6px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    button:hover {
-      background-color: #00aa77;
-    }
-
-
-    #menuContent {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 30px;
-      background: #fff;
-      color: #333;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      min-width: 150px;
-      overflow: hidden;
-    }
-
-    #menuContent a.menuC {
-      font-weight: normal;
-      display: block;
-      padding: 8px 12px;
-      text-decoration: none;
-      color: #333;
-      white-space: nowrap; /* 🔥 Force single line */
-    }
-
-    #menuContent a.menuC:hover {
-      background: #f0f0f0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      font-size: 16px; /* 🔥 Base font size slightly bigger */
-    }
-
-    #menuDropdown button {
-      font-size: clamp(14px, 4vw, 18px); /* 🔥 Responsive */
-    }
-    #taglineSection {
-      font-size: clamp(14px, 3vw, 18px); /* 🔥 Mobile flexible font */
-    }
-
-    p {
-      line-height: 1.7;
-      font-size: clamp(15px, 4vw, 17px); /* 🔥 Mobile friendly paragraph size */
-    }
-    @media (max-width: 600px) {
-      main {
-        margin: 100px 10px 20px; /* Less side margin on mobile */
-        padding: 20px;
-      }
-      #topbarContent {
-        flex-direction: column;
-        gap: 10px;
-      }
-      #logoSection, #taglineSection, #menuSection {
-        text-align: center;
-      }
-    }
-
-
-
-  </style>
 </head>
 
 <body>
 
 <!-- Topbar -->
-<!-- Topbar -->
 <div id="taglineWrapper">
-  <div id="topbarContent" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;">
-
-    <!-- Left: Logo -->
-    <div id="logoSection">
-      <a href="https://qrtagall.com" style="color: #FFA500; font-weight: bold; text-decoration: none; font-size: 22px;">
-        QRTagAll
-      </a>
-    </div>
-
-    <!-- Center: Tagline -->
-    <div id="taglineSection" style="font-size: 16px; color: #ffffff;">
-      Tag Anything. Know Everything.
-    </div>
-
-    <!-- Right: Journey button + Menu -->
-    <div id="menuSection" style="display: flex; align-items: center; gap: 10px;">
-      <button id="startBtn" style="margin:0;">Journey Starts Here.. →</button>
-
-      <div id="menuDropdown" style="position: relative;">
-        <button style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">☰</button>
-        <div id="menuContent" style="display: none; position: absolute; right: 0; top: 30px; background: #fff; color: #333; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); min-width: 150px; overflow: hidden;">
-            <a class="menuC" href="https://qrtagall.com">Main Page</a>
-            <a class="menuC" href="/privacy.html">Privacy Policy</a>
-            <a class="menuC" href="/about.html">About Us</a>
-
-          <!-- Future Pages -->
+    <div id="topbarContent">
+        <div id="logoSection">
+            <a href="https://qrtagall.com">QRTagAll</a>
         </div>
-      </div>
-
+        <div id="taglineSection">
+            Tag Anything. Know Everything.
+        </div>
+        <div id="menuSection">
+            <button id="startBtn">Journey Starts Here →</button>
+            <div id="menuDropdown">
+                <button>☰</button>
+                <div id="menuContent">
+                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
+                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
+                    <a class="menuC" href="/about.html">About Us</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
 
 <!-- Main Content -->
 <main>
-  <section class="intro">
-    <h2>What is QR-Tag-All?</h2>
-    <p>
-      <strong>QRTagAll</strong> is a universal digital tagging system that lets you assign a smart identity to <em>any</em> physical object—be it a plant, ID card, tool, piece of furniture, or even yourself. With just a QR code, you can claim ownership, upload useful information, and decide exactly what the world sees when they scan it.
-    </p>
-
-    <p>
-      🔹 <strong>For Personal Use:</strong><br>
-      Use QRTagAll to attach critical information to your personal belongings. Track warranty cards, upload purchase bills, pin repair history, or store emergency contacts on your laptop, mobile, or even your wristband. Have a fancy indoor plant? Add watering schedules, care routines, and growth photos accessible to anyone who scans it. Misplace your wallet? Add a recovery message and contact for finders.
-    </p>
-
-    <p>
-      🔹 <strong>For Enterprises:</strong><br>
-      Whether you run a factory or a farm, QRTagAll helps streamline logistics. Tag tools, machines, inventory, or even raw materials with QR-based identity. Attach maintenance logs, compliance documents, or sensor data. Use it to track shipments, authenticate assets, or manage ownership transfers. From warehouse stock to delivery boxes—QRTagAll fits in every step of the supply chain.
-    </p>
-
-    <p>
-      It also extends to "identity tagging" for employees, students or volunteers, buy/sell listing by scanning a product on sale, or even temporary info display in exhibitions and events.
-    </p>
-
-    <p>
-      It's smart, scalable, privacy-friendly, and can grow with your use case—be it home, office, school, or shop. No app installs. No centralized database needed. Just a QR, and you're in control.
-    </p>
-
-    <p style="font-weight: bold; font-size: 1.1em;">
-      Tag it. Own it. Share it. 🔁
-    </p>
-
-
-  </section>
+    <section class="intro">
+        <h2>What is QR-Tag-All?</h2>
+        <p><strong>QRTagAll</strong> is a universal digital tagging system that lets you assign a smart identity to <em>any</em> physical object—be it a plant, ID card, tool, piece of furniture, or even yourself. With just a QR code, you can claim ownership, upload useful information, and decide exactly what the world sees when they scan it.</p>
+        <p>🔹 <strong>For Personal Use:</strong> Use QRTagAll to attach critical information to your belongings. Track warranty cards, purchase bills, repair history, or store emergency contacts. Have a fancy indoor plant? Add care routines accessible via QR. Lost your wallet? Add a recovery message for finders.</p>
+        <p>🔹 <strong>For Enterprises:</strong> Whether factory or farm, tag tools, machines, or shipments with QR identity. Attach maintenance logs, compliance docs, sensor data. Track assets from manufacturing to delivery with zero app installs.</p>
+        <p>QRTagAll extends to identity tagging for employees, event listings, temporary signage, and beyond. Scalable. Privacy-respecting. No centralized database required.</p>
+        <p style="font-weight:bold; font-size:1.1em;">Tag it. Own it. Share it. 🔁</p>
+    </section>
 </main>
 
-<!-- Modal -->
+<!-- Modal for QR generation -->
 <div id="popupModal">
-  <div id="popupModalContent">
-    <span class="closeBtn" onclick="closeModal()">×</span>
-    <h3>🎉 Your Universal QR is ready!</h3>
-    <p id="qrIdLabel" style="font-size:12px; color:gray;"></p>
-    <div id="popupQR" style="margin:20px auto;">
-      <canvas id="popupQRCanvas"></canvas>
+    <div id="popupModalContent">
+        <span class="closeBtn" onclick="closeModal()">×</span>
+        <h3>🎉 Your Universal QR is ready!</h3>
+        <p id="qrIdLabel" style="font-size:12px; color:gray;"></p>
+        <div id="popupQR" style="margin:20px auto;">
+            <canvas id="popupQRCanvas"></canvas>
+        </div>
+        <button onclick="printQR()">🖨️ Print</button>
+        <button onclick="goNext()">➡️ Next</button>
     </div>
-    <button onclick="printQR()">🖨️ Print</button>
-    <button onclick="goNext()">➡️ Next</button>
-  </div>
 </div>
 
+<!-- Script Section -->
 <script>
-  const SALT = "QRTagall@2025";
-  const VERSION = "Version 1.2"; // 🔥 Version constant
+    const SALT = "QRTagall@2025";
 
-  // Inject version dynamically
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("versionTagx").innerText = " (" + VERSION + ")";
-  });
-
-  async function sha256(input) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(input);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(hashBuffer))
-            .map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  function getReadableTimestamp() {
-    const now = new Date();
-    const pad = n => n.toString().padStart(2, '0');
-    const padMs = n => n.toString().padStart(3, '0');
-    return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${padMs(now.getMilliseconds())}`;
-  }
-
-  async function generateSecureQR() {
-    const timestamp = getReadableTimestamp();
-    const hash = await sha256(timestamp + SALT);
-    const id = `${timestamp}_${hash.substring(0, 15)}`;
-    const url = `https://process.qrtagall.com?id=${id}`;
-
-    document.getElementById("qrIdLabel").innerText = id;
-
-    const canvas = document.getElementById("popupQRCanvas");
-    QRCode.toCanvas(canvas, url, { width: 200 }, err => {
-      if (err) return console.error(err);
-    });
-  }
-
-  function printQR() {
-    const canvas = document.getElementById("popupQRCanvas");
-    const win = window.open('', 'Print QR', 'width=400,height=400');
-    win.document.write('<img src="' + canvas.toDataURL() + '"/>');
-    win.document.close();
-    win.print();
-  }
-
-  function goNext() {
-    const id = document.getElementById("qrIdLabel").innerText.trim();
-    if (id) {
-      window.location.href = `https://process.qrtagall.com/?id=${id}`;
-    } else {
-      alert("QR ID not found! Please generate first.");
+    async function sha256(input) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
-  }
 
-  function closeModal() {
-    document.getElementById("popupModal").style.display = "none";
-  }
+    function getReadableTimestamp() {
+        const now = new Date();
+        const pad = n => n.toString().padStart(2, '0');
+        const padMs = n => n.toString().padStart(3, '0');
+        return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${padMs(now.getMilliseconds())}`;
+    }
 
-  document.getElementById("startBtn").onclick = async () => {
-    document.getElementById("popupModal").style.display = "flex";
-    await generateSecureQR();
-  };
+    async function generateSecureQR() {
+        const timestamp = getReadableTimestamp();
+        const hash = await sha256(timestamp + SALT);
+        const id = `${timestamp}_${hash.substring(0, 15)}`;
+        const url = `https://process.qrtagall.com?id=${id}`;
 
+        document.getElementById("qrIdLabel").innerText = id;
 
+        const canvas = document.getElementById("popupQRCanvas");
+        QRCode.toCanvas(canvas, url, { width: 200 }, err => {
+            if (err) console.error(err);
+        });
+    }
 
-    const menuButton = document.querySelector("#menuDropdown button");
+    function printQR() {
+        const canvas = document.getElementById("popupQRCanvas");
+        const win = window.open('', 'Print QR', 'width=400,height=400');
+        win.document.write('<img src="' + canvas.toDataURL() + '"/>');
+        win.document.close();
+        win.print();
+    }
+
+    function goNext() {
+        const id = document.getElementById("qrIdLabel").innerText.trim();
+        if (id) {
+            window.location.href = `https://process.qrtagall.com/?id=${id}`;
+        } else {
+            alert("QR ID not found! Please generate first.");
+        }
+    }
+
+    function closeModal() {
+        document.getElementById("popupModal").style.display = "none";
+    }
+
+    document.getElementById("startBtn").onclick = async () => {
+        document.getElementById("popupModal").style.display = "flex";
+        await generateSecureQR();
+    };
+
+    const menuButton = document.querySelector("#menuDropdown > button");
     const menuContent = document.getElementById("menuContent");
 
     menuButton.addEventListener('click', () => {
-    if (menuContent.style.display === "block") {
-    menuContent.style.display = "none";
-  } else {
-    menuContent.style.display = "block";
-  }
-  });
+        menuContent.style.display = (menuContent.style.display === "block") ? "none" : "block";
+    });
 
-    // Optional: close menu if click outside
     window.addEventListener('click', (e) => {
-    if (!document.getElementById('menuDropdown').contains(e.target)) {
-    menuContent.style.display = "none";
-  }
-  });
-
+        if (!document.getElementById('menuDropdown').contains(e.target)) {
+            menuContent.style.display = "none";
+        }
+    });
 </script>
 
 </body>
