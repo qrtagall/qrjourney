@@ -20,6 +20,7 @@
       padding: 0;
       background-color: var(--light);
       color: var(--text);
+      font-size: 16px;
     }
 
     /* New Topbar */
@@ -168,6 +169,41 @@
     #menuContent a.menuC:hover {
       background: #f0f0f0;
     }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      font-size: 16px; /* 🔥 Base font size slightly bigger */
+    }
+
+    #menuDropdown button {
+      font-size: clamp(14px, 4vw, 18px); /* 🔥 Responsive */
+    }
+    #taglineSection {
+      font-size: clamp(14px, 3vw, 18px); /* 🔥 Mobile flexible font */
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: clamp(15px, 4vw, 17px); /* 🔥 Mobile friendly paragraph size */
+    }
+    @media (max-width: 600px) {
+      main {
+        margin: 100px 10px 20px; /* Less side margin on mobile */
+        padding: 20px;
+      }
+      #topbarContent {
+        flex-direction: column;
+        gap: 10px;
+      }
+      #logoSection, #taglineSection, #menuSection {
+        text-align: center;
+      }
+    }
+
 
 
   </style>
