@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Privacy Policy - QRTagAll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Topbar */
+        #taglineWrapper {
+            text-align: center;
+            font-size: 20px;
+            background: #000;
+            color: #ffffff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        #menuContent {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 30px;
+            background: #fff;
+            color: #333;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            min-width: 150px;
+            overflow: hidden;
+        }
+        #menuContent a.menuC {
+            font-weight: normal;
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            white-space: nowrap;
+        }
+        #menuContent a.menuC:hover {
+            background: #f0f0f0;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0077cc;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Topbar -->
+<div id="taglineWrapper">
+    <div id="topbarContent" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;">
+
+        <!-- Left: Logo -->
+        <div id="logoSection">
+            <a href="https://qrtagall.com" style="color: #FFA500; font-weight: bold; text-decoration: none; font-size: 22px;">
+                QRTagAll
+            </a>
+        </div>
+
+        <!-- Center: Tagline -->
+        <div id="taglineSection" style="font-size: 16px; color: #ffffff;">
+            Tag Anything. Know Everything.
+        </div>
+
+        <!-- Right: Journey button + Menu -->
+        <div id="menuSection" style="display: flex; align-items: center; gap: 10px;">
+
+            <div id="menuDropdown" style="position: relative;">
+                <button style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">☰</button>
+                <div id="menuContent">
+                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
+                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
+                    <a class="menuC" href="/about.html">About Us</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Main Privacy Content -->
+<main>
+
+    <h2>Privacy Policy</h2>
+
+    <p>
+        QRTagAll ("we", "our", or "us") respects your privacy and is committed to protecting it through this Privacy Policy.
+    </p>
+
+    <h3>Information We Collect</h3>
+    <p>
+        When you use QRTagAll, we may request access to your basic Google account information (such as your email address) during the QR ownership claiming process. This information is used solely to identify you as the owner of a claimed QR code.
+    </p>
+
+    <h3>How We Use Your Information</h3>
+    <p>
+        Your email address is used exclusively to establish ownership of QR codes you claim on our platform. We do not sell, rent, or share your personal information with any third parties.
+    </p>
+
+    <h3>Google OAuth Consent</h3>
+    <p>
+        QRTagAll uses Google OAuth services to securely authenticate you. We request only the minimum information necessary for the functioning of the service (specifically your email address). Authentication data is handled directly through Google's secure systems.
+    </p>
+
+    <h3>Data Storage</h3>
+    <p>
+        Information associated with your assets (such as text, images, or documents) is stored in your personal Google Drive, under folders you control. QRTagAll does not host or modify to your uploaded files.
+    </p>
+
+    <h3>Data Sharing and Disclosure</h3>
+    <p>
+        We do not share your personal information with external parties. All information remains private to you unless you explicitly choose to make certain asset information public.
+    </p>
+
+    <h3>Security</h3>
+    <p>
+        We prioritize your data security. All communications are encrypted, and we rely on trusted Google authentication methods to protect your account identity.
+    </p>
+
+    <h3>Third-Party Services</h3>
+    <p>
+        QRTagAll integrates with Google APIs (Google Sheets, Google Drive, Google OAuth). By using our service, you also agree to Google's respective Privacy Policies and Terms of Service.
+    </p>
+
+    <h3>Changes to This Policy</h3>
+    <p>
+        We may update our Privacy Policy from time to time. Any changes will be posted on this page with a revised effective date.
+    </p>
+
+    <h3>Contact Us</h3>
+    <p>
+        If you have any questions or concerns about this Privacy Policy or our practices, you can contact us at:<br>
+        <strong>Email:</strong> qrtagall@gmail.com
+    </p>
+
+</main>
+
+<!-- Menu Script -->
+<script>
+    // Menu toggle
+    const menuButton = document.querySelector("#menuDropdown button");
+    const menuContent = document.getElementById("menuContent");
+
+    menuButton.addEventListener('click', () => {
+        if (menuContent.style.display === "block") {
+            menuContent.style.display = "none";
+        } else {
+            menuContent.style.display = "block";
+        }
+    });
+
+    // Close menu if click outside
+    window.addEventListener('click', (e) => {
+        if (!document.getElementById('menuDropdown').contains(e.target)) {
+            menuContent.style.display = "none";
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

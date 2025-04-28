@@ -141,17 +141,76 @@
     button:hover {
       background-color: #00aa77;
     }
+
+
+    #menuContent {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background: #fff;
+      color: #333;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      min-width: 150px;
+      overflow: hidden;
+    }
+
+    #menuContent a.menuC {
+      font-weight: normal;
+      display: block;
+      padding: 8px 12px;
+      text-decoration: none;
+      color: #333;
+      white-space: nowrap; /* 🔥 Force single line */
+    }
+
+    #menuContent a.menuC:hover {
+      background: #f0f0f0;
+    }
+
+
   </style>
 </head>
 
 <body>
 
 <!-- Topbar -->
+<!-- Topbar -->
 <div id="taglineWrapper">
-  <a href="https://qrtagall.com" target="_blank">QRTagAll</a>
-  <span>Fix it. Scan it. Own it.</span>
-  <span id="versionTagx"></span>
+  <div id="topbarContent" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;">
+
+    <!-- Left: Logo -->
+    <div id="logoSection">
+      <a href="https://qrtagall.com" style="color: #FFA500; font-weight: bold; text-decoration: none; font-size: 22px;">
+        QRTagAll
+      </a>
+    </div>
+
+    <!-- Center: Tagline -->
+    <div id="taglineSection" style="font-size: 16px; color: #ffffff;">
+      Tag Anything. Know Everything.
+    </div>
+
+    <!-- Right: Journey button + Menu -->
+    <div id="menuSection" style="display: flex; align-items: center; gap: 10px;">
+      <button id="startBtn" style="margin:0;">Journey Starts Here.. →</button>
+
+      <div id="menuDropdown" style="position: relative;">
+        <button style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">☰</button>
+        <div id="menuContent" style="display: none; position: absolute; right: 0; top: 30px; background: #fff; color: #333; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); min-width: 150px; overflow: hidden;">
+            <a class="menuC" href="https://qrtagall.com">Main Page</a>
+            <a class="menuC" href="/privacy.html">Privacy Policy</a>
+            <a class="menuC" href="/about.html">About Us</a>
+
+          <!-- Future Pages -->
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
 
 <!-- Main Content -->
 <main>
@@ -183,9 +242,7 @@
       Tag it. Own it. Share it. 🔁
     </p>
 
-    <div style="text-align: center;">
-      <button id="startBtn">Journey starts here →</button>
-    </div>
+
   </section>
 </main>
 
@@ -266,6 +323,27 @@
     document.getElementById("popupModal").style.display = "flex";
     await generateSecureQR();
   };
+
+
+
+    const menuButton = document.querySelector("#menuDropdown button");
+    const menuContent = document.getElementById("menuContent");
+
+    menuButton.addEventListener('click', () => {
+    if (menuContent.style.display === "block") {
+    menuContent.style.display = "none";
+  } else {
+    menuContent.style.display = "block";
+  }
+  });
+
+    // Optional: close menu if click outside
+    window.addEventListener('click', (e) => {
+    if (!document.getElementById('menuDropdown').contains(e.target)) {
+    menuContent.style.display = "none";
+  }
+  });
+
 </script>
 
 </body>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - QRTagAll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Topbar */
+        #taglineWrapper {
+            text-align: center;
+            font-size: 20px;
+            background: #000;
+            color: #ffffff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        #menuContent {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 30px;
+            background: #fff;
+            color: #333;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            min-width: 150px;
+            overflow: hidden;
+        }
+        #menuContent a.menuC {
+            font-weight: normal;
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            white-space: nowrap;
+        }
+        #menuContent a.menuC:hover {
+            background: #f0f0f0;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 120px auto 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0077cc;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Topbar -->
+<div id="taglineWrapper">
+    <div id="topbarContent" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;">
+
+        <!-- Left: Logo -->
+        <div id="logoSection">
+            <a href="https://qrtagall.com" style="color: #FFA500; font-weight: bold; text-decoration: none; font-size: 22px;">
+                QRTagAll
+            </a>
+        </div>
+
+        <!-- Center: Tagline -->
+        <div id="taglineSection" style="font-size: 16px; color: #ffffff;">
+            Tag Anything. Know Everything.
+        </div>
+
+        <!-- Right: Menu -->
+        <div id="menuSection" style="display: flex; align-items: center; gap: 10px;">
+
+            <div id="menuDropdown" style="position: relative;">
+                <button style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">☰</button>
+                <div id="menuContent">
+                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
+                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
+                    <a class="menuC" href="/about.html">About Us</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Main About Us Content -->
+<main>
+
+    <h2>About Us</h2>
+
+    <p>
+        QRTagAll was founded with a simple idea — to bridge the gap between the physical and digital worlds using technology that is simple, universal, and privacy-friendly.
+    </p>
+
+    <p>
+        We are a small team of engineers, technologists, and innovators who believe that ownership of digital metadata should belong to individuals, not corporations. Our platform is designed to empower users to organize, manage, and share information about any physical asset in the easiest possible way — using a QR code.
+    </p>
+
+    <p>
+        Our team prefers to stay behind the scenes, focusing on building products that work quietly but effectively. We value simplicity, user control, transparency, and low-cost innovation.
+    </p>
+
+    <p>
+        QRTagAll runs on open principles: your assets, your information, your choice. We use freely available infrastructure like Google Drive and Google Sheets to minimize operational costs and maximize accessibility.
+    </p>
+
+    <p>
+        While we remain a bit anonymous by design, our commitment to delivering secure, scalable, and reliable solutions is absolute.
+    </p>
+
+    <h3>Contact</h3>
+    <p>
+        If you need to reach us, feel free to drop an email at:<br>
+        <strong>Email:</strong> qrtagall@gmail.com
+    </p>
+
+</main>
+
+<!-- Menu Script -->
+<script>
+    // Menu toggle
+    const menuButton = document.querySelector("#menuDropdown button");
+    const menuContent = document.getElementById("menuContent");
+
+    menuButton.addEventListener('click', () => {
+        if (menuContent.style.display === "block") {
+            menuContent.style.display = "none";
+        } else {
+            menuContent.style.display = "block";
+        }
+    });
+
+    // Close menu if click outside
+    window.addEventListener('click', (e) => {
+        if (!document.getElementById('menuDropdown').contains(e.target)) {
+            menuContent.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
