@@ -151,17 +151,7 @@
             position: relative;
             border-top: 6px solid var(--accent);
         }
-        .closeBtn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 22px;
-            color: #bbb;
-            cursor: pointer;
-        }
-        .closeBtn:hover {
-            color: var(--danger);
-        }
+
         button {
             background-color: var(--accent);
             color: white;
@@ -191,6 +181,22 @@
                 text-align: center;
             }
         }
+
+
+         .closeBtn {
+             position: absolute;
+             top: 10px;
+             right: 15px;
+             font-size: 32px; /* 🔥 Bigger size */
+             color: #ff4444;  /* 🔥 Bright red color */
+             font-weight: bold;
+             cursor: pointer;
+             transition: color 0.2s ease;
+         }
+        .closeBtn:hover {
+            color: #cc0000; /* 🔥 Darker red on hover */
+        }
+
     </style>
 
 </head>
@@ -233,6 +239,7 @@
 </main>
 
 <!-- Modal for QR generation -->
+<!--
 <div id="popupModal">
     <div id="popupModalContent">
         <span class="closeBtn" onclick="closeModal()">×</span>
@@ -245,6 +252,35 @@
         <button onclick="goNext()">➡️ Next</button>
     </div>
 </div>
+-->
+
+<div id="popupModal">
+    <div id="popupModalContent">
+        <span class="closeBtn" onclick="closeModal()">×</span>
+        <h3>🎉 Your Universal QR is ready!</h3>
+        <p id="qrIdLabel" style="font-size:12px; color:gray;"></p>
+
+        <div id="popupQR" style="margin:20px auto;">
+            <canvas id="popupQRCanvas"></canvas>
+        </div>
+
+        <!-- 🔥 New: URL Link -->
+        <p id="qrUrl" style="font-size:14px; margin:10px 0;">
+            <a id="qrLink" href="#" target="_blank" style="color:#0077cc; word-break:break-all;">Loading link...</a>
+        </p>
+
+        <!-- Buttons -->
+        <div style="margin-top:15px;">
+            <button onclick="printQR()">🖨️ Print</button>
+            <button onclick="goNext()">➡️ Next</button>
+            <button onclick="downloadQR()">⬇️ Download</button>
+            <button onclick="shareWhatsapp()">📱 WhatsApp</button>
+        </div>
+
+    </div>
+</div>
+
+
 
 <!-- Script Section -->
 <script>
@@ -270,12 +306,18 @@
         const id = `${timestamp}_${hash.substring(0, 15)}`;
         const url = `https://process.qrtagall.com?id=${id}`;
 
-        document.getElementById("qrIdLabel").innerText = id;
+        document.getElementById("qrIdLabel").innerText = `ID: ${id}`;// id;
 
         const canvas = document.getElementById("popupQRCanvas");
         QRCode.toCanvas(canvas, url, { width: 200 }, err => {
             if (err) console.error(err);
         });
+
+        // 🔥 Also show the URL link
+        const linkElem = document.getElementById("qrLink");
+        linkElem.href = url;
+        linkElem.textContent = url;
+
     }
 
     function printQR() {
@@ -294,6 +336,22 @@
             alert("QR ID not found! Please generate first.");
         }
     }
+
+    function downloadQR() {
+        const canvas = document.getElementById("popupQRCanvas");
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL();
+        link.download = 'qrtagall-qr.png';
+        link.click();
+    }
+
+    // New WhatsApp Share Button
+    function shareWhatsapp() {
+        const url = document.getElementById("qrLink").href;
+        const whatsappUrl = `https://api.whatsapp.com/send?text=Scan this QR link: ${encodeURIComponent(url)}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
 
     function closeModal() {
         document.getElementById("popupModal").style.display = "none";
