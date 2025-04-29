@@ -274,7 +274,13 @@
     <div id="popupModalContent">
         <span class="closeBtn" onclick="closeModal()">×</span>
         <h3>🎉 Your Universal QR is ready!</h3>
-        <p id="qrIdLabel" style="font-size:12px; color:gray;"></p>
+        <p id="qrIdLabel" style="font-size:12px;  text-align:center; color:gray;"></p>
+
+        <!-- 🔄 Spinner -->
+        <div id="qrSpinner" style="display:none; text-align:center; font-size:14px; color:#888;">
+            <div class="spinner" style="margin: 10px auto;">⏳ Generating QR...</div>
+        </div>
+
 
         <div id="popupQR" style="margin:20px auto;">
             <canvas id="popupQRCanvas"></canvas>
@@ -301,14 +307,7 @@
 
 <!-- Script Section -->
 <script>
-    const SALT = "QRTagall@2025";
 
-    async function sha256(input) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(input);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
 
     function getReadableTimestamp() {
         const now = new Date();
@@ -317,25 +316,128 @@
         return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${padMs(now.getMilliseconds())}`;
     }
 
+
+
+
+    async function g3n3r4t3_CCCK() {
+        const a = ["lo", "xx", "ca", "junk", "tion", "noise"];
+        let b = 0;
+        const c = a[b] + a[b + 2] + a[b + 4]; // "location"
+
+        const d = ["ho", "yy", "st", "xx", "na", "zz", "me", "extra"];
+        let e = 0;
+        const f = d[e] + d[e + 2] + d[e + 4] + d[e + 6]; // "hostname"
+
+        const g = window[c][f]; // window["location"]["hostname"]
+
+        const h = Date;
+        const i = (new h())["get" + "Time"]();
+        const j = Math["f" + "loor"](i / (36 * 100000)); // epoch hour
+
+        // Distractions
+        try { crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]).then(() => {}); } catch (_) {}
+        try { crypto.subtle.generateKey({ name: "RSASSA-PKCS1-v1_5", modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), hash: { name: "SHA-256" } }, true, ["sign", "verify"]).then(() => {}); } catch (_) {}
+
+        const k = g + j;
+        const l = new TextEncoder();
+        const m = l.encode(k);
+        const n = await crypto.subtle.digest("SHA-256", m);
+        const o = Array.from(new Uint8Array(n)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+        return o;
+    }
+
+
+
+
+
+    const proxyFrame = document.createElement("iframe");
+    proxyFrame.style.display = "none";
+
+
+    proxyFrame.src = "https://proxy.qrtagall.com";
+    document.body.appendChild(proxyFrame);
+
+    // Add a flag
+    let proxyLoaded = false;
+
+
+    // Promise-based Generateid() function
+   async function Generateid(timestamp) {
+
+        const staticKey = await g3n3r4t3_CCCK()
+
+        return new Promise((resolve, reject) => {
+
+        const handler = (event) => {
+
+                if (!event.data || (event.data.type !== "qr_generated" && event.data.type !== "qr_error")) return;
+
+                window.removeEventListener("message", handler);
+
+                if (event.data.type === "qr_generated") {
+                    resolve(event.data.id);
+                } else if (event.data.type === "qr_error") {
+                    reject(new Error(event.data.error));
+                }
+            };
+
+            window.addEventListener("message", handler);
+            proxyFrame.contentWindow.postMessage(
+                {
+                    type: "generate",
+                    timestamp: timestamp,
+                    ccpubkey: staticKey
+                }, "*");
+        });
+    }
+
+
     async function generateSecureQR() {
         const timestamp = getReadableTimestamp();
-        const hash = await sha256(timestamp + SALT);
-        const id = `${timestamp}_${hash.substring(0, 15)}`;
-        const url = `https://process.qrtagall.com?id=${id}`;
+        console.log("Timestamp>>>", timestamp);
 
-        document.getElementById("qrIdLabel").innerText =  id;
+        // Show spinner
+        document.getElementById("qrSpinner").style.display = "block";
+        document.getElementById("popupQR").style.display = "none";
 
-        const canvas = document.getElementById("popupQRCanvas");
-        QRCode.toCanvas(canvas, url, { width: 200 }, err => {
-            if (err) console.error(err);
-        });
+        try {
+            const id = await Generateid(timestamp);
 
-        // 🔥 Also show the URL link
-        const linkElem = document.getElementById("qrLink");
-        linkElem.href = url;
-        linkElem.textContent = url;
 
+            const url = `https://process.qrtagall.com?id=${id}`;
+
+            document.getElementById("qrIdLabel").innerText =  id;
+
+            const canvas = document.getElementById("popupQRCanvas");
+            QRCode.toCanvas(canvas, url, { width: 200 }, err => {
+                if (err) console.error(err);
+            });
+
+            // 🔥 Also show the URL link
+            const linkElem = document.getElementById("qrLink");
+            linkElem.href = url;
+            linkElem.textContent = url;
+
+            // do whatever next
+        } catch (err) {
+            console.error("Error generating QR ID:", err);
+            // ✅ Show friendly message
+            alert("⚠️ QR generating error. Please try again.");
+
+            // ✅ Close the popup modal
+            closeModal();
+
+        }
+
+        finally {
+            // Hide spinner and show canvas area
+            document.getElementById("qrSpinner").style.display = "none";
+            document.getElementById("popupQR").style.display = "block";
+        }
     }
+
+
 
     function printQR() {
         const canvas = document.getElementById("popupQRCanvas");
