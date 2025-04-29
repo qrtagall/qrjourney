@@ -128,6 +128,50 @@
             font-size: clamp(15px, 4vw, 17px);
             text-align: justify;
         }
+        .demoLink {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .demoLink:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal */
+        #videoModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+        #videoModalContent {
+            background: #000;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 90%;
+            max-height: 80%;
+            position: relative;
+        }
+        #videoModalContent iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+        #videoModalClose {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+        }
 
         @media (max-width: 600px) {
             main {
@@ -140,7 +184,37 @@
             #logoSection, #taglineSection, #menuSection {
                 text-align: center;
             }
+            #videoModalContent iframe {
+                height: 250px;
+            }
         }
+
+        .card {
+            position: relative; /* 🔥 Very important to anchor number */
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cardNumber {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 40px;
+            height: 40px;
+            background: black;
+            color: #FFA500;
+            border-radius: 50%;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
     </style>
 </head>
 
@@ -178,89 +252,135 @@
     <div class="grid">
 
         <div class="card">
-            <h3>Medical Records Organizer</h3>
+            <div class="cardNumber">1</div>
+            <h3>🏥 Medical Records Organizer</h3>
             <p>Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/cvZmiNxrKL8')">▶️ Watch Demo</span>
         </div>
 
+
         <div class="card">
-            <h3>Appliance Warranty & Repair Logs</h3>
+            <div class="cardNumber">2</div>
+            <h3>🛠️ Appliance Warranty & Repair Logs</h3>
             <p>Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample2')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Educational Certificates Holder</h3>
+            <div class="cardNumber">3</div>
+            <h3>🎓 Educational Certificates Holder</h3>
             <p>Students can link degrees, awards, training certifications under one smart QR identity.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample3')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>House Ownership & Repair History</h3>
+            <div class="cardNumber">4</div>
+            <h3>🏡 House Ownership & Repair History</h3>
             <p>Blueprints, approvals, maintenance history — attach everything securely to your home’s QR.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample4')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Vehicle History Recorder</h3>
+            <div class="cardNumber">5</div>
+            <h3>🚗 Vehicle History Recorder</h3>
             <p>Cars, bikes, trucks — QR holds purchase, insurance, servicing and resale trust details.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample5')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Plant & Tree Tagging</h3>
+            <div class="cardNumber">6</div>
+            <h3>🌳 Plant & Tree Tagging</h3>
             <p>Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample6')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Artworks and Antiques Provenance</h3>
+            <div class="cardNumber">7</div>
+            <h3>🖼️ Artworks and Antiques Provenance</h3>
             <p>Boost trust by storing ownership transfer, exhibitions, restoration info under QR tags.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample7')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Rental Equipment Tracking</h3>
+            <div class="cardNumber">8</div>
+            <h3>🔧 Rental Equipment Tracking</h3>
             <p>Manage rental history, damages, condition reports of cameras, tools, bikes through QR.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample8')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Event Management</h3>
+            <div class="cardNumber">9</div>
+            <h3>🎪 Event Management</h3>
             <p>QRs at events for navigation, stall details, security protocols, visitor feedback links.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample9')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Lost and Found Recovery</h3>
+            <div class="cardNumber">10</div>
+            <h3>🎒 Lost and Found Recovery</h3>
             <p>Attach QR to bags, gadgets, pets — making owner info recoverable without exposing privacy.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample10')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Supply Chain Authenticity</h3>
+            <div class="cardNumber">11</div>
+            <h3>📦 Supply Chain Authenticity</h3>
             <p>Prove origin, transfers, repairs across manufacturer, retailer, and service chain easily.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample11')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Community Sharing Items</h3>
+            <div class="cardNumber">12</div>
+            <h3>📚 Community Sharing Items</h3>
             <p>QRs for lending libraries, shared tools, community gardens with lending and usage history.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample12')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Memory Vault for Heirlooms</h3>
+            <div class="cardNumber">13</div>
+            <h3>💎 Memory Vault for Heirlooms</h3>
             <p>Attach emotional stories, photos, timelines to family jewels, watches, vintage items.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample13')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Construction Equipment Tracking</h3>
+            <div class="cardNumber">14</div>
+            <h3>🏗️ Construction Equipment Tracking</h3>
             <p>Track cranes, excavators, mixers with rental history, damage notes, and safety checks via QR.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample14')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Farm Produce Traceability</h3>
+            <div class="cardNumber">15</div>
+            <h3>🍎 Farm Produce Traceability</h3>
             <p>Link mango crates, wheat bags to farm origin, harvest dates, pesticide-free certifications.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample15')">▶️ Watch Demo</span>
         </div>
 
         <div class="card">
-            <h3>Digital Business Cards</h3>
+            <div class="cardNumber">16</div>
+            <h3>💼 Digital Business Cards</h3>
             <p>Professionals attach QR to visiting cards linking to resumes, portfolios, LinkedIn profiles.</p>
+            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/sample16')">▶️ Watch Demo</span>
         </div>
+
+
+
+
+        <!-- Add more cards here similarly -->
 
     </div>
 </main>
 
-<!-- Menu Script -->
+<!-- Video Modal -->
+<div id="videoModal" onclick="closeVideo()">
+    <div id="videoModalContent" onclick="event.stopPropagation()">
+        <span id="videoModalClose" onclick="closeVideo()">×</span>
+        <iframe id="videoFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
+
+<!-- Scripts -->
 <script>
     const menuButton = document.querySelector("#menuDropdown > button");
     const menuContent = document.getElementById("menuContent");
@@ -274,6 +394,17 @@
             menuContent.style.display = "none";
         }
     });
+
+    // Modal Video Control
+    function openVideo(url) {
+        document.getElementById("videoFrame").src = url + "?autoplay=1";
+        document.getElementById("videoModal").style.display = "flex";
+    }
+
+    function closeVideo() {
+        document.getElementById("videoFrame").src = "";
+        document.getElementById("videoModal").style.display = "none";
+    }
 </script>
 
 </body>
