@@ -189,16 +189,16 @@
         }
 
 
-         .closeBtn {
-             position: absolute;
-             top: 10px;
-             right: 15px;
-             font-size: 32px; /* 🔥 Bigger size */
-             color: #ff4444;  /* 🔥 Bright red color */
-             font-weight: bold;
-             cursor: pointer;
-             transition: color 0.2s ease;
-         }
+        .closeBtn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 32px; /* 🔥 Bigger size */
+            color: #ff4444;  /* 🔥 Bright red color */
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
         .closeBtn:hover {
             color: #cc0000; /* 🔥 Darker red on hover */
         }
@@ -273,26 +273,31 @@
 <div id="popupModal">
     <div id="popupModalContent">
         <span class="closeBtn" onclick="closeModal()">×</span>
-        <h3>🎉 Your Universal QR is ready!</h3>
+
+        <div id="qrPopupHeading" style="display:block; text-align:center; font-size:20px;  font-weight: bold; color:forestgreen;">
+
+        </div>
+
+
         <p id="qrIdLabel" style="font-size:12px;  text-align:center; color:gray;"></p>
 
         <!-- 🔄 Spinner -->
-        <div id="qrSpinner" style="display:none; text-align:center; font-size:14px; color:#888;">
-            <div class="spinner" style="margin: 10px auto;">⏳ Generating QR...</div>
+        <div id="qrSpinner" style="display:none; text-align:center; font-size:22px; font-weight: bold; color:forestgreen;">
+            <div class="spinner" style="margin: 10px auto;">⏳ Generating Universal QR...</div>
         </div>
 
 
-        <div id="popupQR" style="margin:20px auto;">
-            <canvas id="popupQRCanvas"></canvas>
+        <div id="popupQR" ; style="margin:20px auto;">
+            <canvas id="popupQRCanvas" style="display: block; margin: 0 auto;"></canvas>
         </div>
 
         <!-- 🔥 New: URL Link -->
-        <p id="qrUrl" style="font-size:14px; margin:10px 0;">
+        <p id="qrUrl" style="font-size:14px; text-align:center; margin:10px 0;">
             <a id="qrLink" href="#" target="_blank" style="color:#0077cc; word-break:break-all;">Loading link...</a>
         </p>
 
         <!-- Buttons -->
-        <div style="margin-top:15px;">
+        <div id="popupButtons" style="margin-top:15px;">
             <button onclick="printQR()">🖨️ Print</button>
             <button onclick="goNext()">➡️ Next</button>
             <button onclick="downloadQR()">⬇️ Download</button>
@@ -354,7 +359,7 @@
     const proxyFrame = document.createElement("iframe");
     proxyFrame.style.display = "none";
 
-    
+
 
 
     proxyFrame.src = "https://proxy.qrtagall.com";
@@ -365,13 +370,14 @@
 
 
     // Promise-based Generateid() function
-   async function Generateid(timestamp) {
+    async function Generateid(timestamp) {
 
         const staticKey = await g3n3r4t3_CCCK()
 
+
         return new Promise((resolve, reject) => {
 
-        const handler = (event) => {
+            const handler = (event) => {
 
                 if (!event.data || (event.data.type !== "qr_generated" && event.data.type !== "qr_error")) return;
 
@@ -396,12 +402,24 @@
 
 
     async function generateSecureQR() {
-        const timestamp = getReadableTimestamp();
+       // const timestamp ="IN_"+ getReadableTimestamp();
+        const timestamp =getReadableTimestamp();
+
         console.log("Timestamp>>>", timestamp);
 
         // Show spinner
         document.getElementById("qrSpinner").style.display = "block";
         document.getElementById("popupQR").style.display = "none";
+        document.getElementById("popupQRCanvas").style.display = "none";
+        document.getElementById("qrLink").style.display = "none";
+        document.getElementById("qrIdLabel").style.display = "none";
+
+        document.getElementById("popupButtons").style.display = "none";
+
+
+        document.getElementById("qrPopupHeading").style.display = "none";
+
+        //"qrPopupHeading"
 
         try {
             const id = await Generateid(timestamp);
@@ -423,6 +441,9 @@
 
             // do whatever next
         } catch (err) {
+            //document.querySelector("#qrSpinner .spinner").textContent = "🛠 Error generating QR ID";
+            //document.getElementById("qrSpinner").style.color ="red"; // or any CSS color
+
             console.error("Error generating QR ID:", err);
             // ✅ Show friendly message
             alert("⚠️ QR generating error. Please try again.");
@@ -434,8 +455,16 @@
 
         finally {
             // Hide spinner and show canvas area
+
+            document.getElementById("qrPopupHeading").innerText =  "🎉 Your Universal QR is ready!";
+            document.getElementById("qrPopupHeading").style.display = "block";
             document.getElementById("qrSpinner").style.display = "none";
             document.getElementById("popupQR").style.display = "block";
+            document.getElementById("popupQRCanvas").style.display = "block";
+            document.getElementById("qrLink").style.display = "block";
+            document.getElementById("qrIdLabel").style.display = "block";
+            document.getElementById("popupButtons").style.display = "block";
+
         }
     }
 
