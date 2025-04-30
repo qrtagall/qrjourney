@@ -325,21 +325,21 @@
 
 
     async function g3n3r4t3_CCCK() {
-        const a = ["lo", "xx", "ca", "junk", "tion", "noise"];
+        const a = ["lo", "sec", "ca", "ret", "tion", "keys"];
         let b = 0;
         const c = a[b] + a[b + 2] + a[b + 4]; // "location"
 
-        const d = ["ho", "yy", "st", "xx", "na", "zz", "me", "extra"];
+        const d = ["ho", "qr", "st", "tag", "na", "-", "me", "all"];
         let e = 0;
-        const f = d[e] + d[e + 2] + d[e + 4] + d[e + 6]; // "hostname"
+        const f = d[e] + d[e + 2] + d[e + 4] + d[e + 6];
 
-        const g = window[c][f]; // window["location"]["hostname"]
+        const g = window[c][f];
 
         const h = Date;
         const i = (new h())["get" + "Time"]();
-        const j = Math["f" + "loor"](i / (36 * 100000)); // epoch hour
+        const j = Math["f" + "loor"](i / (36 * 100000));
 
-        // Distractions
+
         try { crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]).then(() => {}); } catch (_) {}
         try { crypto.subtle.generateKey({ name: "RSASSA-PKCS1-v1_5", modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), hash: { name: "SHA-256" } }, true, ["sign", "verify"]).then(() => {}); } catch (_) {}
 
@@ -365,13 +365,13 @@
     proxyFrame.src = "https://proxy.qrtagall.com";
     document.body.appendChild(proxyFrame);
 
-    // Add a flag
+
     let proxyLoaded = false;
 
 
-    // Promise-based Generateid() function
     async function Generateid(timestamp) {
 
+      
         const staticKey = await g3n3r4t3_CCCK()
 
 
@@ -402,7 +402,7 @@
 
 
     async function generateSecureQR() {
-       // const timestamp ="IN_"+ getReadableTimestamp();
+
         const timestamp =getReadableTimestamp();
 
         console.log("Timestamp>>>", timestamp);
