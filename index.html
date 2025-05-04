@@ -741,9 +741,21 @@ function goNext() {
 
         // Save
         const link = document.createElement('a');
+        //link.href = combinedCanvas.toDataURL("image/png");
+        //link.download = filename;
+        //link.click();
+
         link.href = combinedCanvas.toDataURL("image/png");
         link.download = filename;
-        link.click();
+
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            // On mobile, open in new tab so user can long-press and save
+            window.open(link.href, '_blank');
+        } else {
+            // On desktop, auto download
+            link.click();
+        }
+
     }
 
 
