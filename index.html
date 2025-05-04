@@ -411,6 +411,7 @@
     async function Generateid(timestamp) {
 
 
+        //const staticKey = "chandanmaity";//await g3n3r4t3_CCCK()
 
          const staticKey = await g3n3r4t3_CCCK()
 
@@ -698,7 +699,10 @@ function goNext() {
         const canvas = document.getElementById("popupQRCanvas");
         const caption = document.getElementById("qrCaption").innerText;
 
-        // Create an offscreen canvas (extra height for caption)
+        // 👉 Open a blank window immediately to avoid mobile popup blockers
+        const win = window.open('', '_blank');
+
+        // ✅ Now build the final canvas content
         const combinedCanvas = document.createElement('canvas');
         const ctx = combinedCanvas.getContext('2d');
 
@@ -711,14 +715,10 @@ function goNext() {
         combinedCanvas.width = qrSize + padding * 2;
         combinedCanvas.height = qrSize + captionHeight + padding * 3;
 
-        // White background
         ctx.fillStyle = "#fffefc";
         ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
-
-        // Draw QR
         ctx.drawImage(canvas, padding, padding);
 
-        // Draw caption
         ctx.fillStyle = "#0044aa";
         ctx.font = "600 13px Arial";
         ctx.textAlign = "center";
@@ -732,32 +732,26 @@ function goNext() {
             );
         });
 
-        // 🔤 Clean filename (sanitize caption)
+        // Generate safe filename
         const safeCaption = captionLines[0].replace(/[^a-z0-9]/gi, "_").substring(0, 20);
         const now = new Date();
         const timeTag = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
-
         const filename = `${safeCaption || "qrtagall"}_${timeTag}.png`;
 
-        // Save
-        const link = document.createElement('a');
-        //link.href = combinedCanvas.toDataURL("image/png");
-        //link.download = filename;
-        //link.click();
-
-        const blob = dataURLToBlob(link.href);
-        const blobUrl = URL.createObjectURL(blob);
-
-        link.href = combinedCanvas.toDataURL("image/png");
-        link.download = filename;
-
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-            window.open(blobUrl, '_blank');
-        } else {
-            link.click();
-        }
-
+        // ⏳ Convert to Blob
+        combinedCanvas.toBlob(function (blob) {
+            const url = URL.createObjectURL(blob);
+            win.document.write(`
+            <html><head><title>${filename}</title></head>
+            <body style="margin:0; text-align:center;">
+                <p style="font-family:Arial;font-size:14px;color:#0044aa;margin:10px;">Long press to save image</p>
+                <img src="${url}" style="width:100%;max-width:300px;"/>
+            </body></html>
+        `);
+            win.document.close();
+        }, "image/png");
     }
+
 
 
 
