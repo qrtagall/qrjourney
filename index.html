@@ -411,7 +411,7 @@
     async function Generateid(timestamp) {
 
 
-        
+
          const staticKey = await g3n3r4t3_CCCK()
 
 
@@ -606,7 +606,7 @@
         win.print();
     }*/
 
-    function printQR() {
+    function printQRx() {
         const qrCanvas = document.getElementById("popupQRCanvas");
         const qrCaption = document.getElementById("qrCaption");
 
@@ -637,8 +637,44 @@
     }
 
 
+    function printQR() {
+        const qrCanvas = document.getElementById("popupQRCanvas");
+        const qrCaption = document.getElementById("qrCaption");
 
-    function goNext() {
+        const imageDataUrl = qrCanvas.toDataURL();
+        const captionText = qrCaption.innerText || "";
+        const escapedCaption = captionText
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        const win = window.open('', 'Print QR', 'width=400,height=400');
+        if (!win) {
+            alert("Popup blocked! Please allow popups.");
+            return;
+        }
+
+        // Use classic string concatenation instead of backticks
+        let html = '<html><head><title>Print QR</title></head><body style="margin:0; padding:20px; text-align:center;">';
+        html += '<div style="margin:20px auto; padding:10px; text-align:center; border:1px solid #888; border-radius:8px; display:inline-block; background-color:#fefefe; box-shadow:0 2px 5px rgba(0,0,0,0.1);">';
+        html += '<img id="qrImage" src="' + imageDataUrl + '" style="display:block; margin:0 auto;" />';
+        html += '<pre style="margin-top:-4px; margin-bottom:0; color:#0044aa; font-size:14px; font-family:Arial, sans-serif; font-weight:600; white-space:pre-wrap; word-break:break-word; overflow-wrap:break-word; text-align:center;">' + escapedCaption + '</pre>';
+        html += '</div>';
+        html += '<script>';
+        html += 'window.onload = function() {';
+        html += '  var img = document.getElementById("qrImage");';
+        html += '  if (img.complete) { window.print(); window.close(); }';
+        html += '  else { img.onload = function() { window.print(); window.close(); }; }';
+        html += '};';
+        html += '<' + '/script>';  // ✅ Prevent parser error
+html += '</body></html>';
+
+win.document.write(html);
+win.document.close();
+}
+
+
+function goNext() {
         const id = document.getElementById("qrIdLabel").innerText.trim();
         if (id) {
             window.location.href = `https://process.qrtagall.com/?id=${id}`;
