@@ -411,7 +411,6 @@
     async function Generateid(timestamp) {
 
 
-        //const staticKey = "chandanmaity";//await g3n3r4t3_CCCK()
 
          const staticKey = await g3n3r4t3_CCCK()
 
@@ -481,7 +480,12 @@
 
 
 
-            QRCode.toCanvas(canvas, url, { width: 200 }, err => {
+            QRCode.toCanvas(canvas, url, {
+                width: 200,
+                errorCorrectionLevel: 'L', // Lower redundancy = less density
+                //version: 4, // (1 to 40). Lower version = simpler code
+                margin: 0, // reduce margin for tighter layout
+            }, err => {
                 if (err) {
                     console.error(err);
                     return;
