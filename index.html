@@ -745,19 +745,35 @@ function goNext() {
         //link.download = filename;
         //link.click();
 
+        const blob = dataURLToBlob(link.href);
+        const blobUrl = URL.createObjectURL(blob);
+
         link.href = combinedCanvas.toDataURL("image/png");
         link.download = filename;
 
         if (/Mobi|Android/i.test(navigator.userAgent)) {
-            // On mobile, open in new tab so user can long-press and save
-            window.open(link.href, '_blank');
+            window.open(blobUrl, '_blank');
         } else {
-            // On desktop, auto download
             link.click();
         }
 
     }
 
+
+
+    function dataURLToBlob(dataURL) {
+        const parts = dataURL.split(';base64,');
+        const byteString = atob(parts[1]);
+        const mimeString = parts[0].split(':')[1];
+
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ab], { type: mimeString });
+    }
 
 
     // New WhatsApp Share Button
