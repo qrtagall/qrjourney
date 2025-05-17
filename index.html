@@ -411,8 +411,9 @@
     async function Generateid(timestamp) {
 
 
+       const staticKey = "chandanmaity";//await g3n3r4t3_CCCK()
 
-         const staticKey = await g3n3r4t3_CCCK()
+       //  const staticKey = await g3n3r4t3_CCCK()
 
 
         return new Promise((resolve, reject) => {
@@ -503,19 +504,20 @@
                 const topLeftX = centerX - rectWidth / 2;
                 const topLeftY = centerY - rectHeight / 2;
 
-                // 🔁 Draw rounded rectangle
+                /*
+                // Draw rounded rectangle
                 ctx.fillStyle = "lightyellow";
                 drawRoundedRect(ctx, topLeftX, topLeftY, rectWidth, rectHeight, cornerRadius);
 
                 //ctx.fill();
 
-                // 🔤 Draw top line: "QR"
+                //Draw top line: "QR"
                 ctx.fillStyle = "orangered";
                 ctx.font = "bold 13px Arial";
                 ctx.textAlign = "center";
                 ctx.textBaseline = "bottom";
                 ctx.fillText("QRTagAll", centerX, centerY+8);
-
+                */
 
                 // 🔤 Draw bottom line: "TagAll"
                 //ctx.fillStyle = "darkblue";
@@ -523,6 +525,7 @@
                 //ctx.textBaseline = "top";
                 //ctx.fillText("TagAll", centerX, centerY + 2);
             });
+
 
 
             //document.getElementById("qrCaption").innerText = "Scan to Own with QRTagAll";
