@@ -163,6 +163,7 @@
 <!-- Main Content -->
 <main>
     <h2>Privacy Policy</h2>
+    <p><em>Last updated: May 2026</em></p>
 
     <p>QRTagAll ("we", "our", or "us") respects your privacy and is committed to protecting it through this Privacy Policy.</p>
 
@@ -173,10 +174,26 @@
     <p>Your email address is used exclusively to establish ownership of QR codes you claim on our platform. We do not sell, rent, or share your personal information with any third parties.</p>
 
     <h3>Google OAuth Consent</h3>
-    <p>QRTagAll uses Google OAuth services to securely authenticate you. We request only the minimum information necessary for the functioning of the service (specifically your email address). Authentication data is handled directly through Google's secure systems.</p>
+    <p>QRTagAll uses Google OAuth to sign you in. For all claims we request your Google account email. If you choose <strong>Data in GDrive</strong>, we also request the <strong>drive.file</strong> scope so the app can work with files and folders the service creates or that you explicitly share with the app in your Google Drive. We do not request full access to all files in your Drive.</p>
+    <p>Spreadsheet and folder setup for GDrive storage runs through our Google Apps Script web app acting as you, only for QRTagAll-created content under <em>My Drive &gt; QRTagAll &gt; {your QR ID}</em>. Authentication tokens are handled through Google's secure systems.</p>
+
+    <h3>Google User Data — Retention</h3>
+    <p><strong>Email address:</strong> Stored in your browser session and in our master registry row for your claimed QR ID so we can verify ownership. We retain this while your QR remains claimed and you use the service.</p>
+    <p><strong>Google Drive / Sheets data (GDrive path):</strong> QRTagAll does not copy your Drive files or spreadsheet contents to our servers. Your artifacts remain in your Google account until you delete them. Registry metadata (your email, a link to your sheet, and storage type) is kept in our master registry while the QR is claimed.</p>
+    <p><strong>OAuth tokens:</strong> Access tokens used for sign-in are stored locally in your browser session storage only for the current session and are not sold or used for advertising.</p>
+
+    <h3>Google User Data — Deletion</h3>
+    <p>You can delete or revoke Google user data as follows:</p>
+    <ul style="line-height:1.7; margin-bottom:20px;">
+        <li><strong>Revoke app access:</strong> Google Account &rarr; Security &rarr; Third-party access &rarr; remove QRTagAll.</li>
+        <li><strong>Delete your Drive data:</strong> In Google Drive, delete the folder <em>QRTagAll</em> and/or the spreadsheet for your QR ID.</li>
+        <li><strong>Release a claimed QR:</strong> Contact us at <strong>qrtagall@gmail.com</strong> to request removal of your email and registry entry for a specific QR ID.</li>
+        <li><strong>Session data:</strong> Sign out in the app or clear your browser site data for process.qrtagall.com to remove locally stored tokens.</li>
+    </ul>
+    <p>After revocation or deletion, we no longer access your Google account except where minimal registry data remains until you request registry cleanup.</p>
 
     <h3>Data Storage</h3>
-    <p>Information associated with your assets (such as text, images, or documents) is stored in your personal Google Drive, under folders you control. QRTagAll does not host or modify your uploaded files.</p>
+    <p>Information associated with your assets (such as text, images, or documents) is stored in your personal Google Drive, under folders you control, when you choose GDrive storage. QRTagAll does not host your uploaded files on our own servers for that path.</p>
 
     <h3>Data Sharing and Disclosure</h3>
     <p>We do not share your personal information with external parties. All information remains private to you unless you explicitly choose to make certain asset information public.</p>
