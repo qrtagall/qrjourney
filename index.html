@@ -2,810 +2,1370 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>QRTagAll - Tag Anything. Know Everything.</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRTagAll — Tag Anything. Know Everything.</title>
+    <meta name="description" content="QRTagAll is a universal digital tagging system. Assign a smart QR identity to any physical object. Claim ownership, attach information, and control what the world sees when they scan it.">
+    <meta property="og:title" content="QRTagAll — Tag Anything. Know Everything.">
+    <meta property="og:description" content="Generate a unique QR identity for any object. Claim it, tag it, share it.">
+    <meta property="og:url" content="https://qrtagall.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
     <style>
-        /* Core Colors */
+        /* ===== DESIGN TOKENS ===== */
         :root {
-            --primary: #0077cc;
-            --accent: #00cc88;
-            --dark: #2b2b2b;
-            --light: #f4f4f4;
-            --text: #333333;
-            --danger: #ff4444;
+            --primary:        #0077CC;
+            --primary-dk:     #005fa3;
+            --primary-lt:     #3399dd;
+            --accent:         #00CC88;
+            --accent-dk:      #00a870;
+            --dark:           #0D1B2A;
+            --dark-2:         #132233;
+            --surface:        #F7FAFC;
+            --surface-2:      #EDF2F7;
+            --text:           #1A202C;
+            --text-2:         #4A5568;
+            --text-3:         #718096;
+            --border:         #E2E8F0;
+            --white:          #ffffff;
+            --nav-h:          68px;
+            --r-sm:  8px;
+            --r-md:  12px;
+            --r-lg:  20px;
+            --r-xl:  28px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+            --shadow-md: 0 4px 18px rgba(0,0,0,.10);
+            --shadow-lg: 0 14px 44px rgba(0,0,0,.14);
         }
 
+        /* ===== RESET ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: var(--light);
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--surface);
             color: var(--text);
-            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        /* ===== LAYOUT ===== */
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 96px 0; }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+            color: var(--accent);
+            background: rgba(0,204,136,.1);
+            border: 1px solid rgba(0,204,136,.2);
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 14px;
         }
 
-        /* Topbar */
-        #taglineWrapper {
+        .section-header {
             text-align: center;
-            background: #000;
-            color: #fff;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            max-width: 580px;
+            margin: 0 auto 60px;
         }
-        #topbarContent {
+        .section-header h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.7rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.22;
+            margin-bottom: 14px;
+        }
+        .section-header p {
+            font-size: 1.05rem;
+            color: var(--text-2);
+            line-height: 1.72;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: .95rem;
+            font-weight: 600;
+            padding: 13px 28px;
+            border-radius: var(--r-sm);
+            border: none;
+            cursor: pointer;
+            transition: all .2s ease;
+            white-space: nowrap;
+        }
+        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 14px rgba(0,119,204,.3); }
+        .btn-primary:hover { background: var(--primary-dk); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,119,204,.4); }
+        .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,204,136,.3); }
+        .btn-accent:hover { background: var(--accent-dk); transform: translateY(-1px); }
+        .btn-ghost { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(8px); }
+        .btn-ghost:hover { background: rgba(255,255,255,.18); }
+        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: #fff; }
+        .btn-lg { font-size: 1.05rem; padding: 16px 36px; border-radius: var(--r-md); }
+        .btn-sm { font-size: .85rem; padding: 9px 18px; }
+
+        /* ===== NAVIGATION ===== */
+        #navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 900;
+            height: var(--nav-h);
+            transition: background .3s ease, box-shadow .3s ease;
+        }
+        #navbar.transparent { background: transparent; }
+        #navbar.scrolled {
+            background: rgba(13,27,42,.93);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 1px 0 rgba(255,255,255,.07);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--nav-h);
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .nav-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #FFA500;
+            letter-spacing: -.02em;
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: .88rem;
+            font-weight: 500;
+            color: rgba(255,255,255,.82);
+            padding: 8px 14px;
+            border-radius: var(--r-sm);
+            transition: color .2s, background .2s;
+        }
+        .nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
+        .nav-cta { display: flex; align-items: center; gap: 10px; }
+
+        /* Hamburger */
+        #navToggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--r-sm);
+        }
+        #navToggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all .3s ease;
+        }
+        #navToggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #navToggle.open span:nth-child(2) { opacity: 0; }
+        #navToggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Mobile drawer */
+        #mobileMenu {
+            display: none;
+            position: fixed;
+            top: var(--nav-h);
+            left: 0; right: 0;
+            background: var(--dark);
+            padding: 12px 24px 24px;
+            z-index: 899;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+        #mobileMenu.open { display: block; }
+        #mobileMenu a {
+            display: block;
+            font-size: .98rem;
+            font-weight: 500;
+            color: rgba(255,255,255,.82);
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            transition: color .2s;
+        }
+        #mobileMenu a:last-of-type { border-bottom: none; }
+        #mobileMenu a:hover { color: #fff; }
+        #mobileMenu .btn { margin-top: 16px; width: 100%; justify-content: center; }
+
+        /* ===== HERO ===== */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(140deg, #0D1B2A 0%, #0c2544 50%, #16344d 100%);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,119,204,.055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,119,204,.055) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        .hero-glow {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+        .hero-glow-1 { top: -10%; right: 0; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(0,204,136,.14) 0%, transparent 70%); }
+        .hero-glow-2 { bottom: -20%; left: 5%; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(0,119,204,.12) 0%, transparent 70%); }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 64px;
+            align-items: center;
+            width: 100%;
+            padding: calc(var(--nav-h) + 48px) 0 80px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,204,136,.15);
+            border: 1px solid rgba(0,204,136,.3);
+            color: #00dd99;
+            font-size: .78rem;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 999px;
+            margin-bottom: 22px;
+        }
+        .hero-badge .dot {
+            width: 7px; height: 7px;
+            background: #00CC88;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.6; transform:scale(.8); } }
+
+        .hero-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.3rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            color: #fff;
+            margin-bottom: 22px;
+        }
+        .hero-headline .hl {
+            background: linear-gradient(135deg, #00CC88, #3DB9FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            color: rgba(255,255,255,.7);
+            line-height: 1.76;
+            max-width: 520px;
+            margin-bottom: 36px;
+        }
+
+        .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+        @media (max-width: 480px) {
+            .hero-actions { flex-direction: column; }
+            .hero-actions .btn { width: 100%; justify-content: center; }
+        }
+
+        .hero-trust { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .82rem;
+            color: rgba(255,255,255,.52);
+        }
+        .trust-item svg { color: var(--accent); flex-shrink: 0; }
+
+        /* Hero QR card */
+        .hero-visual { position: relative; flex-shrink: 0; }
+        .qr-float-card {
+            width: 240px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: var(--r-xl);
+            padding: 28px 24px 22px;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 24px 64px rgba(0,0,0,.4);
+        }
+        .qr-float-card canvas { border-radius: var(--r-sm); margin: 0 auto 12px; }
+        .qr-float-label { font-size: .72rem; font-weight: 700; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .1em; }
+        .qr-float-sub { font-size: .65rem; color: rgba(255,255,255,.28); margin-top: 4px; font-family: monospace; }
+
+        .chip {
+            position: absolute;
+            background: #fff;
+            border-radius: var(--r-md);
+            padding: 9px 14px;
+            box-shadow: var(--shadow-lg);
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .chip-1 { top: -18px; right: -32px; animation: bob 3s ease-in-out infinite; }
+        .chip-2 { bottom: 16px; left: -44px; animation: bob 3s ease-in-out infinite .8s; }
+        @keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+
+        /* ===== FEATURES ===== */
+        #features { background: #fff; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+        .feat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 30px 26px;
+            transition: box-shadow .2s, transform .2s;
+        }
+        .feat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .feat-icon {
+            width: 50px; height: 50px;
+            border-radius: var(--r-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.45rem;
+            margin-bottom: 18px;
+        }
+        .feat-icon.blue   { background: rgba(0,119,204,.1); }
+        .feat-icon.green  { background: rgba(0,204,136,.1); }
+        .feat-icon.orange { background: rgba(255,165,0,.1); }
+        .feat-icon.violet { background: rgba(139,92,246,.1); }
+        .feat-card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 9px;
+        }
+        .feat-card p { font-size: .91rem; color: var(--text-2); line-height: 1.65; }
+
+        /* ===== USE CASES ===== */
+        #usecases { background: var(--surface); }
+        .uc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 26px;
+        }
+        .uc-card {
+            background: #fff;
+            border-radius: var(--r-xl);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow .25s, transform .25s;
+        }
+        .uc-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+        .uc-head {
+            padding: 26px 26px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .uc-emoji {
+            width: 52px; height: 52px;
+            border-radius: var(--r-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.7rem;
+            flex-shrink: 0;
+        }
+        .uc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+        .uc-sub { font-size: .82rem; color: var(--text-3); }
+        .uc-body { padding: 0 26px 26px; }
+        .uc-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+        .uc-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: .88rem;
+            color: var(--text-2);
+            line-height: 1.5;
+        }
+        .uc-list li::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        #howitworks { background: #fff; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; position: relative; }
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: calc(16% + 20px);
+            right: calc(16% + 20px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            z-index: 0;
+        }
+        .step { text-align: center; position: relative; z-index: 1; }
+        .step-num {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0 auto 18px;
+            box-shadow: 0 8px 24px rgba(0,119,204,.28);
+        }
+        .step h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--text); margin-bottom: 9px; }
+        .step p { font-size: .9rem; color: var(--text-2); line-height: 1.65; max-width: 240px; margin: 0 auto; }
+
+        /* ===== ABOUT ===== */
+        #about {
+            background: linear-gradient(140deg, #0D1B2A 0%, #0c2544 100%);
+            padding: 100px 0;
+            color: #fff;
+        }
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-text .section-tag { border-color: rgba(0,204,136,.35); }
+        .about-text h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            line-height: 1.22;
+            color: #fff;
+            margin-bottom: 18px;
+        }
+        .about-text p { font-size: .97rem; color: rgba(255,255,255,.7); line-height: 1.76; margin-bottom: 14px; }
+        .about-text p:last-of-type { font-size: .85rem; color: rgba(255,255,255,.42); }
+        .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .stat-card {
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: var(--r-lg);
+            padding: 22px 18px;
+            text-align: center;
+        }
+        .stat-val {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 7px;
+        }
+        .stat-lbl { font-size: .78rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+        /* ===== CTA BAND ===== */
+        #cta-band { background: var(--surface); }
+        .cta-box {
+            background: linear-gradient(135deg, var(--primary) 0%, #0a4a80 100%);
+            border-radius: var(--r-xl);
+            padding: 72px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -8%;
+            width: 420px; height: 420px;
+            background: radial-gradient(ellipse, rgba(0,204,136,.2) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .cta-box h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 14px;
+            position: relative;
+        }
+        .cta-box p { font-size: 1.05rem; color: rgba(255,255,255,.75); margin-bottom: 34px; max-width: 460px; margin-left: auto; margin-right: auto; position: relative; }
+        .cta-box .btn { position: relative; }
+
+        /* ===== CONTACT ===== */
+        #contact { background: #fff; padding: 80px 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+        .contact-info h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .contact-info p { font-size: .94rem; color: var(--text-2); line-height: 1.7; margin-bottom: 22px; }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; }
+        .c-link { display: flex; align-items: center; gap: 10px; font-size: .9rem; font-weight: 500; color: var(--primary); transition: opacity .2s; }
+        .c-link:hover { opacity: .75; }
+        .contact-form { background: var(--surface); border-radius: var(--r-lg); padding: 30px 28px; }
+        .fg { margin-bottom: 18px; }
+        .fg label { display: block; font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: 7px; }
+        .fg input, .fg textarea, .fg select {
+            width: 100%;
+            padding: 11px 15px;
+            font-family: 'Inter', sans-serif;
+            font-size: .92rem;
+            color: var(--text);
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--r-sm);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .fg input:focus, .fg textarea:focus, .fg select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,119,204,.1);
+        }
+        .fg textarea { height: 110px; resize: vertical; }
+        .form-submit { width: 100%; justify-content: center; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--dark); color: rgba(255,255,255,.55); padding: 60px 0 30px; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 44px;
+            margin-bottom: 44px;
+        }
+        .footer-brand .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.25rem; font-weight: 800; color: #FFA500; margin-bottom: 11px; }
+        .footer-brand p { font-size: .85rem; line-height: 1.65; max-width: 250px; }
+        .footer-col h4 {
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: rgba(255,255,255,.8);
+            margin-bottom: 14px;
+        }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+        .footer-links a { font-size: .85rem; color: rgba(255,255,255,.5); transition: color .2s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.08);
+            padding-top: 26px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 20px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        #logoSection a {
-            color: #FFA500;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 22px;
-        }
-        #taglineSection {
-            font-size: clamp(14px, 3vw, 18px);
-            color: #ffffff;
-        }
-        #menuSection {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #menuDropdown button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: clamp(20px, 5vw, 26px); /* 🔥 Larger icon font */
-            padding: 8px 14px; /* 🔥 Bigger click area */
-            cursor: pointer;
-            border-radius: 6px;
-            transition: background-color 0.2s;
-        }
+        .footer-bottom p { font-size: .8rem; }
+        .wa-share { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 600; color: #25D366; margin-left: 6px; }
 
-        #menuContent {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 30px;
-            background: #fff;
-            color: #333;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            min-width: 150px;
-            overflow: hidden;
-        }
-        #menuContent a.menuC {
-            font-weight: normal;
-            display: block;
-            padding: 8px 12px;
-            text-decoration: none;
-            color: #333;
-            white-space: nowrap;
-        }
-        #menuContent a.menuC:hover {
-            background: #f0f0f0;
-        }
-        p {
-            font-size: clamp(15px, 4vw, 17px);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            text-align: justify; /* 🔥 Make text block-aligned */
-        }
-
-        /* Main Area */
-        main {
-            padding: 100px 20px 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .intro {
-            font-size: clamp(16px, 4vw, 18px);
-            line-height: 1.7;
-        }
-        .intro h2 {
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        .intro strong {
-            color: var(--accent);
-        }
-
-        #startBtn {
-            background-color: var(--primary);
-            border: none;
-            padding: 10px 20px;
-            color: white;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #startBtn:hover {
-            background-color: #005fa3;
-        }
-
-        /* Modal */
+        /* ===== QR MODAL ===== */
         #popupModal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            inset: 0;
+            background: rgba(13,27,42,.78);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         #popupModalContent {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
+            background: #fff;
+            padding: 34px 30px 26px;
+            border-radius: var(--r-xl);
             text-align: center;
-            width: 320px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 32px 80px rgba(0,0,0,.35);
             position: relative;
-            border-top: 6px solid var(--accent);
+            border-top: 5px solid var(--accent);
+            animation: modal-pop .22s ease-out;
         }
-
-        button {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            margin: 5px;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #00aa77;
-        }
-
-        /* Mobile Friendly */
-        @media (max-width: 600px) {
-            main {
-                margin: 100px 10px 20px;
-                padding: 20px;
-            }
-            #topbarContent {
-                flex-direction: column;
-                gap: 10px;
-            }
-            #logoSection, #taglineSection, #menuSection {
-                text-align: center;
-            }
-        }
-
+        @keyframes modal-pop { from { opacity:0; transform:scale(.95) translateY(14px); } to { opacity:1; transform:scale(1) translateY(0); } }
 
         .closeBtn {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 32px; /* 🔥 Bigger size */
-            color: #ff4444;  /* 🔥 Bright red color */
-            font-weight: bold;
+            top: 12px; right: 16px;
+            font-size: 24px;
+            color: var(--text-3);
             cursor: pointer;
-            transition: color 0.2s ease;
+            background: none;
+            border: none;
+            line-height: 1;
+            padding: 0;
+            transition: color .2s;
         }
-        .closeBtn:hover {
-            color: #cc0000; /* 🔥 Darker red on hover */
-        }
+        .closeBtn:hover { color: #ff4444; }
 
+        #qrPopupHeading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent-dk);
+            margin-bottom: 6px;
+        }
+        #qrIdLabel { font-size: .68rem; color: var(--text-3); font-family: monospace; margin-bottom: 14px; }
+        #qrSpinner { font-size: .98rem; font-weight: 600; color: var(--accent-dk); padding: 22px 0; }
+        #popupQR {
+            margin: 0 auto 14px;
+            padding: 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--r-md);
+            display: inline-block;
+            background: #fff;
+        }
+        #qrCaption {
+            margin-top: 7px;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: text;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        #qrUrl { font-size: .76rem; margin-bottom: 14px; }
+        #qrUrl a { color: var(--primary); word-break: break-all; }
+        #popupButtons { display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; }
+        #popupButtons button {
+            font-family: 'Inter', sans-serif;
+            font-size: .8rem;
+            font-weight: 600;
+            padding: 8px 13px;
+            border-radius: var(--r-sm);
+            border: none;
+            cursor: pointer;
+            background: var(--surface-2);
+            color: var(--text);
+            transition: background .2s;
+        }
+        #popupButtons button:hover { background: var(--border); }
+
+        /* ===== SCROLL REVEAL ===== */
+        .fade-up { opacity: 0; transform: translateY(26px); transition: opacity .55s ease, transform .55s ease; }
+        .fade-up.in { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-visual { display: none; }
+            .about-inner { grid-template-columns: 1fr; gap: 48px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            .section { padding: 64px 0; }
+            .nav-links, .nav-cta { display: none; }
+            #navToggle { display: flex; }
+            .steps::before { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            #popupModalContent { padding: 26px 18px 22px; }
+            #popupButtons button { font-size: .76rem; padding: 8px 10px; }
+        }
+        @media (max-width: 400px) {
+            .feat-card { padding: 22px 18px; }
+        }
     </style>
-
 </head>
-
 <body>
 
-<!-- Topbar -->
-<div id="taglineWrapper">
-    <div id="topbarContent">
-        <div id="logoSection">
-            <a href="https://qrtagall.com">QRTagAll</a>
+<!-- Hidden proxy iframe (QR ID generation backend) -->
+<iframe id="proxyFrame" src="https://proxy.qrtagall.com" style="display:none;" title="QR proxy"></iframe>
+
+<!-- ===============================================================
+     NAVIGATION
+================================================================ -->
+<nav id="navbar" class="transparent">
+    <div class="nav-inner">
+        <a href="#hero" class="nav-logo">QRTagAll</a>
+
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#usecases">Use Cases</a></li>
+            <li><a href="#howitworks">How It Works</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-cta">
+            <button class="btn btn-accent btn-sm" id="startBtn">Generate QR →</button>
         </div>
-        <div id="taglineSection">
-            Tag Anything. Know Everything.
+
+        <button id="navToggle" aria-label="Toggle navigation menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" role="navigation" aria-label="Mobile menu">
+    <a href="#features"    class="mob-link">Features</a>
+    <a href="#usecases"   class="mob-link">Use Cases</a>
+    <a href="#howitworks" class="mob-link">How It Works</a>
+    <a href="#about"      class="mob-link">About</a>
+    <a href="#contact"    class="mob-link">Contact</a>
+    <button class="btn btn-accent" id="startBtnMob">Generate Your QR →</button>
+</div>
+
+<!-- ===============================================================
+     HERO
+================================================================ -->
+<section id="hero">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+
+    <div class="container">
+        <div class="hero-inner">
+            <!-- Text column -->
+            <div>
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Universal Digital Tagging
+                </div>
+
+                <h1 class="hero-headline">
+                    Give Every Object<br>a <span class="hl">Digital Identity</span>
+                </h1>
+
+                <p class="hero-sub">
+                    QRTagAll lets you tag anything — a plant, tool, wallet, machine, or person — with a unique cryptographic QR code. Claim ownership, attach information, and control exactly what the world sees when they scan it.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="btn btn-accent btn-lg" id="startBtnHero">
+                        Generate Your Free QR →
+                    </button>
+                    <a href="#howitworks" class="btn btn-ghost">
+                        See How It Works
+                    </a>
+                </div>
+
+                <div class="hero-trust">
+                    <span class="trust-item">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        No app required
+                    </span>
+                    <span class="trust-item">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Privacy-first design
+                    </span>
+                    <span class="trust-item">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Ready in seconds
+                    </span>
+                </div>
+            </div>
+
+            <!-- Visual QR card (hidden on mobile) -->
+            <div class="hero-visual">
+                <div class="qr-float-card">
+                    <canvas id="heroQRDemo" width="180" height="180"></canvas>
+                    <div class="qr-float-label">QRTagAll</div>
+                    <div class="qr-float-sub">Universal QR · Scan to Own</div>
+                </div>
+                <div class="chip chip-1">🔐 Cryptographically Signed</div>
+                <div class="chip chip-2">✅ Claimed &amp; Verified</div>
+            </div>
         </div>
-        <div id="menuSection">
-            <button id="startBtn">Journey Starts Here →</button>
-            <div id="menuDropdown">
-                <button>☰</button>
-                <div id="menuContent">
-                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
-                    <a class="menuC" href="/usecases.html">Use Cases</a>
-                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
-                    <a class="menuC" href="/terms.html">Terms of Service</a>
-                    <a class="menuC" href="/about.html">About Us</a>
-                    <a class="menuC" href="/contact.html">Contact Us</a>
+    </div>
+</section>
+
+<!-- ===============================================================
+     FEATURES
+================================================================ -->
+<section id="features" class="section" style="background:#fff;">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag">Why QRTagAll</div>
+            <h2>Everything you need to tag your world</h2>
+            <p>From a lost wallet to a factory floor, QRTagAll gives every object a secure, scannable identity — without any app to install.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feat-card fade-up">
+                <div class="feat-icon blue">🏷️</div>
+                <h3>Universal Tagging</h3>
+                <p>Attach a smart QR identity to any physical object — tools, plants, ID cards, furniture, vehicles, or documents. If it exists, you can tag it.</p>
+            </div>
+            <div class="feat-card fade-up">
+                <div class="feat-icon green">📵</div>
+                <h3>Zero App Required</h3>
+                <p>Anyone with a smartphone can scan your QR. No downloads, no signups for the viewer — just instant access to whatever you've chosen to share.</p>
+            </div>
+            <div class="feat-card fade-up">
+                <div class="feat-icon orange">🔐</div>
+                <h3>You Control Your Data</h3>
+                <p>Decide exactly what information is visible to scanners. Claim ownership via Google — your data, your rules. No central database needed.</p>
+            </div>
+            <div class="feat-card fade-up">
+                <div class="feat-icon violet">⚡</div>
+                <h3>Cryptographically Secure</h3>
+                <p>Every QR ID is generated with SHA-256 signing and timestamp encoding. Each code is permanently unique, tamper-evident, and globally verifiable.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===============================================================
+     USE CASES
+================================================================ -->
+<section id="usecases" class="section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag">Use Cases</div>
+            <h2>Built for everyone, everywhere</h2>
+            <p>Whether you're protecting your home, running a factory floor, or managing an event — QRTagAll adapts to your world.</p>
+        </div>
+
+        <div class="uc-grid">
+            <div class="uc-card fade-up">
+                <div class="uc-head">
+                    <div class="uc-emoji" style="background:rgba(0,119,204,.1);">🏠</div>
+                    <div>
+                        <div class="uc-title">Personal Use</div>
+                        <div class="uc-sub">Protect what matters most</div>
+                    </div>
+                </div>
+                <div class="uc-body">
+                    <ul class="uc-list">
+                        <li>Track warranty cards, receipts &amp; repair history</li>
+                        <li>Add care routines to your plants via QR</li>
+                        <li>Lost wallet recovery message for finders</li>
+                        <li>Emergency contact info on valuables</li>
+                        <li>Tag household appliances with manuals</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uc-card fade-up">
+                <div class="uc-head">
+                    <div class="uc-emoji" style="background:rgba(0,204,136,.1);">🏭</div>
+                    <div>
+                        <div class="uc-title">Enterprise &amp; Industry</div>
+                        <div class="uc-sub">Scale operations intelligently</div>
+                    </div>
+                </div>
+                <div class="uc-body">
+                    <ul class="uc-list">
+                        <li>Tag tools, machines &amp; factory equipment</li>
+                        <li>Attach maintenance logs &amp; compliance documents</li>
+                        <li>Track shipments from source to delivery</li>
+                        <li>Farm asset management &amp; crop traceability</li>
+                        <li>Inspection records &amp; sensor data on-demand</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="uc-card fade-up">
+                <div class="uc-head">
+                    <div class="uc-emoji" style="background:rgba(255,165,0,.1);">🎪</div>
+                    <div>
+                        <div class="uc-title">Events &amp; Identity</div>
+                        <div class="uc-sub">Dynamic, scalable tagging</div>
+                    </div>
+                </div>
+                <div class="uc-body">
+                    <ul class="uc-list">
+                        <li>Employee &amp; visitor ID badges</li>
+                        <li>Event signage with live-updateable info</li>
+                        <li>Product showcases at trade fairs</li>
+                        <li>Real estate listings &amp; property info boards</li>
+                        <li>Temporary exhibitions &amp; pop-up signage</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Main Content -->
-<main>
-    <section class="intro">
-        <h2>What is QR-Tag-All?</h2>
-        <p><strong>QRTagAll</strong> is a universal digital tagging system that lets you assign a smart identity to <em>any</em> physical object—be it a plant, ID card, tool, piece of furniture, or even yourself. With just a QR code, you can claim ownership, upload useful information, and decide exactly what the world sees when they scan it.</p>
-        <p>🔹 <strong>For Personal Use:</strong> Use QRTagAll to attach critical information to your belongings. Track warranty cards, purchase bills, repair history, or store emergency contacts. Have a fancy indoor plant? Add care routines accessible via QR. Lost your wallet? Add a recovery message for finders.</p>
-        <p>🔹 <strong>For Enterprises:</strong> Whether factory or farm, tag tools, machines, or shipments with QR identity. Attach maintenance logs, compliance docs, sensor data. Track assets from manufacturing to delivery with zero app installs.</p>
-        <p>QRTagAll extends to identity tagging for employees, event listings, temporary signage, and beyond. Scalable. Privacy-respecting. No centralized database required.</p>
-        <p style="font-weight:bold; font-size:1.3em;">
-            Tag it. Own it.
-            <a href="https://api.whatsapp.com/send?text=Check%20out%20QRTagAll%20-%20https%3A%2F%2Fqrtagall.com"
-               target="_blank"
-               style="text-decoration: none; color: inherit;">
-                Share it 🔁
-            </a>
-        </p>
-    </section>
-</main>
-
-<!-- Modal for QR generation -->
-<!--
-<div id="popupModal">
-    <div id="popupModalContent">
-        <span class="closeBtn" onclick="closeModal()">×</span>
-        <h3>🎉 Your Universal QR is ready!</h3>
-        <p id="qrIdLabel" style="font-size:12px; color:gray;"></p>
-        <div id="popupQR" style="margin:20px auto;">
-            <canvas id="popupQRCanvas"></canvas>
+<!-- ===============================================================
+     HOW IT WORKS
+================================================================ -->
+<section id="howitworks" class="section" style="background:#fff;">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag">How It Works</div>
+            <h2>Tag anything in three steps</h2>
+            <p>Your QR is cryptographically generated, universally scannable, and fully yours — ready in seconds, no account needed to start.</p>
         </div>
-        <button onclick="printQR()">🖨️ Print</button>
-        <button onclick="goNext()">➡️ Next</button>
+
+        <div class="steps fade-up">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Generate Your QR</h3>
+                <p>Click "Generate QR" to instantly create a unique, cryptographically signed QR code. Each ID is timestamp-encoded and globally unique.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Print &amp; Attach</h3>
+                <p>Print or save your QR code. Stick it on anything — a tool, plant pot, wallet, machine, document, or ID card.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Scan &amp; Discover</h3>
+                <p>Anyone who scans sees exactly what you've chosen to share. Update it anytime, from anywhere — no special app required to scan.</p>
+            </div>
+        </div>
     </div>
-</div>
--->
+</section>
 
-<div id="popupModal">
+<!-- ===============================================================
+     ABOUT
+================================================================ -->
+<section id="about">
+    <div class="container">
+        <div class="about-inner">
+            <div class="about-text fade-up">
+                <div class="section-tag">About QRTagAll</div>
+                <h2>The universal identity layer for the physical world</h2>
+                <p>QRTagAll was built on a simple belief: every object deserves a digital voice. From the plant on your windowsill to a machine on a factory floor, the physical world is full of things that carry stories, histories, and critical information — but no way to share them.</p>
+                <p>We built QRTagAll to change that. A universal, open tagging system where anyone can generate a secure QR identity, attach it to anything, and decide exactly what the world sees when they scan it. Scalable from one person to an entire enterprise.</p>
+                <p>Scalable. Privacy-respecting. No centralized database required.</p>
+                <a href="https://api.whatsapp.com/send?text=Check%20out%20QRTagAll%20-%20https%3A%2F%2Fqrtagall.com" target="_blank" class="btn btn-ghost btn-sm" style="margin-top:22px; display:inline-flex;">
+                    📱 Share via WhatsApp
+                </a>
+            </div>
+
+            <div class="about-stats fade-up">
+                <div class="stat-card">
+                    <div class="stat-val">∞</div>
+                    <div class="stat-lbl">Objects you can tag</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">0</div>
+                    <div class="stat-lbl">Apps scanners need to install</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">SHA-256</div>
+                    <div class="stat-lbl">Cryptographic ID signing</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">100%</div>
+                    <div class="stat-lbl">You control your data</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===============================================================
+     CTA BAND
+================================================================ -->
+<section id="cta-band" class="section">
+    <div class="container">
+        <div class="cta-box fade-up">
+            <h2>Ready to tag your world?</h2>
+            <p>Generate your first universal QR code in seconds. No account needed to get started — just click and go.</p>
+            <button class="btn btn-accent btn-lg" id="startBtnCta">
+                Generate Your Free QR →
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ===============================================================
+     CONTACT
+================================================================ -->
+<section id="contact">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag">Contact</div>
+            <h2>Get in touch</h2>
+            <p>Have a question, partnership inquiry, or feedback? We'd love to hear from you.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info fade-up">
+                <h3>Talk to us</h3>
+                <p>Whether you're an individual tagger or an enterprise looking to deploy QR identity at scale — whether it's a quick question or a deep partnership inquiry — we're here to help.</p>
+                <div class="contact-links">
+                    <a href="https://api.whatsapp.com/send?text=Hi, I have a question about QRTagAll: https://qrtagall.com" target="_blank" class="c-link">
+                        📱 Chat on WhatsApp
+                    </a>
+                    <a href="/about.html" class="c-link">ℹ️ About QRTagAll</a>
+                    <a href="/privacy.html" class="c-link">🔒 Privacy Policy</a>
+                    <a href="/terms.html" class="c-link">📄 Terms of Service</a>
+                    <a href="https://process.qrtagall.com" target="_blank" class="c-link">🔗 QR Portal</a>
+                </div>
+            </div>
+
+            <div class="contact-form fade-up">
+                <div class="fg">
+                    <label for="cf-name">Your Name</label>
+                    <input id="cf-name" type="text" placeholder="Jane Smith" />
+                </div>
+                <div class="fg">
+                    <label for="cf-email">Email Address</label>
+                    <input id="cf-email" type="email" placeholder="jane@example.com" />
+                </div>
+                <div class="fg">
+                    <label for="cf-type">Inquiry Type</label>
+                    <select id="cf-type">
+                        <option>General Question</option>
+                        <option>Enterprise Inquiry</option>
+                        <option>Bug Report</option>
+                        <option>Partnership</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label for="cf-msg">Message</label>
+                    <textarea id="cf-msg" placeholder="Tell us how we can help..."></textarea>
+                </div>
+                <button class="btn btn-primary form-submit" id="cfSubmit">Send Message</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===============================================================
+     FOOTER
+================================================================ -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">QRTagAll</div>
+                <p>A universal digital tagging system. Tag anything, know everything. Privacy-respecting. Zero app install for scanners.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#usecases">Use Cases</a></li>
+                    <li><a href="#howitworks">How It Works</a></li>
+                    <li><a href="https://process.qrtagall.com" target="_blank">QR Portal</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/usecases.html">Detailed Use Cases</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © 2025 QRTagAll. Tag it. Own it.
+                <a href="https://api.whatsapp.com/send?text=Check%20out%20QRTagAll%20-%20https%3A%2F%2Fqrtagall.com" target="_blank" class="wa-share">Share it 🔁</a>
+            </p>
+            <p style="font-size:.76rem;">Built with ❤️ for a smarter physical world</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===============================================================
+     QR GENERATION MODAL
+================================================================ -->
+<div id="popupModal" role="dialog" aria-modal="true" aria-labelledby="qrPopupHeading">
     <div id="popupModalContent">
-        <span class="closeBtn" onclick="closeModal()">×</span>
+        <button class="closeBtn" onclick="closeModal()" aria-label="Close">×</button>
 
-        <div id="qrPopupHeading" style="display:block; text-align:center; font-size:20px;  font-weight: bold; color:forestgreen;">
+        <div id="qrPopupHeading"></div>
+        <p id="qrIdLabel"></p>
 
-        </div>
+        <div id="qrSpinner" style="display:none;">⏳ Generating Universal QR...</div>
 
-
-        <p id="qrIdLabel" style="font-size:12px;  text-align:center; color:gray;"></p>
-
-        <!-- 🔄 Spinner -->
-        <div id="qrSpinner" style="display:none; text-align:center; font-size:22px; font-weight: bold; color:forestgreen;">
-            <div class="spinner" style="margin: 10px auto;">⏳ Generating Universal QR...</div>
-        </div>
-
-
-        <div id="popupQR" style="margin:20px auto; padding:10px; text-align:center; border:1px solid #888; border-radius:8px; display:inline-block; background-color:#fefefe; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+        <div id="popupQR" style="display:none; text-align:center;">
             <canvas id="popupQRCanvas" style="display:block; margin:0 auto;"></canvas>
             <div id="qrCaption"
                  contenteditable="true"
-                 onfocus="this.style.outline='1px dashed #aaa';"
-                 onblur="this.style.outline='none';"
-                 style="
-        margin-top:-4px; line-height:1.4; color:#0044aa; font-size:14px;
-        font-family:Arial, sans-serif; font-weight:600; cursor:text;
-        white-space:pre-wrap; word-break:break-word; overflow-wrap:break-word;
-        max-width:50%;  display:inline-block; text-align:center;
-     ">Universal QR
-            </div>
+                 onfocus="this.style.outline='1px dashed #ccc'"
+                 onblur="this.style.outline='none'"
+            >Universal QR</div>
         </div>
 
-
-        <!-- 🔥 New: URL Link -->
-        <p id="qrUrl" style="font-size:14px; text-align:center; margin:10px 0;">
-            <a id="qrLink" href="#" target="_blank" style="color:#0077cc; word-break:break-all;">Loading link...</a>
+        <p id="qrUrl" style="display:none; text-align:center;">
+            <a id="qrLink" href="#" target="_blank">Loading link...</a>
         </p>
 
-        <!-- Buttons -->
-        <div id="popupButtons" style="margin-top:15px;">
+        <div id="popupButtons" style="display:none;">
             <button onclick="printQR()">🖨️ Print</button>
             <button onclick="goNext()">➡️ Next</button>
-            <button onclick="downloadQR()">⬇️ Download</button>
+            <button onclick="downloadQR()">⬇️ Save</button>
             <button onclick="shareWhatsapp()">📱 WhatsApp</button>
-
         </div>
-
     </div>
 </div>
 
-
-<!--div style="position: relative; display: inline-block;">
-    <img id="qrImage" src="your_qr_code_url.png" style="width: 200px; height: 200px;" />
-
-
-    <div style="
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px; height: 50px;
-    background-color: yellow;
-    border-radius: 50%;
-    z-index: 10;
-  "></div>
-
-
-    <img src="qrtagall_logo.png" style="
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    z-index: 11;
-  " />
-</div-->
-
-
-
-
-<!-- Script Section -->
+<!-- ===============================================================
+     SCRIPTS
+================================================================ -->
 <script>
-
-
-    function getReadableTimestamp() {
-        const now = new Date();
-        const pad = n => n.toString().padStart(2, '0');
-        const padMs = n => n.toString().padStart(3, '0');
-        return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${padMs(now.getMilliseconds())}`;
+/* ---- Navbar scroll effect ---- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 64) {
+        navbar.classList.remove('transparent');
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+        navbar.classList.add('transparent');
     }
-
-
-
-
-    async function g3n3r4t3_CCCK() {
-        const a = ["lo", "sec", "ca", "ret", "tion", "keys"];
-        let b = 0;
-        const c = a[b] + a[b + 2] + a[b + 4]; // "location"
-
-        const d = ["ho", "qr", "st", "tag", "na", "-", "me", "all"];
-        let e = 0;
-        const f = d[e] + d[e + 2] + d[e + 4] + d[e + 6];
-
-        const g = window[c][f];
-
-        const h = Date;
-        const i = (new h())["get" + "Time"]();
-        const j = Math["f" + "loor"](i / (36 * 100000));
-
-
-        try { crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]).then(() => {}); } catch (_) {}
-        try { crypto.subtle.generateKey({ name: "RSASSA-PKCS1-v1_5", modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), hash: { name: "SHA-256" } }, true, ["sign", "verify"]).then(() => {}); } catch (_) {}
-
-        const k = g + j;
-        const l = new TextEncoder();
-        const m = l.encode(k);
-        const n = await crypto.subtle.digest("SHA-256", m);
-        const o = Array.from(new Uint8Array(n)).map(b => b.toString(16).padStart(2, '0')).join('');
-
-        return o;
-    }
-
-
-
-
-
-    const proxyFrame = document.createElement("iframe");
-    proxyFrame.style.display = "none";
-
-
-
-
-    proxyFrame.src = "https://proxy.qrtagall.com";
-    document.body.appendChild(proxyFrame);
-
-
-    let proxyLoaded = false;
-
-
-    async function Generateid(timestamp) {
-
-
-       const staticKey = "chandanmaity";//await g3n3r4t3_CCCK()
-
-       //  const staticKey = await g3n3r4t3_CCCK()
-
-
-        return new Promise((resolve, reject) => {
-
-            const handler = (event) => {
-
-                if (!event.data || (event.data.type !== "qr_generated" && event.data.type !== "qr_error")) return;
-
-                window.removeEventListener("message", handler);
-
-                if (event.data.type === "qr_generated") {
-                    resolve(event.data.id);
-                } else if (event.data.type === "qr_error") {
-                    reject(new Error(event.data.error));
-                }
-            };
-
-            window.addEventListener("message", handler);
-            proxyFrame.contentWindow.postMessage(
-                {
-                    type: "generate",
-                    timestamp: timestamp,
-                    ccpubkey: staticKey
-                }, "*");
-        });
-    }
-
-
-    async function generateSecureQR() {
-
-        const timestamp ="IN_"+getReadableTimestamp();
-
-        console.log("Timestamp>>>", timestamp);
-
-        // Show spinner
-        document.getElementById("qrSpinner").style.display = "block";
-        document.getElementById("popupQR").style.display = "none";
-        document.getElementById("popupQRCanvas").style.display = "none";
-        document.getElementById("qrLink").style.display = "none";
-        document.getElementById("qrIdLabel").style.display = "none";
-
-        document.getElementById("popupButtons").style.display = "none";
-
-
-        document.getElementById("qrPopupHeading").style.display = "none";
-        document.getElementById("qrCaption").innerText = "Universal QR";
-
-        //"qrPopupHeading"
-
-        try {
-            const id = await Generateid(timestamp);
-
-
-            const url = `https://process.qrtagall.com?id=${id}`;
-
-            document.getElementById("qrIdLabel").innerText =  id;
-
-            const canvas = document.getElementById("popupQRCanvas");
-            /*
-            QRCode.toCanvas(canvas, url, { width: 200 }, err => {
-                if (err) console.error(err);
-            });
-
-             */
-
-
-
-            QRCode.toCanvas(canvas, url, {
-                width: 200,
-                errorCorrectionLevel: 'L', // Lower redundancy = less density
-                //version: 4, // (1 to 40). Lower version = simpler code
-                margin: 0, // reduce margin for tighter layout
-            }, err => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-
-                const ctx = canvas.getContext("2d");
-
-                const rectWidth = 60;
-                const rectHeight = 20;
-                const cornerRadius = 0;
-
-                const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2;
-
-                const topLeftX = centerX - rectWidth / 2;
-                const topLeftY = centerY - rectHeight / 2;
-
-                /*
-                // Draw rounded rectangle
-                ctx.fillStyle = "lightyellow";
-                drawRoundedRect(ctx, topLeftX, topLeftY, rectWidth, rectHeight, cornerRadius);
-
-                //ctx.fill();
-
-                //Draw top line: "QR"
-                ctx.fillStyle = "orangered";
-                ctx.font = "bold 13px Arial";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "bottom";
-                ctx.fillText("QRTagAll", centerX, centerY+8);
-                */
-
-                // 🔤 Draw bottom line: "TagAll"
-                //ctx.fillStyle = "darkblue";
-                //ctx.font = "normal 11px Arial";
-                //ctx.textBaseline = "top";
-                //ctx.fillText("TagAll", centerX, centerY + 2);
-            });
-
-
-
-            //document.getElementById("qrCaption").innerText = "Scan to Own with QRTagAll";
-            //document.getElementById("qrCaption").style.color = "#cc0033";     // deep red
-            //document.getElementById("qrCaption").style.fontSize = "16px";
-            //document.getElementById("qrCaption").style.fontFamily = "Verdana";
-            //document.getElementById("qrCaption").style.fontWeight = "bold";
-
-
-            // 🔥 Also show the URL link
-            const linkElem = document.getElementById("qrLink");
-            linkElem.href = url;
-            linkElem.textContent = url;
-
-            // do whatever next
-        } catch (err) {
-            //document.querySelector("#qrSpinner .spinner").textContent = "🛠 Error generating QR ID";
-            //document.getElementById("qrSpinner").style.color ="red"; // or any CSS color
-
-            console.error("Error generating QR ID:", err);
-            // ✅ Show friendly message
-            alert("⚠️ QR generating error. Please try again.");
-
-            // ✅ Close the popup modal
-            closeModal();
-
+}, { passive: true });
+
+/* ---- Mobile menu toggle ---- */
+const navToggle   = document.getElementById('navToggle');
+const mobileMenu  = document.getElementById('mobileMenu');
+navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', () => {
+        navToggle.classList.remove('open');
+        mobileMenu.classList.remove('open');
+    });
+});
+
+/* ---- Scroll reveal ---- */
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('in'), idx * 75);
+            revealObserver.unobserve(entry.target);
         }
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
 
-        finally {
-            // Hide spinner and show canvas area
+/* ---- Hero decorative QR ---- */
+window.addEventListener('load', () => {
+    try {
+        QRCode.toCanvas(
+            document.getElementById('heroQRDemo'),
+            'https://qrtagall.com',
+            { width: 180, margin: 1, color: { dark: '#0D1B2A', light: '#ffffff' } },
+            () => {}
+        );
+    } catch (e) { /* non-critical */ }
+});
 
-            document.getElementById("qrPopupHeading").innerText =  "🎉 Your Universal QR is ready!";
-            document.getElementById("qrPopupHeading").style.display = "block";
-            document.getElementById("qrSpinner").style.display = "none";
-            document.getElementById("popupQR").style.display = "block";
-            document.getElementById("popupQRCanvas").style.display = "block";
-            document.getElementById("qrLink").style.display = "block";
-            //document.getElementById("qrIdLabel").style.display = "block";
-            document.getElementById("popupButtons").style.display = "block";
+/* ---- Contact form (WhatsApp fallback) ---- */
+document.getElementById('cfSubmit').addEventListener('click', () => {
+    const name  = document.getElementById('cf-name').value.trim();
+    const email = document.getElementById('cf-email').value.trim();
+    const type  = document.getElementById('cf-type').value;
+    const msg   = document.getElementById('cf-msg').value.trim();
+    if (!name || !msg) { alert('Please enter your name and message.'); return; }
+    const text = `QRTagAll Enquiry\nFrom: ${name} (${email || 'no email'})\nType: ${type}\n\n${msg}`;
+    window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
+});
 
-        }
-    }
+/* ================================================================
+   QR GENERATION — ALL ORIGINAL LOGIC PRESERVED
+================================================================ */
+const proxyFrame = document.getElementById('proxyFrame');
 
-    function drawRoundedRect(ctx, x, y, width, height, radius) {
-        ctx.beginPath();
-        ctx.moveTo(x + radius, y);
-        ctx.lineTo(x + width - radius, y);
-        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-        ctx.lineTo(x + width, y + height - radius);
-        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        ctx.lineTo(x + radius, y + height);
-        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-        ctx.lineTo(x, y + radius);
-        ctx.quadraticCurveTo(x, y, x + radius, y);
-        ctx.closePath();
-        ctx.fill();
-    }
-
-    function drawMultilineCaption(ctx, text, maxWidth, startX, startY, lineHeight) {
-        const words = text.split(/\s+/);
-        let line = "";
-        let y = startY;
-
-        for (let n = 0; n < words.length; n++) {
-            const testLine = line + words[n] + " ";
-            const testWidth = ctx.measureText(testLine).width;
-
-            if (testWidth > maxWidth && n > 0) {
-                ctx.fillText(line, startX, y);
-                line = words[n] + " ";
-                y += lineHeight;
-            } else {
-                line = testLine;
-            }
-        }
-
-        ctx.fillText(line, startX, y); // Last line
-    }
-
-
-  /*  function printQR() {
-        const canvas = document.getElementById("popupQR");//("popupQRCanvas");
-        const win = window.open('', 'Print QR', 'width=400,height=400');
-        win.document.write('<img src="' + canvas.toDataURL() + '"/>');
-        win.document.close();
-        win.print();
-    }*/
-
-    function printQRx() {
-        const qrCanvas = document.getElementById("popupQRCanvas");
-        const qrCaption = document.getElementById("qrCaption");
-
-        const win = window.open('', 'Print QR', 'width=400,height=400');
-
-        win.document.write(`
-        <html>
-        <head>
-            <title>Print QR</title>
-        </head>
-        <body style="margin: 0; padding: 20px; text-align: center;">
-            <div style="margin:20px auto; padding:10px; text-align:center; border:1px solid #888; border-radius:8px; display:inline-block; background-color:#fefefe; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
-                <img src="${qrCanvas.toDataURL()}" style="display:block; margin:0 auto;" />
-                <pre style="
-                    margin-top:-4px;  margin-bottom:0; color:#0044aa;   font-size:14px;
-                    font-family:Arial, sans-serif; font-weight:600; white-space:pre-wrap;
-                    word-break:break-word; overflow-wrap:break-word; text-align:center;
-                ">${qrCaption.innerText}</pre>
-            </div>
-        </body>
-        </html>
-    `);
-
-        win.document.close();
-        win.focus();
-        win.print();
-        win.close();
-    }
-
-
-    function printQR() {
-        const qrCanvas = document.getElementById("popupQRCanvas");
-        const qrCaption = document.getElementById("qrCaption");
-
-        const imageDataUrl = qrCanvas.toDataURL();
-        const captionText = qrCaption.innerText || "";
-        const escapedCaption = captionText
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-
-        const win = window.open('', 'Print QR', 'width=400,height=400');
-        if (!win) {
-            alert("Popup blocked! Please allow popups.");
-            return;
-        }
-
-        // Use classic string concatenation instead of backticks
-        let html = '<html><head><title>Print QR</title></head><body style="margin:0; padding:20px; text-align:center;">';
-        html += '<div style="margin:20px auto; padding:10px; text-align:center; border:1px solid #888; border-radius:8px; display:inline-block; background-color:#fefefe; box-shadow:0 2px 5px rgba(0,0,0,0.1);">';
-        html += '<img id="qrImage" src="' + imageDataUrl + '" style="display:block; margin:0 auto;" />';
-        html += '<pre style="margin-top:-4px; margin-bottom:0; color:#0044aa; font-size:14px; font-family:Arial, sans-serif; font-weight:600; white-space:pre-wrap; word-break:break-word; overflow-wrap:break-word; text-align:center;">' + escapedCaption + '</pre>';
-        html += '</div>';
-        html += '<script>';
-        html += 'window.onload = function() {';
-        html += '  var img = document.getElementById("qrImage");';
-        html += '  if (img.complete) { window.print(); window.close(); }';
-        html += '  else { img.onload = function() { window.print(); window.close(); }; }';
-        html += '};';
-        html += '<' + '/script>';  // ✅ Prevent parser error
-html += '</body></html>';
-
-win.document.write(html);
-win.document.close();
+function getReadableTimestamp() {
+    const now  = new Date();
+    const pad  = n => n.toString().padStart(2, '0');
+    const padMs = n => n.toString().padStart(3, '0');
+    return `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${padMs(now.getMilliseconds())}`;
 }
 
+async function Generateid(timestamp) {
+    const staticKey = "chandanmaity";
+    return new Promise((resolve, reject) => {
+        const handler = (event) => {
+            if (!event.data || (event.data.type !== "qr_generated" && event.data.type !== "qr_error")) return;
+            window.removeEventListener("message", handler);
+            if (event.data.type === "qr_generated") resolve(event.data.id);
+            else reject(new Error(event.data.error));
+        };
+        window.addEventListener("message", handler);
+        proxyFrame.contentWindow.postMessage(
+            { type: "generate", timestamp: timestamp, ccpubkey: staticKey },
+            "*"
+        );
+    });
+}
+
+async function generateSecureQR() {
+    const timestamp = "IN_" + getReadableTimestamp();
+
+    document.getElementById("qrSpinner").style.display = "block";
+    document.getElementById("popupQR").style.display = "none";
+    document.getElementById("qrUrl").style.display = "none";
+    document.getElementById("popupButtons").style.display = "none";
+    document.getElementById("qrPopupHeading").style.display = "none";
+    document.getElementById("qrIdLabel").style.display = "none";
+    document.getElementById("qrCaption").innerText = "Universal QR";
+
+    try {
+        const id  = await Generateid(timestamp);
+        const url = `https://process.qrtagall.com?id=${id}`;
+
+        document.getElementById("qrIdLabel").innerText = id;
+
+        QRCode.toCanvas(document.getElementById("popupQRCanvas"), url, {
+            width: 200,
+            errorCorrectionLevel: 'L',
+            margin: 0,
+        }, err => { if (err) console.error(err); });
+
+        const linkElem = document.getElementById("qrLink");
+        linkElem.href        = url;
+        linkElem.textContent = url;
+
+    } catch (err) {
+        console.error("Error generating QR ID:", err);
+        alert("⚠️ QR generation error. Please try again.");
+        closeModal();
+    } finally {
+        document.getElementById("qrPopupHeading").innerText       = "🎉 Your Universal QR is ready!";
+        document.getElementById("qrPopupHeading").style.display   = "block";
+        document.getElementById("qrSpinner").style.display        = "none";
+        document.getElementById("popupQR").style.display          = "inline-block";
+        document.getElementById("popupQRCanvas").style.display    = "block";
+        document.getElementById("qrUrl").style.display            = "block";
+        document.getElementById("popupButtons").style.display     = "flex";
+    }
+}
+
+function openQRModal() {
+    document.getElementById("popupModal").style.display = "flex";
+    generateSecureQR();
+}
+
+function closeModal() {
+    document.getElementById("popupModal").style.display = "none";
+}
 
 function goNext() {
-        const id = document.getElementById("qrIdLabel").innerText.trim();
-        if (id) {
-            window.location.href = `https://process.qrtagall.com/?id=${id}`;
-        } else {
-            alert("QR ID not found! Please generate first.");
-        }
-    }
+    const id = document.getElementById("qrIdLabel").innerText.trim();
+    if (id) window.location.href = `https://process.qrtagall.com/?id=${id}`;
+    else alert("QR ID not found. Please generate first.");
+}
 
-    /*
-    function downloadQR() {
-        const canvas = document.getElementById("popupQRCanvas");
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = 'qrtagall-qr.png';
-        link.click();
-    }
+function printQR() {
+    const qrCanvas    = document.getElementById("popupQRCanvas");
+    const qrCaption   = document.getElementById("qrCaption");
+    const imageDataUrl = qrCanvas.toDataURL();
+    const captionText  = qrCaption.innerText || "";
+    const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 
-     */
+    const win = window.open('', 'Print QR', 'width=400,height=400');
+    if (!win) { alert("Popup blocked! Please allow popups for this site."); return; }
 
-    function downloadQR() {
-        const canvas = document.getElementById("popupQRCanvas");
-        const caption = document.getElementById("qrCaption").innerText;
+    let html = '<html><head><title>Print QR</title></head><body style="margin:0;padding:20px;text-align:center;">';
+    html += '<div style="margin:20px auto;padding:10px;border:1px solid #ccc;border-radius:8px;display:inline-block;background:#fff;">';
+    html += `<img id="qi" src="${imageDataUrl}" style="display:block;margin:0 auto;"/>`;
+    html += `<pre style="margin-top:4px;color:#0044aa;font-size:14px;font-family:Arial,sans-serif;font-weight:600;white-space:pre-wrap;word-break:break-word;text-align:center;">${esc(captionText)}</pre>`;
+    html += '</div>';
+    html += '<scr' + 'ipt>window.onload=function(){var i=document.getElementById("qi");if(i.complete){window.print();window.close();}else{i.onload=function(){window.print();window.close();};}}</scr' + 'ipt>';
+    html += '</body></html>';
+    win.document.write(html);
+    win.document.close();
+}
 
-        // 👉 Open a blank window immediately to avoid mobile popup blockers
-        const win = window.open('', '_blank');
+function downloadQR() {
+    const canvas       = document.getElementById("popupQRCanvas");
+    const caption      = document.getElementById("qrCaption").innerText;
+    const win          = window.open('', '_blank');
+    const combined     = document.createElement('canvas');
+    const ctx          = combined.getContext('2d');
+    const qrSize       = canvas.width;
+    const lines        = caption.split('\n');
+    const lineH        = 20, pad = 10;
 
-        // ✅ Now build the final canvas content
-        const combinedCanvas = document.createElement('canvas');
-        const ctx = combinedCanvas.getContext('2d');
+    combined.width  = qrSize + pad * 2;
+    combined.height = qrSize + lines.length * lineH + pad * 3;
 
-        const qrSize = canvas.width;
-        const captionLines = caption.split('\n');
-        const lineHeight = 20;
-        const padding = 10;
-        const captionHeight = captionLines.length * lineHeight;
+    ctx.fillStyle = "#fffefc";
+    ctx.fillRect(0, 0, combined.width, combined.height);
+    ctx.drawImage(canvas, pad, pad);
 
-        combinedCanvas.width = qrSize + padding * 2;
-        combinedCanvas.height = qrSize + captionHeight + padding * 3;
+    ctx.fillStyle  = "#0044aa";
+    ctx.font       = "600 13px Arial";
+    ctx.textAlign  = "center";
+    ctx.textBaseline = "top";
+    lines.forEach((line, i) => ctx.fillText(line.trim(), combined.width / 2, qrSize + pad * 2 + i * lineH));
 
-        ctx.fillStyle = "#fffefc";
-        ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
-        ctx.drawImage(canvas, padding, padding);
+    const safe = lines[0].replace(/[^a-z0-9]/gi, "_").substring(0, 20);
+    const now  = new Date();
+    const tag  = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+    const fname = `${safe || "qrtagall"}_${tag}.png`;
 
-        ctx.fillStyle = "#0044aa";
-        ctx.font = "600 13px Arial";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "top";
-
-        captionLines.forEach((line, index) => {
-            ctx.fillText(
-                line.trim(),
-                combinedCanvas.width / 2,
-                qrSize + padding * 2 + index * lineHeight
-            );
-        });
-
-        // Generate safe filename
-        const safeCaption = captionLines[0].replace(/[^a-z0-9]/gi, "_").substring(0, 20);
-        const now = new Date();
-        const timeTag = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
-        const filename = `${safeCaption || "qrtagall"}_${timeTag}.png`;
-
-        // ⏳ Convert to Blob
-        combinedCanvas.toBlob(function (blob) {
-            const url = URL.createObjectURL(blob);
-            win.document.write(`
-            <html><head><title>${filename}</title></head>
-            <body style="margin:0; text-align:center;">
-                <p style="font-family:Arial;font-size:14px;color:#0044aa;margin:10px;">Long press to save image</p>
-                <img src="${url}" style="width:100%;max-width:300px;"/>
-            </body></html>
-        `);
+    combined.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        if (win) {
+            win.document.write(`<html><head><title>${fname}</title></head><body style="margin:0;text-align:center;"><p style="font-family:Arial;font-size:14px;color:#0044aa;margin:10px;">Long press to save image</p><img src="${url}" style="width:100%;max-width:300px;"/></body></html>`);
             win.document.close();
-        }, "image/png");
-    }
-
-
-
-
-    function dataURLToBlob(dataURL) {
-        const parts = dataURL.split(';base64,');
-        const byteString = atob(parts[1]);
-        const mimeString = parts[0].split(':')[1];
-
-        const ab = new ArrayBuffer(byteString.length);
-        const ia = new Uint8Array(ab);
-        for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
         }
+    }, "image/png");
+}
 
-        return new Blob([ab], { type: mimeString });
-    }
+function shareWhatsapp() {
+    const url = document.getElementById("qrLink").href;
+    window.open(`https://api.whatsapp.com/send?text=Scan this QR link: ${encodeURIComponent(url)}`, '_blank');
+}
 
+/* Wire all CTA buttons to the modal */
+['startBtn', 'startBtnHero', 'startBtnMob', 'startBtnCta'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('click', openQRModal);
+});
 
-    // New WhatsApp Share Button
-    function shareWhatsapp() {
-        const url = document.getElementById("qrLink").href;
-        const whatsappUrl = `https://api.whatsapp.com/send?text=Scan this QR link: ${encodeURIComponent(url)}`;
-        window.open(whatsappUrl, '_blank');
-    }
-
-
-    function closeModal() {
-        document.getElementById("popupModal").style.display = "none";
-    }
-
-    document.getElementById("startBtn").onclick = async () => {
-        document.getElementById("popupModal").style.display = "flex";
-        await generateSecureQR();
-    };
-
-    const menuButton = document.querySelector("#menuDropdown > button");
-    const menuContent = document.getElementById("menuContent");
-
-    menuButton.addEventListener('click', () => {
-        menuContent.style.display = (menuContent.style.display === "block") ? "none" : "block";
-    });
-
-    window.addEventListener('click', (e) => {
-        if (!document.getElementById('menuDropdown').contains(e.target)) {
-            menuContent.style.display = "none";
-        }
-    });
+/* Close modal on backdrop click */
+document.getElementById('popupModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('popupModal')) closeModal();
+});
 </script>
 
 </body>

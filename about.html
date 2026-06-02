@@ -2,197 +2,163 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Us - QRTagAll</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — QRTagAll</title>
+    <meta name="description" content="Learn about QRTagAll — a universal digital tagging platform built for individuals and enterprises.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0077cc;
-            --accent: #00cc88;
-            --dark: #2b2b2b;
-            --light: #f4f4f4;
-            --text: #333333;
+            --primary: #0077CC; --accent: #00CC88; --dark: #0D1B2A;
+            --text: #1A202C; --text-2: #4A5568; --text-3: #718096;
+            --border: #E2E8F0; --surface: #F7FAFC; --nav-h: 64px;
+            --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
         }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--surface); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--light);
-            color: var(--text);
-            font-size: 16px;
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 900;
+            background: rgba(13,27,42,.95); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,.07);
         }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 800; color: #FFA500; }
+        .nav-links { display: flex; gap: 2px; list-style: none; }
+        .nav-links a { font-size: .88rem; font-weight: 500; color: rgba(255,255,255,.75); padding: 7px 14px; border-radius: var(--r-sm); transition: color .2s, background .2s; }
+        .nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
+        .nav-back { font-size: .85rem; font-weight: 600; color: var(--accent); padding: 8px 18px; border: 1.5px solid rgba(0,204,136,.4); border-radius: var(--r-sm); transition: all .2s; }
+        .nav-back:hover { background: rgba(0,204,136,.1); }
+        #navToggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+        #navToggle span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+        #navToggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #navToggle.open span:nth-child(2) { opacity: 0; }
+        #navToggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        #mobileMenu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--dark); padding: 12px 24px 20px; z-index: 899; border-bottom: 1px solid rgba(255,255,255,.07); }
+        #mobileMenu.open { display: block; }
+        #mobileMenu a { display: block; font-size: .96rem; font-weight: 500; color: rgba(255,255,255,.8); padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+        #mobileMenu a:last-child { border-bottom: none; }
 
-        /* Topbar */
-        #taglineWrapper {
-            text-align: center;
-            background: #000;
-            color: #ffffff;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        #topbarContent {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 20px;
-        }
-        #logoSection a {
-            color: #FFA500;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 22px;
-        }
-        #taglineSection {
-            font-size: clamp(14px, 3vw, 18px);
-            color: #ffffff;
-        }
-        #menuSection {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #menuDropdown button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: clamp(20px, 5vw, 26px); /* 🔥 Larger icon font */
-            padding: 8px 14px; /* 🔥 Bigger click area */
-            cursor: pointer;
-            border-radius: 6px;
-            transition: background-color 0.2s;
-        }
+        /* Layout */
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .page-wrapper { padding: calc(var(--nav-h) + 52px) 0 80px; }
 
-        #menuContent {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 30px;
-            background: #fff;
-            color: #333;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            min-width: 150px;
-            overflow: hidden;
+        /* Page header */
+        .page-hero {
+            background: linear-gradient(140deg, #0D1B2A, #0c2544);
+            padding: 64px 0 56px; margin-bottom: 0;
         }
-        #menuContent a.menuC {
-            font-weight: normal;
-            display: block;
-            padding: 8px 12px;
-            text-decoration: none;
-            color: #333;
-            white-space: nowrap;
+        .page-hero .section-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+            color: var(--accent); background: rgba(0,204,136,.12); border: 1px solid rgba(0,204,136,.25);
+            padding: 5px 14px; border-radius: 999px; margin-bottom: 14px;
         }
-        #menuContent a.menuC:hover {
-            background: #f0f0f0;
-        }
+        .page-hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; color: #fff; line-height: 1.18; }
+        .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,.65); margin-top: 12px; max-width: 500px; }
 
-        /* Main Area */
-        main {
-            max-width: 900px;
-            margin: 120px auto 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* Content card */
+        .content-card {
+            background: #fff; border-radius: var(--r-xl); border: 1px solid var(--border);
+            padding: 44px 48px; margin-top: -24px; position: relative; z-index: 2;
+            box-shadow: 0 8px 32px rgba(0,0,0,.08);
         }
-        main h2 {
-            color: var(--primary);
-            font-size: clamp(22px, 5vw, 28px);
-        }
-        main h3 {
-            color: var(--primary);
-            font-size: clamp(18px, 4vw, 24px);
-        }
-        p {
-            font-size: clamp(15px, 4vw, 17px);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            text-align: justify; /* 🔥 New: Justify text */
-        }
+        .content-card h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 28px 0 10px; }
+        .content-card h2:first-child { margin-top: 0; }
+        .content-card p { font-size: .97rem; color: var(--text-2); line-height: 1.75; margin-bottom: 14px; }
+        .content-card strong { color: var(--text); }
+        .contact-chip { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-md); padding: 12px 20px; font-size: .92rem; font-weight: 600; color: var(--primary); margin-top: 8px; }
 
-        @media (max-width: 600px) {
-            main {
-                margin: 100px 10px 20px;
-                padding: 20px;
-            }
-            #topbarContent {
-                flex-direction: column;
-                gap: 10px;
-            }
-            #logoSection, #taglineSection, #menuSection {
-                text-align: center;
-            }
+        /* Footer */
+        footer { background: var(--dark); color: rgba(255,255,255,.5); padding: 32px 0; text-align: center; }
+        footer .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: #FFA500; margin-bottom: 10px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+        .footer-links a { font-size: .82rem; color: rgba(255,255,255,.45); transition: color .2s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-copy { font-size: .78rem; }
+
+        @media (max-width: 640px) {
+            .nav-links { display: none; } .nav-back { display: none; } #navToggle { display: flex; }
+            .content-card { padding: 28px 22px; margin-top: -12px; }
+            .page-hero { padding: 48px 0 40px; }
         }
     </style>
 </head>
-
 <body>
 
-<!-- Topbar -->
-<div id="taglineWrapper">
-    <div id="topbarContent">
-        <div id="logoSection">
-            <a href="https://qrtagall.com">QRTagAll</a>
-        </div>
-        <div id="taglineSection">
-            Tag Anything. Know Everything.
-        </div>
-        <div id="menuSection">
-            <div id="menuDropdown">
-                <button>☰</button>
-                <div id="menuContent">
-                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
-                    <a class="menuC" href="/usecases.html">Use Cases</a>
-                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
-                    <a class="menuC" href="/terms.html">Terms of Service</a>
-                    <a class="menuC" href="/about.html">About Us</a>
-                    <a class="menuC" href="/contact.html">Contact Us</a>
-                </div>
-            </div>
+<nav>
+    <div class="nav-inner">
+        <a href="https://qrtagall.com" class="nav-logo">QRTagAll</a>
+        <ul class="nav-links">
+            <li><a href="https://qrtagall.com#features">Features</a></li>
+            <li><a href="/usecases.html">Use Cases</a></li>
+            <li><a href="https://qrtagall.com#howitworks">How It Works</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+        <a href="https://qrtagall.com" class="nav-back">← Back to Home</a>
+        <button id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+<div id="mobileMenu">
+    <a href="https://qrtagall.com">Home</a>
+    <a href="/usecases.html">Use Cases</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="/contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="section-tag">About QRTagAll</div>
+        <h1>We built the identity layer<br>for the physical world</h1>
+        <p>A small team. A big idea. Every object deserves a digital voice.</p>
+    </div>
+</section>
+
+<div class="page-wrapper" style="padding-top:0; background:#fff;">
+    <div class="container">
+        <div class="content-card">
+            <h2>Our Story</h2>
+            <p>QRTagAll was founded with a simple idea — to bridge the gap between the physical and digital worlds using technology that is simple, universal, and privacy-friendly.</p>
+            <p>We are a small team of engineers, technologists, and innovators who believe that ownership of digital metadata should belong to individuals, not corporations. Our platform is designed to empower users to organize, manage, and share information about any physical asset in the easiest possible way — using a QR code.</p>
+
+            <h2>Our Values</h2>
+            <p>Our team prefers to stay behind the scenes, focusing on building products that work quietly but effectively. We value simplicity, user control, transparency, and low-cost innovation.</p>
+            <p>QRTagAll runs on open principles: your assets, your information, your choice. We use freely available infrastructure like Google Drive and Google Sheets to minimize operational costs and maximize accessibility for everyone on the planet.</p>
+
+            <h2>Our Commitment</h2>
+            <p>While we remain a bit anonymous by design, our commitment to delivering secure, scalable, and reliable solutions is absolute. We are constantly evolving the platform to serve more use cases — from individual users to enterprise-scale deployments — all without compromising on privacy or accessibility.</p>
+
+            <h2>Contact</h2>
+            <p>If you need to reach us, we're always just a message away.</p>
+            <a href="mailto:qrtagall@gmail.com" class="contact-chip">📧 qrtagall@gmail.com</a>
         </div>
     </div>
 </div>
 
-<!-- Main About Us Content -->
-<main>
-    <h2>About Us</h2>
+<footer>
+    <div class="container">
+        <div class="logo">QRTagAll</div>
+        <div class="footer-links">
+            <a href="https://qrtagall.com">Home</a>
+            <a href="/usecases.html">Use Cases</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p class="footer-copy">© 2025 QRTagAll. Tag it. Own it. Share it.</p>
+    </div>
+</footer>
 
-    <p>QRTagAll was founded with a simple idea — to bridge the gap between the physical and digital worlds using technology that is simple, universal, and privacy-friendly.</p>
-
-    <p>We are a small team of engineers, technologists, and innovators who believe that ownership of digital metadata should belong to individuals, not corporations. Our platform is designed to empower users to organize, manage, and share information about any physical asset in the easiest possible way — using a QR code.</p>
-
-    <p>Our team prefers to stay behind the scenes, focusing on building products that work quietly but effectively. We value simplicity, user control, transparency, and low-cost innovation.</p>
-
-    <p>QRTagAll runs on open principles: your assets, your information, your choice. We use freely available infrastructure like Google Drive and Google Sheets to minimize operational costs and maximize accessibility.</p>
-
-    <p>While we remain a bit anonymous by design, our commitment to delivering secure, scalable, and reliable solutions is absolute.</p>
-
-    <h3>Contact</h3>
-    <p>If you need to reach us, feel free to drop an email at:<br>
-        <strong>Email:</strong> qrtagall@gmail.com</p>
-</main>
-
-<!-- Menu Script -->
 <script>
-    const menuButton = document.querySelector("#menuDropdown > button");
-    const menuContent = document.getElementById("menuContent");
-
-    menuButton.addEventListener('click', () => {
-        menuContent.style.display = (menuContent.style.display === "block") ? "none" : "block";
-    });
-
-    window.addEventListener('click', (e) => {
-        if (!document.getElementById('menuDropdown').contains(e.target)) {
-            menuContent.style.display = "none";
-        }
-    });
+    const t = document.getElementById('navToggle');
+    const m = document.getElementById('mobileMenu');
+    t.addEventListener('click', () => { t.classList.toggle('open'); m.classList.toggle('open'); });
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { t.classList.remove('open'); m.classList.remove('open'); }));
 </script>
-
 </body>
 </html>

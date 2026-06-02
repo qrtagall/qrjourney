@@ -2,198 +2,194 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Us - QRTagAll</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — QRTagAll</title>
+    <meta name="description" content="Get in touch with QRTagAll for questions, partnerships, or support.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0077cc;
-            --accent: #00cc88;
-            --dark: #2b2b2b;
-            --light: #f9f9f9;
-            --text: #333333;
+            --primary: #0077CC; --accent: #00CC88; --accent-dk: #00a870; --dark: #0D1B2A;
+            --text: #1A202C; --text-2: #4A5568; --border: #E2E8F0; --surface: #F7FAFC; --nav-h: 64px;
+            --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
         }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--surface); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--light);
-            color: var(--text);
-            font-size: 16px;
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 900;
+            background: rgba(13,27,42,.95); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,.07);
         }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 800; color: #FFA500; }
+        .nav-links { display: flex; gap: 2px; list-style: none; }
+        .nav-links a { font-size: .88rem; font-weight: 500; color: rgba(255,255,255,.75); padding: 7px 14px; border-radius: var(--r-sm); transition: color .2s, background .2s; }
+        .nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
+        .nav-back { font-size: .85rem; font-weight: 600; color: var(--accent); padding: 8px 18px; border: 1.5px solid rgba(0,204,136,.4); border-radius: var(--r-sm); transition: all .2s; }
+        .nav-back:hover { background: rgba(0,204,136,.1); }
+        #navToggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+        #navToggle span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+        #navToggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #navToggle.open span:nth-child(2) { opacity: 0; }
+        #navToggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        #mobileMenu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--dark); padding: 12px 24px 20px; z-index: 899; border-bottom: 1px solid rgba(255,255,255,.07); }
+        #mobileMenu.open { display: block; }
+        #mobileMenu a { display: block; font-size: .96rem; font-weight: 500; color: rgba(255,255,255,.8); padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+        #mobileMenu a:last-child { border-bottom: none; }
 
-        /* Topbar */
-        #taglineWrapper {
-            text-align: center;
-            background: #000;
-            color: #ffffff;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        #topbarContent {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 20px;
-        }
-        #logoSection a {
-            color: #FFA500;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 22px;
-        }
-        #taglineSection {
-            font-size: clamp(14px, 3vw, 18px);
-            color: #ffffff;
-        }
-        #menuSection {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #menuDropdown button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: clamp(16px, 4vw, 20px);
-            cursor: pointer;
-        }
-        #menuContent {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 30px;
-            background: #fff;
-            color: #333;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            min-width: 150px;
-            overflow: hidden;
-        }
-        #menuContent a.menuC {
-            font-weight: normal;
-            display: block;
-            padding: 8px 12px;
-            text-decoration: none;
-            color: #333;
-            white-space: nowrap;
-        }
-        #menuContent a.menuC:hover {
-            background: #f0f0f0;
-        }
+        .container { max-width: 780px; margin: 0 auto; padding: 0 24px; }
 
-        /* Main */
-        main {
-            max-width: 700px;
-            margin: 120px auto 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
+        .page-hero {
+            background: linear-gradient(140deg, #0D1B2A, #0c2544);
+            padding: 80px 0 60px;
         }
-        main h2 {
-            color: var(--primary);
-            font-size: clamp(22px, 5vw, 28px);
-            margin-bottom: 20px;
+        .section-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+            color: var(--accent); background: rgba(0,204,136,.12); border: 1px solid rgba(0,204,136,.25);
+            padding: 5px 14px; border-radius: 999px; margin-bottom: 14px;
         }
-        p {
-            font-size: clamp(15px, 4vw, 17px);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            text-align: justify; /* 🔥 New: Justify text */
-        }
-        .emailBtn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .emailBtn:hover {
-            background-color: #00aa77;
-        }
+        .page-hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; color: #fff; }
+        .page-hero p { font-size: 1rem; color: rgba(255,255,255,.65); margin-top: 10px; }
 
-        @media (max-width: 600px) {
-            main {
-                margin: 100px 10px 20px;
-                padding: 20px;
-            }
-            #topbarContent {
-                flex-direction: column;
-                gap: 10px;
-            }
-            #logoSection, #taglineSection, #menuSection {
-                text-align: center;
-            }
+        .content-wrap { background: #fff; padding: 60px 0 80px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+        .contact-info h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+        .contact-info p { font-size: .94rem; color: var(--text-2); line-height: 1.72; margin-bottom: 20px; }
+        .c-link { display: flex; align-items: center; gap: 10px; font-size: .9rem; font-weight: 500; color: var(--primary); margin-bottom: 12px; transition: opacity .2s; }
+        .c-link:hover { opacity: .75; }
+
+        .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 30px 28px; }
+        .fg { margin-bottom: 16px; }
+        .fg label { display: block; font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: 7px; }
+        .fg input, .fg textarea, .fg select {
+            width: 100%; padding: 11px 14px; font-family: 'Inter', sans-serif; font-size: .92rem; color: var(--text);
+            background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-sm); outline: none; transition: border-color .2s, box-shadow .2s;
+        }
+        .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,119,204,.1); }
+        .fg textarea { height: 110px; resize: vertical; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 600; padding: 13px 28px; border-radius: var(--r-sm); border: none; cursor: pointer; transition: all .2s; }
+        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 14px rgba(0,119,204,.3); }
+        .btn-primary:hover { background: #005fa3; transform: translateY(-1px); }
+
+        footer { background: var(--dark); color: rgba(255,255,255,.5); padding: 32px 0; text-align: center; }
+        footer .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: #FFA500; margin-bottom: 10px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+        .footer-links a { font-size: .82rem; color: rgba(255,255,255,.45); transition: color .2s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-copy { font-size: .78rem; }
+
+        @media (max-width: 640px) {
+            .nav-links { display: none; } .nav-back { display: none; } #navToggle { display: flex; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-card { padding: 22px 18px; }
         }
     </style>
 </head>
-
 <body>
 
-<!-- Topbar -->
-<div id="taglineWrapper">
-    <div id="topbarContent">
-        <div id="logoSection">
-            <a href="https://qrtagall.com">QRTagAll</a>
-        </div>
-        <div id="taglineSection">
-            Tag Anything. Know Everything.
-        </div>
-        <div id="menuSection">
-            <div id="menuDropdown">
-                <button>☰</button>
-                <div id="menuContent">
-                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
-                    <a class="menuC" href="/usecases.html">Use Cases</a>
-                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
-                    <a class="menuC" href="/about.html">About Us</a>
-                    <a class="menuC" href="/terms.html">Terms of Service</a>
-                    <a class="menuC" href="/contact.html">Contact Us</a>
+<nav>
+    <div class="nav-inner">
+        <a href="https://qrtagall.com" class="nav-logo">QRTagAll</a>
+        <ul class="nav-links">
+            <li><a href="https://qrtagall.com#features">Features</a></li>
+            <li><a href="/usecases.html">Use Cases</a></li>
+            <li><a href="/about.html">About</a></li>
+        </ul>
+        <a href="https://qrtagall.com" class="nav-back">← Back to Home</a>
+        <button id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+<div id="mobileMenu">
+    <a href="https://qrtagall.com">Home</a>
+    <a href="/usecases.html">Use Cases</a>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms</a>
+</div>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="section-tag">Contact</div>
+        <h1>Get in Touch</h1>
+        <p>Questions, partnerships, or feedback — we'd love to hear from you.</p>
+    </div>
+</section>
+
+<div class="content-wrap">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Let's talk</h2>
+                <p>Whether you're an individual looking to tag your first object or an enterprise ready to deploy QR identity at scale — we're here to help.</p>
+                <a href="mailto:qrtagall@gmail.com" class="c-link">📧 qrtagall@gmail.com</a>
+                <a href="https://api.whatsapp.com/send?text=Hi, I have a question about QRTagAll: https://qrtagall.com" target="_blank" class="c-link">📱 Chat on WhatsApp</a>
+                <a href="/about.html" class="c-link">ℹ️ About QRTagAll</a>
+                <a href="/privacy.html" class="c-link">🔒 Privacy Policy</a>
+                <a href="/terms.html" class="c-link">📄 Terms of Service</a>
+            </div>
+
+            <div class="form-card">
+                <div class="fg">
+                    <label for="cf-name">Your Name</label>
+                    <input id="cf-name" type="text" placeholder="Jane Smith" />
                 </div>
+                <div class="fg">
+                    <label for="cf-email">Email Address</label>
+                    <input id="cf-email" type="email" placeholder="jane@example.com" />
+                </div>
+                <div class="fg">
+                    <label for="cf-type">Inquiry Type</label>
+                    <select id="cf-type">
+                        <option>General Question</option>
+                        <option>Enterprise Inquiry</option>
+                        <option>Bug Report</option>
+                        <option>Partnership</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label for="cf-msg">Message</label>
+                    <textarea id="cf-msg" placeholder="Tell us how we can help..."></textarea>
+                </div>
+                <button class="btn btn-primary" id="cfSubmit">Send Message</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Main Content -->
-<main>
-    <h2>Contact Us</h2>
+<footer>
+    <div class="container">
+        <div class="logo">QRTagAll</div>
+        <div class="footer-links">
+            <a href="https://qrtagall.com">Home</a>
+            <a href="/usecases.html">Use Cases</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+        </div>
+        <p class="footer-copy">© 2025 QRTagAll. Tag it. Own it. Share it.</p>
+    </div>
+</footer>
 
-    <p>We would love to hear from you! Whether you have a question, feedback, or a partnership idea — feel free to reach out.</p>
-
-    <p>Email us anytime at:</p>
-
-    <a href="mailto:qrtagall@gmail.com" class="emailBtn">📧 Email QRTagAll</a>
-
-</main>
-
-<!-- Menu Script -->
 <script>
-    const menuButton = document.querySelector("#menuDropdown > button");
-    const menuContent = document.getElementById("menuContent");
+    const t = document.getElementById('navToggle');
+    const m = document.getElementById('mobileMenu');
+    t.addEventListener('click', () => { t.classList.toggle('open'); m.classList.toggle('open'); });
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { t.classList.remove('open'); m.classList.remove('open'); }));
 
-    menuButton.addEventListener('click', () => {
-        menuContent.style.display = (menuContent.style.display === "block") ? "none" : "block";
-    });
-
-    window.addEventListener('click', (e) => {
-        if (!document.getElementById('menuDropdown').contains(e.target)) {
-            menuContent.style.display = "none";
-        }
+    document.getElementById('cfSubmit').addEventListener('click', () => {
+        const name  = document.getElementById('cf-name').value.trim();
+        const email = document.getElementById('cf-email').value.trim();
+        const type  = document.getElementById('cf-type').value;
+        const msg   = document.getElementById('cf-msg').value.trim();
+        if (!name || !msg) { alert('Please enter your name and message.'); return; }
+        const text = `QRTagAll Enquiry\nFrom: ${name} (${email || 'no email'})\nType: ${type}\n\n${msg}`;
+        window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
     });
 </script>
-
 </body>
 </html>

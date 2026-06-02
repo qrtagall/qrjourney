@@ -2,397 +2,370 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Use Cases - QRTagAll</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases — QRTagAll</title>
+    <meta name="description" content="Explore 17+ real-world use cases for QRTagAll — from medical records to farm produce traceability, artworks to lost-and-found recovery.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0077cc;
-            --accent: #00cc88;
-            --dark: #2b2b2b;
-            --light: #f9f9f9;
-            --text: #333333;
+            --primary: #0077CC; --accent: #00CC88; --accent-dk: #00a870; --dark: #0D1B2A;
+            --text: #1A202C; --text-2: #4A5568; --text-3: #718096;
+            --border: #E2E8F0; --surface: #F7FAFC; --nav-h: 64px;
+            --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
+            --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
+            --shadow-md: 0 4px 18px rgba(0,0,0,.10);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,.14);
         }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--surface); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--light);
-            color: var(--text);
-            font-size: 16px;
+        /* ---- Nav ---- */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 900;
+            background: rgba(13,27,42,.95); backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,.07);
         }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+        .nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 800; color: #FFA500; }
+        .nav-links { display: flex; gap: 2px; list-style: none; }
+        .nav-links a { font-size: .88rem; font-weight: 500; color: rgba(255,255,255,.75); padding: 7px 14px; border-radius: var(--r-sm); transition: color .2s, background .2s; }
+        .nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
+        .nav-back { font-size: .85rem; font-weight: 600; color: var(--accent); padding: 8px 18px; border: 1.5px solid rgba(0,204,136,.4); border-radius: var(--r-sm); transition: all .2s; }
+        .nav-back:hover { background: rgba(0,204,136,.1); }
+        #navToggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+        #navToggle span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+        #navToggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        #navToggle.open span:nth-child(2) { opacity: 0; }
+        #navToggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        #mobileMenu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--dark); padding: 12px 24px 20px; z-index: 899; border-bottom: 1px solid rgba(255,255,255,.07); }
+        #mobileMenu.open { display: block; }
+        #mobileMenu a { display: block; font-size: .96rem; font-weight: 500; color: rgba(255,255,255,.8); padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+        #mobileMenu a:last-child { border-bottom: none; }
 
-        /* Topbar */
-        #taglineWrapper {
-            text-align: center;
-            background: #000;
-            color: #ffffff;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        /* ---- Page hero ---- */
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+        .page-hero {
+            background: linear-gradient(140deg, #0D1B2A, #0c2544);
+            padding: 80px 0 64px;
         }
-        #topbarContent {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 20px;
+        .section-tag {
+            display: inline-flex; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+            color: var(--accent); background: rgba(0,204,136,.12); border: 1px solid rgba(0,204,136,.25);
+            padding: 5px 14px; border-radius: 999px; margin-bottom: 14px;
         }
-        #logoSection a {
-            color: #FFA500;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 22px;
-        }
-        #taglineSection {
-            font-size: clamp(14px, 3vw, 18px);
-            color: #ffffff;
-        }
-        #menuSection {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        #menuDropdown button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: clamp(16px, 4vw, 20px);
-            cursor: pointer;
-        }
-        #menuContent {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 30px;
-            background: #fff;
-            color: #333;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            min-width: 150px;
-            overflow: hidden;
-        }
-        #menuContent a.menuC {
-            font-weight: normal;
-            display: block;
-            padding: 8px 12px;
-            text-decoration: none;
-            color: #333;
-            white-space: nowrap;
-        }
-        #menuContent a.menuC:hover {
-            background: #f0f0f0;
-        }
+        .page-hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; color: #fff; line-height: 1.18; }
+        .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,.65); margin-top: 12px; max-width: 540px; }
 
-        /* Main */
-        main {
-            max-width: 1200px;
-            margin: 120px auto 40px;
-            padding: 20px;
-        }
-        main h2 {
-            text-align: center;
-            color: var(--primary);
-            font-size: clamp(22px, 5vw, 32px);
-            margin-bottom: 30px;
-        }
+        /* ---- Grid ---- */
+        .grid-section { padding: 60px 0 80px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
 
-        /* Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
         .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 26px 24px 22px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow .25s, transform .25s;
+            display: flex;
+            flex-direction: column;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-        }
-        .card h3 {
-            font-size: clamp(18px, 4vw, 22px);
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        .card p {
-            font-size: clamp(15px, 4vw, 17px);
-            text-align: justify;
-        }
-        .demoLink {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--primary);
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .demoLink:hover {
-            text-decoration: underline;
+        .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+
+        .card-num {
+            position: absolute;
+            top: -12px; left: 18px;
+            width: 36px; height: 36px;
+            background: var(--dark);
+            color: #FFA500;
+            border-radius: 50%;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: .82rem;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,.25);
         }
 
-        /* Modal */
+        .card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+            margin-top: 6px;
+        }
+
+        .card p {
+            font-size: .88rem;
+            color: var(--text-2);
+            line-height: 1.62;
+            flex: 1;
+        }
+
+        .demo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 16px;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(0,119,204,.07);
+            border: 1px solid rgba(0,119,204,.2);
+            padding: 7px 14px;
+            border-radius: var(--r-sm);
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+            align-self: flex-start;
+        }
+        .demo-btn:hover { background: rgba(0,119,204,.14); border-color: rgba(0,119,204,.35); }
+
+        /* ---- Video modal ---- */
         #videoModal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            inset: 0;
+            background: rgba(0,0,0,.78);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
             z-index: 3000;
+            padding: 20px;
         }
         #videoModalContent {
             background: #000;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 90%;
-            max-height: 80%;
-            position: relative;
-        }
-        #videoModalContent iframe {
+            border-radius: var(--r-xl);
+            overflow: hidden;
             width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 10px;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 32px 80px rgba(0,0,0,.6);
         }
+        #videoModalContent iframe { display: block; width: 100%; height: 450px; border: none; }
         #videoModalClose {
             position: absolute;
-            top: -30px;
-            right: 0;
+            top: 12px; right: 16px;
             font-size: 28px;
-            color: white;
+            color: rgba(255,255,255,.8);
             cursor: pointer;
+            line-height: 1;
+            transition: color .2s;
+            z-index: 10;
         }
+        #videoModalClose:hover { color: #fff; }
 
-        @media (max-width: 600px) {
-            main {
-                margin: 100px 10px 20px;
-            }
-            #topbarContent {
-                flex-direction: column;
-                gap: 10px;
-            }
-            #logoSection, #taglineSection, #menuSection {
-                text-align: center;
-            }
-            #videoModalContent iframe {
-                height: 250px;
-            }
+        /* ---- CTA ---- */
+        .cta-strip {
+            background: linear-gradient(135deg, var(--primary), #0a4a80);
+            border-radius: var(--r-xl);
+            padding: 48px 40px;
+            text-align: center;
+            margin: 0 0 60px;
         }
+        .cta-strip h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .cta-strip p { font-size: .98rem; color: rgba(255,255,255,.72); margin-bottom: 24px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 600; padding: 13px 28px; border-radius: var(--r-sm); border: none; cursor: pointer; transition: all .2s; }
+        .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,204,136,.3); }
+        .btn-accent:hover { background: var(--accent-dk); transform: translateY(-1px); }
 
-        .card {
-            position: relative; /* 🔥 Very important to anchor number */
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+        /* ---- Footer ---- */
+        footer { background: var(--dark); color: rgba(255,255,255,.5); padding: 32px 0; text-align: center; }
+        footer .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: #FFA500; margin-bottom: 10px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+        .footer-links a { font-size: .82rem; color: rgba(255,255,255,.45); transition: color .2s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-copy { font-size: .78rem; }
+
+        @media (max-width: 640px) {
+            .nav-links { display: none; } .nav-back { display: none; } #navToggle { display: flex; }
+            #videoModalContent iframe { height: 240px; }
+            .cta-strip { padding: 36px 24px; }
         }
-
-        .cardNumber {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 40px;
-            height: 40px;
-            background: black;
-            color: #FFA500;
-            border-radius: 50%;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        }
-
     </style>
 </head>
-
 <body>
 
-<!-- Topbar -->
-<div id="taglineWrapper">
-    <div id="topbarContent">
-        <div id="logoSection">
-            <a href="https://qrtagall.com">QRTagAll</a>
-        </div>
-        <div id="taglineSection">
-            Tag Anything. Know Everything.
-        </div>
-        <div id="menuSection">
-            <div id="menuDropdown">
-                <button>☰</button>
-                <div id="menuContent">
-                    <a class="menuC" href="https://qrtagall.com">Main Page</a>
-                    <a class="menuC" href="/usecases.html">Use Cases</a>
-                    <a class="menuC" href="/privacy.html">Privacy Policy</a>
-                    <a class="menuC" href="/terms.html">Terms of Service</a>
-                    <a class="menuC" href="/about.html">About Us</a>
-                    <a class="menuC" href="/contact.html">Contact Us</a>
-                </div>
+<nav>
+    <div class="nav-inner">
+        <a href="https://qrtagall.com" class="nav-logo">QRTagAll</a>
+        <ul class="nav-links">
+            <li><a href="https://qrtagall.com#features">Features</a></li>
+            <li><a href="https://qrtagall.com#howitworks">How It Works</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+        <a href="https://qrtagall.com" class="nav-back">← Back to Home</a>
+        <button id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+<div id="mobileMenu">
+    <a href="https://qrtagall.com">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/contact.html">Contact</a>
+</div>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="section-tag">Use Cases</div>
+        <h1>Explore QRTagAll in<br>the Real World</h1>
+        <p>From medical records to mementos, farm produce to factory floors — see how QRTagAll transforms the way we tag, track, and share information about physical things.</p>
+    </div>
+</section>
+
+<div class="grid-section">
+    <div class="container">
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-num">1</div>
+                <h3>🏥 Medical Records Organizer</h3>
+                <p>Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files. Instant access in any hospital, anytime.</p>
+                <span class="demo-btn" onclick="openVideo('https://www.youtube.com/embed/cvZmiNxrKL8')">▶ Watch Demo</span>
             </div>
+
+            <div class="card">
+                <div class="card-num">2</div>
+                <h3>🛠️ Appliance Warranty &amp; Repair Logs</h3>
+                <p>Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable when you need them most.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/Jk7DMaCxTrA')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">3</div>
+                <h3>🎓 Educational Certificates Holder</h3>
+                <p>Students can link degrees, awards, training certifications under one smart QR identity — shareable with employers instantly.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/P4k1xdgnBkU')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">4</div>
+                <h3>🏡 House Ownership &amp; Repair History</h3>
+                <p>Blueprints, approvals, maintenance history — attach everything securely to your home's QR. Perfect for resale documentation.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/yVxisXYDKQg')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">5</div>
+                <h3>🚗 Vehicle History Recorder</h3>
+                <p>Cars, bikes, trucks — QR holds purchase, insurance, servicing, and resale trust details. Builds buyer confidence instantly.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/J--3-2BOihY')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">6</div>
+                <h3>🌳 Plant &amp; Tree Tagging</h3>
+                <p>Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks. Scan to know the story of a plant.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/OkvyDAPYAgU')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">6A</div>
+                <h3>🌱 Journey of a Little Plant in a Pot</h3>
+                <p>Expand the boundary of visibility of a plant in a pot and beyond. A living story told through a QR code.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/iu44XRrOwcE')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">7</div>
+                <h3>🖼️ Artworks &amp; Antiques Provenance</h3>
+                <p>Boost trust by storing ownership transfer, exhibition history, and restoration info under QR tags. Authentic, tamper-evident records.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/8IF6NV2YHNg')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">8</div>
+                <h3>🔧 Rental Equipment Tracking</h3>
+                <p>Manage rental history, damage reports, condition records of cameras, tools, bikes — all accessible via a single QR scan.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/Bi4-j-16M_8')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">9</div>
+                <h3>🎪 Event Management</h3>
+                <p>QRs at events for navigation, stall details, security protocols, visitor feedback links. Update info in real-time without reprinting.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/CpDEENmIVfk')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">10</div>
+                <h3>🎒 Lost &amp; Found Recovery</h3>
+                <p>Attach QR to bags, gadgets, pets — making owner info recoverable without exposing private contact details. Finder-friendly by design.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/T145-Qf0E8s')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">11</div>
+                <h3>📦 Supply Chain Authenticity</h3>
+                <p>Prove origin, transfers, repairs across manufacturer, retailer, and service chain. Build consumer trust with transparent provenance.</p>
+                <span class="demo-btn" onclick="openVideo('https://www.youtube.com/watch?v=pnkiL9pAxMs')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">12</div>
+                <h3>📚 Community Sharing Items</h3>
+                <p>QRs for lending libraries, shared tools, community gardens with lending and usage history. Track who has what and when it's due back.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/dtNS1JtdxUc')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">13</div>
+                <h3>💎 Memory Vault for Heirlooms</h3>
+                <p>Attach emotional stories, photos, and timelines to family jewels, watches, vintage items. Preserve the story behind every treasure.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/ZZZ0hU0tL6Q')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">13A</div>
+                <h3>💎 Memento – Memory-Linked Artifacts</h3>
+                <p>A birthday gift from a loved one, a trophy from school, a souvenir from a distant land. Every memento holds a moment — now preserved forever.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/GyPDEuf7qCc')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">14</div>
+                <h3>🏗️ Construction Equipment Tracking</h3>
+                <p>Track cranes, excavators, mixers with rental history, damage notes, and safety inspection records via QR. Compliant documentation made easy.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/pzGUs4I7kiM')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">15</div>
+                <h3>🍎 Farm Produce Traceability</h3>
+                <p>Link mango crates, wheat bags to farm origin, harvest dates, and pesticide-free certifications. Farm-to-fork transparency at scale.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/t79DWEHhtwc')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">16</div>
+                <h3>💼 Digital Business Cards</h3>
+                <p>Professionals attach QR to visiting cards linking to resumes, portfolios, LinkedIn profiles. Never run out of business cards again.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtu.be/ONa1uCHT1Oo')">▶ Watch Demo</span>
+            </div>
+
+            <div class="card">
+                <div class="card-num">17</div>
+                <h3>🧵 Authenticity Trail (Handcrafted Fashion)</h3>
+                <p>Garments featuring regional embroidery, each with a QRTagAll code verifying its journey — with info, photos, geo-tags, and timestamps from artisan to customer.</p>
+                <span class="demo-btn" onclick="openVideo('https://youtube.com/shorts/iXra13gwWbE')">▶ Watch Demo</span>
+            </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-strip" style="margin-top:60px;">
+            <h2>Ready to tag your world?</h2>
+            <p>Generate your first QR identity in seconds — no account needed to start.</p>
+            <a href="https://qrtagall.com" class="btn btn-accent">Generate Your Free QR →</a>
         </div>
     </div>
 </div>
-
-<!-- Main Content -->
-<main>
-    <h2>Explore QRTagAll Use Cases</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <div class="cardNumber">1</div>
-            <h3>🏥 Medical Records Organizer</h3>
-            <p>Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files.</p>
-            <span class="demoLink" onclick="openVideo('https://www.youtube.com/embed/cvZmiNxrKL8')">▶️ Watch Demo</span>
-        </div>
-
-
-        <div class="card">
-            <div class="cardNumber">2</div>
-            <h3>🛠️ Appliance Warranty & Repair Logs</h3>
-            <p>Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/Jk7DMaCxTrA')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">3</div>
-            <h3>🎓 Educational Certificates Holder</h3>
-            <p>Students can link degrees, awards, training certifications under one smart QR identity.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/P4k1xdgnBkU')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">4</div>
-            <h3>🏡 House Ownership & Repair History</h3>
-            <p>Blueprints, approvals, maintenance history — attach everything securely to your home’s QR.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/yVxisXYDKQg')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">5</div>
-            <h3>🚗 Vehicle History Recorder</h3>
-            <p>Cars, bikes, trucks — QR holds purchase, insurance, servicing and resale trust details.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/J--3-2BOihY')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">6</div>
-            <h3>🌳 Plant & Tree Tagging</h3>
-            <p>Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/OkvyDAPYAgU')">▶️ Watch Demo</span>
-        </div>
-
-		<div class="card">
-            <div class="cardNumber">6A</div>
-            <h3>🌳 The Journey of a Little Plant in a Pot</h3>
-            <p>Expand the boundary of visibility of a plant in pot and beyond.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/iu44XRrOwcE')">▶️ Watch Demo</span>
-        </div>
-		
-        <div class="card">
-            <div class="cardNumber">7</div>
-            <h3>🖼️ Artworks and Antiques Provenance</h3>
-            <p>Boost trust by storing ownership transfer, exhibitions, restoration info under QR tags.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/8IF6NV2YHNg')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">8</div>
-            <h3>🔧 Rental Equipment Tracking</h3>
-            <p>Manage rental history, damages, condition reports of cameras, tools, bikes through QR.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/Bi4-j-16M_8')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">9</div>
-            <h3>🎪 Event Management</h3>
-            <p>QRs at events for navigation, stall details, security protocols, visitor feedback links.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/CpDEENmIVfk')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">10</div>
-            <h3>🎒 Lost and Found Recovery</h3>
-            <p>Attach QR to bags, gadgets, pets — making owner info recoverable without exposing privacy.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/T145-Qf0E8s')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">11</div>
-            <h3>📦 Supply Chain Authenticity</h3>
-            <p>Prove origin, transfers, repairs across manufacturer, retailer, and service chain easily.</p>
-            <span class="demoLink" onclick="openVideo('https://www.youtube.com/watch?v=pnkiL9pAxMs')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">12</div>
-            <h3>📚 Community Sharing Items</h3>
-            <p>QRs for lending libraries, shared tools, community gardens with lending and usage history.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/dtNS1JtdxUc')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">13</div>
-            <h3>💎 Memory Vault for Heirlooms</h3>
-            <p>Attach emotional stories, photos, timelines to family jewels, watches, vintage items.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/ZZZ0hU0tL6Q')">▶️ Watch Demo</span>
-        </div>
-		<div class="card">
-            <div class="cardNumber">13A</div>
-            <h3>💎 Memento – Memory-Linked Artifacts</h3>
-            <p>Every memento holds a moment — a birthday gift from a loved one, a trophy from a school tournament, a souvenir picked from a distant land, or a handwritten note tucked inside a book. </p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/GyPDEuf7qCc')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">14</div>
-            <h3>🏗️ Construction Equipment Tracking</h3>
-            <p>Track cranes, excavators, mixers with rental history, damage notes, and safety checks via QR.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/pzGUs4I7kiM')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">15</div>
-            <h3>🍎 Farm Produce Traceability</h3>
-            <p>Link mango crates, wheat bags to farm origin, harvest dates, pesticide-free certifications.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/t79DWEHhtwc')">▶️ Watch Demo</span>
-        </div>
-
-
-        <div class="card">
-            <div class="cardNumber">16</div>
-            <h3>💼 Digital Business Cards</h3>
-            <p>Professionals attach QR to visiting cards linking to resumes, portfolios, LinkedIn profiles.</p>
-            <span class="demoLink" onclick="openVideo('https://youtu.be/ONa1uCHT1Oo')">▶️ Watch Demo</span>
-        </div>
-
-        <div class="card">
-            <div class="cardNumber">17</div>
-            <h3>🧵 Authenticity Trail (Handcrafted Fashion)</h3>
-            <p>Garments featuring regional embroidery, each with a QRTagAll code that verifies its journey through the supply chain — with info, photos, geo-tags, and timestamps.
-            </p>
-            <span class="demoLink" onclick="openVideo('https://youtube.com/shorts/iXra13gwWbE')">▶️ Watch Demo</span>
-        </div>
-
-
-
-
-        <!-- Add more cards here similarly -->
-
-    </div>
-</main>
 
 <!-- Video Modal -->
 <div id="videoModal" onclick="closeVideo()">
@@ -402,50 +375,48 @@
     </div>
 </div>
 
-<!-- Scripts -->
+<footer>
+    <div class="container">
+        <div class="logo">QRTagAll</div>
+        <div class="footer-links">
+            <a href="https://qrtagall.com">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <p class="footer-copy">© 2025 QRTagAll. Tag it. Own it. Share it.</p>
+    </div>
+</footer>
+
 <script>
-    const menuButton = document.querySelector("#menuDropdown > button");
-    const menuContent = document.getElementById("menuContent");
+    const t = document.getElementById('navToggle');
+    const m = document.getElementById('mobileMenu');
+    t.addEventListener('click', () => { t.classList.toggle('open'); m.classList.toggle('open'); });
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { t.classList.remove('open'); m.classList.remove('open'); }));
 
-    menuButton.addEventListener('click', () => {
-        menuContent.style.display = (menuContent.style.display === "block") ? "none" : "block";
-    });
-
-    window.addEventListener('click', (e) => {
-        if (!document.getElementById('menuDropdown').contains(e.target)) {
-            menuContent.style.display = "none";
-        }
-    });
-
-    // Modal Video Control
     function openVideo(url) {
-
-        if (!url || url.trim() === "" || url.includes('sample')) {
-            alert("Yet to come...");
-            return;
-        }
-
-        // 🔥 Auto-correct if someone passes a short youtu.be link
+        if (!url || url.trim() === '' || url.includes('sample')) { alert('Video coming soon!'); return; }
         if (url.includes('youtu.be/')) {
-            const videoId = url.split('youtu.be/')[1];
-            url = `https://www.youtube.com/embed/${videoId}`;
+            const id = url.split('youtu.be/')[1].split('?')[0];
+            url = `https://www.youtube.com/embed/${id}`;
+        } else if (url.includes('watch?v=')) {
+            const id = url.split('watch?v=')[1].split('&')[0];
+            url = `https://www.youtube.com/embed/${id}`;
+        } else if (url.includes('shorts/')) {
+            const id = url.split('shorts/')[1].split('?')[0];
+            url = `https://www.youtube.com/embed/${id}`;
         }
-        // 🔥 Also optionally clean normal YouTube watch URLs
-        else if (url.includes('watch?v=')) {
-            const videoId = url.split('watch?v=')[1];
-            url = `https://www.youtube.com/embed/${videoId}`;
-        }
-
-        document.getElementById("videoFrame").src = url + "?autoplay=1";
-        document.getElementById("videoModal").style.display = "flex";
+        document.getElementById('videoFrame').src = url + '?autoplay=1';
+        document.getElementById('videoModal').style.display = 'flex';
     }
-
 
     function closeVideo() {
-        document.getElementById("videoFrame").src = "";
-        document.getElementById("videoModal").style.display = "none";
+        document.getElementById('videoFrame').src = '';
+        document.getElementById('videoModal').style.display = 'none';
     }
-</script>
 
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
+</script>
 </body>
 </html>
