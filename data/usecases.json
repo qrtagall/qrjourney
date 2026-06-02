@@ -1,0 +1,154 @@
+[
+  {
+    "num": "1",
+    "emoji": "🏥",
+    "title": "Medical Records Organizer",
+    "desc": "Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files. Instant access in any hospital, anytime.",
+    "video": "https://www.youtube.com/embed/cvZmiNxrKL8",
+    "tags": ["healthcare", "personal"]
+  },
+  {
+    "num": "2",
+    "emoji": "🛠️",
+    "title": "Appliance Warranty & Repair Logs",
+    "desc": "Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable when you need them most.",
+    "video": "https://www.youtube.com/embed/Jk7DMaCxTrA",
+    "tags": ["personal", "home"]
+  },
+  {
+    "num": "3",
+    "emoji": "🎓",
+    "title": "Educational Certificates Holder",
+    "desc": "Students can link degrees, awards, training certifications under one smart QR identity — shareable with employers instantly.",
+    "video": "https://www.youtube.com/embed/P4k1xdgnBkU",
+    "tags": ["education", "personal"]
+  },
+  {
+    "num": "4",
+    "emoji": "🏡",
+    "title": "House Ownership & Repair History",
+    "desc": "Blueprints, approvals, maintenance history — attach everything securely to your home's QR. Perfect for resale documentation.",
+    "video": "https://www.youtube.com/embed/yVxisXYDKQg",
+    "tags": ["home", "personal"]
+  },
+  {
+    "num": "5",
+    "emoji": "🚗",
+    "title": "Vehicle History Recorder",
+    "desc": "Cars, bikes, trucks — QR holds purchase, insurance, servicing, and resale trust details. Builds buyer confidence instantly.",
+    "video": "https://www.youtube.com/embed/J--3-2BOihY",
+    "tags": ["vehicle", "personal"]
+  },
+  {
+    "num": "6",
+    "emoji": "🌳",
+    "title": "Plant & Tree Tagging",
+    "desc": "Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks. Scan to know the full story of a plant.",
+    "video": "https://www.youtube.com/embed/OkvyDAPYAgU",
+    "tags": ["agriculture", "personal"]
+  },
+  {
+    "num": "6A",
+    "emoji": "🌱",
+    "title": "Journey of a Little Plant in a Pot",
+    "desc": "Expand the boundary of visibility of a plant in a pot and beyond. A living story told through a QR code.",
+    "video": "https://www.youtube.com/embed/iu44XRrOwcE",
+    "tags": ["agriculture", "personal"]
+  },
+  {
+    "num": "7",
+    "emoji": "🖼️",
+    "title": "Artworks & Antiques Provenance",
+    "desc": "Boost trust by storing ownership transfer, exhibition history, and restoration info under QR tags. Authentic, tamper-evident records.",
+    "video": "https://www.youtube.com/embed/8IF6NV2YHNg",
+    "tags": ["art", "enterprise"]
+  },
+  {
+    "num": "8",
+    "emoji": "🔧",
+    "title": "Rental Equipment Tracking",
+    "desc": "Manage rental history, damage reports, and condition records of cameras, tools, bikes — all accessible via a single QR scan.",
+    "video": "https://www.youtube.com/embed/Bi4-j-16M_8",
+    "tags": ["enterprise", "rental"]
+  },
+  {
+    "num": "9",
+    "emoji": "🎪",
+    "title": "Event Management",
+    "desc": "QRs at events for navigation, stall details, security protocols, visitor feedback links. Update info in real-time without reprinting.",
+    "video": "https://www.youtube.com/embed/CpDEENmIVfk",
+    "tags": ["events", "enterprise"]
+  },
+  {
+    "num": "10",
+    "emoji": "🎒",
+    "title": "Lost & Found Recovery",
+    "desc": "Attach QR to bags, gadgets, pets — making owner info recoverable without exposing private contact details. Finder-friendly by design.",
+    "video": "https://www.youtube.com/embed/T145-Qf0E8s",
+    "tags": ["personal", "safety"]
+  },
+  {
+    "num": "11",
+    "emoji": "📦",
+    "title": "Supply Chain Authenticity",
+    "desc": "Prove origin, transfers, and repairs across manufacturer, retailer, and service chain. Build consumer trust with transparent provenance.",
+    "video": "https://www.youtube.com/embed/pnkiL9pAxMs",
+    "tags": ["enterprise", "logistics"]
+  },
+  {
+    "num": "12",
+    "emoji": "📚",
+    "title": "Community Sharing Items",
+    "desc": "QRs for lending libraries, shared tools, community gardens with lending and usage history. Track who has what and when it's due back.",
+    "video": "https://www.youtube.com/embed/dtNS1JtdxUc",
+    "tags": ["community", "personal"]
+  },
+  {
+    "num": "13",
+    "emoji": "💎",
+    "title": "Memory Vault for Heirlooms",
+    "desc": "Attach emotional stories, photos, and timelines to family jewels, watches, vintage items. Preserve the story behind every treasure.",
+    "video": "https://www.youtube.com/embed/ZZZ0hU0tL6Q",
+    "tags": ["personal", "memory"]
+  },
+  {
+    "num": "13A",
+    "emoji": "💎",
+    "title": "Memento – Memory-Linked Artifacts",
+    "desc": "A birthday gift, a school trophy, a souvenir from a distant land. Every memento holds a moment — now preserved forever via QR.",
+    "video": "https://www.youtube.com/embed/GyPDEuf7qCc",
+    "tags": ["personal", "memory"]
+  },
+  {
+    "num": "14",
+    "emoji": "🏗️",
+    "title": "Construction Equipment Tracking",
+    "desc": "Track cranes, excavators, mixers with rental history, damage notes, and safety inspection records via QR. Compliant documentation made easy.",
+    "video": "https://www.youtube.com/embed/pzGUs4I7kiM",
+    "tags": ["enterprise", "construction"]
+  },
+  {
+    "num": "15",
+    "emoji": "🍎",
+    "title": "Farm Produce Traceability",
+    "desc": "Link mango crates, wheat bags to farm origin, harvest dates, pesticide-free certifications. Farm-to-fork transparency at scale.",
+    "video": "https://www.youtube.com/embed/t79DWEHhtwc",
+    "tags": ["agriculture", "enterprise"]
+  },
+  {
+    "num": "16",
+    "emoji": "💼",
+    "title": "Digital Business Cards",
+    "desc": "Professionals attach QR to visiting cards linking to resumes, portfolios, and LinkedIn profiles. Never run out of business cards again.",
+    "video": "https://www.youtube.com/embed/ONa1uCHT1Oo",
+    "tags": ["personal", "professional"]
+  },
+  {
+    "num": "17",
+    "emoji": "🧵",
+    "title": "Authenticity Trail (Handcrafted Fashion)",
+    "desc": "Garments featuring regional embroidery, each with a QRTagAll code verifying its journey — with photos, geo-tags, and timestamps from artisan to customer.",
+    "video": "https://www.youtube.com/embed/iXra13gwWbE",
+    "tags": ["fashion", "enterprise", "authenticity"]
+  }
+]

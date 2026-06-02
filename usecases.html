@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Use Cases — QRTagAll</title>
-    <meta name="description" content="Explore 17+ real-world use cases for QRTagAll — from medical records to farm produce traceability, artworks to lost-and-found recovery.">
+    <meta name="description" content="Explore 17+ real-world use cases for QRTagAll — from medical records to farm produce, heirlooms to factory floors.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
             --r-sm: 8px; --r-md: 12px; --r-lg: 20px; --r-xl: 28px;
             --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
             --shadow-md: 0 4px 18px rgba(0,0,0,.10);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,.14);
+            --shadow-lg: 0 14px 44px rgba(0,0,0,.15);
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -46,132 +46,157 @@
         #mobileMenu a { display: block; font-size: .96rem; font-weight: 500; color: rgba(255,255,255,.8); padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
         #mobileMenu a:last-child { border-bottom: none; }
 
-        /* ---- Page hero ---- */
+        /* ---- Layout ---- */
         .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+        /* ---- Page hero ---- */
         .page-hero {
             background: linear-gradient(140deg, #0D1B2A, #0c2544);
-            padding: 80px 0 64px;
+            padding-top: calc(var(--nav-h) + 56px);
+            padding-bottom: 52px;
         }
         .section-tag {
             display: inline-flex; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
             color: var(--accent); background: rgba(0,204,136,.12); border: 1px solid rgba(0,204,136,.25);
             padding: 5px 14px; border-radius: 999px; margin-bottom: 14px;
         }
-        .page-hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; color: #fff; line-height: 1.18; }
-        .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,.65); margin-top: 12px; max-width: 540px; }
+        .page-hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; color: #fff; line-height: 1.18; margin-bottom: 12px; }
+        .page-hero p { font-size: 1.02rem; color: rgba(255,255,255,.65); max-width: 560px; line-height: 1.7; }
 
-        /* ---- Grid ---- */
-        .grid-section { padding: 60px 0 80px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
+        /* ---- Filter tags ---- */
+        .filter-bar { padding: 28px 0 0; }
+        .filter-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+        .pill {
+            font-size: .8rem; font-weight: 600; padding: 6px 16px; border-radius: 999px;
+            border: 1.5px solid var(--border); background: #fff; color: var(--text-2);
+            cursor: pointer; transition: all .18s;
+        }
+        .pill:hover { border-color: var(--primary); color: var(--primary); }
+        .pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-        .card {
+        /* ---- Horizontal scroll section ---- */
+        .scroll-section { padding: 32px 0 64px; }
+
+        .scroll-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+        .scroll-bar .count { font-size: .82rem; color: var(--text-3); font-weight: 500; }
+        .scroll-arrows { display: flex; gap: 8px; }
+        .scroll-arrow {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: #fff; border: 1.5px solid var(--border);
+            cursor: pointer; font-size: .95rem;
+            display: flex; align-items: center; justify-content: center;
+            transition: all .18s; box-shadow: var(--shadow-sm);
+        }
+        .scroll-arrow:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .scroll-outer {
             position: relative;
+        }
+        .scroll-outer::before, .scroll-outer::after {
+            content: ''; position: absolute; top: 0; bottom: 20px; width: 40px; z-index: 2; pointer-events: none;
+        }
+        .scroll-outer::before { left: 0;  background: linear-gradient(to right, var(--surface), transparent); }
+        .scroll-outer::after  { right: 0; background: linear-gradient(to left,  var(--surface), transparent); }
+
+        .uc-track {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 8px 4px 24px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--border);
+            cursor: grab;
+        }
+        .uc-track:active { cursor: grabbing; }
+        .uc-track::-webkit-scrollbar { height: 5px; }
+        .uc-track::-webkit-scrollbar-track { background: var(--border); border-radius: 3px; }
+        .uc-track::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* ---- Use case card ---- */
+        .uc-card {
+            flex-shrink: 0;
+            width: 310px;
+            scroll-snap-align: start;
             background: #fff;
-            border: 1px solid var(--border);
             border-radius: var(--r-xl);
-            padding: 26px 24px 22px;
+            border: 1px solid var(--border);
+            overflow: hidden;
             box-shadow: var(--shadow-sm);
-            transition: box-shadow .25s, transform .25s;
+            transition: box-shadow .22s, transform .22s;
             display: flex;
             flex-direction: column;
         }
-        .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+        .uc-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
-        .card-num {
-            position: absolute;
-            top: -12px; left: 18px;
-            width: 36px; height: 36px;
-            background: var(--dark);
-            color: #FFA500;
-            border-radius: 50%;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
-            font-size: .82rem;
+        .uc-card-head {
+            padding: 22px 22px 14px;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .uc-emoji {
+            width: 50px; height: 50px; border-radius: var(--r-md);
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,.25);
+            font-size: 1.65rem; flex-shrink: 0;
+            background: rgba(0,119,204,.08);
+        }
+        .uc-num { font-size: .66rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; }
+        .uc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: .96rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+
+        .uc-card-body { padding: 0 22px 20px; flex: 1; display: flex; flex-direction: column; }
+        .uc-desc { font-size: .86rem; color: var(--text-2); line-height: 1.62; flex: 1; }
+
+        .uc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+        .uc-tag {
+            font-size: .7rem; font-weight: 600; padding: 3px 9px;
+            border-radius: 999px; border: 1px solid var(--border);
+            color: var(--text-3); background: var(--surface);
+            text-transform: capitalize;
         }
 
-        .card h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.02rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 10px;
-            margin-top: 6px;
+        .uc-demo {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 14px; font-size: .78rem; font-weight: 600;
+            color: var(--primary); background: rgba(0,119,204,.07);
+            border: 1px solid rgba(0,119,204,.18);
+            padding: 6px 12px; border-radius: var(--r-sm);
+            cursor: pointer; transition: background .18s;
+            align-self: flex-start; user-select: none;
         }
+        .uc-demo:hover { background: rgba(0,119,204,.14); }
 
-        .card p {
-            font-size: .88rem;
-            color: var(--text-2);
-            line-height: 1.62;
-            flex: 1;
-        }
+        /* ---- No results ---- */
+        .empty-msg { padding: 48px 24px; text-align: center; color: var(--text-3); font-size: .95rem; }
 
-        .demo-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 16px;
-            font-size: .82rem;
-            font-weight: 600;
-            color: var(--primary);
-            background: rgba(0,119,204,.07);
-            border: 1px solid rgba(0,119,204,.2);
-            padding: 7px 14px;
-            border-radius: var(--r-sm);
-            cursor: pointer;
-            transition: background .2s, border-color .2s;
-            align-self: flex-start;
+        /* ---- CTA strip ---- */
+        .cta-strip {
+            background: linear-gradient(135deg, var(--primary), #0a4a80);
+            border-radius: var(--r-xl); padding: 52px 40px; text-align: center; margin-bottom: 64px;
         }
-        .demo-btn:hover { background: rgba(0,119,204,.14); border-color: rgba(0,119,204,.35); }
+        .cta-strip h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .cta-strip p { font-size: .98rem; color: rgba(255,255,255,.72); margin-bottom: 26px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 600; padding: 13px 28px; border-radius: var(--r-sm); border: none; cursor: pointer; transition: all .2s; }
+        .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,204,136,.3); }
+        .btn-accent:hover { background: var(--accent-dk); transform: translateY(-1px); }
 
         /* ---- Video modal ---- */
         #videoModal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.78);
-            backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            padding: 20px;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,.78); backdrop-filter: blur(8px);
+            z-index: 3000; justify-content: center; align-items: center; padding: 20px;
         }
         #videoModalContent {
-            background: #000;
-            border-radius: var(--r-xl);
-            overflow: hidden;
-            width: 100%;
-            max-width: 800px;
-            position: relative;
+            background: #000; border-radius: var(--r-xl); overflow: hidden;
+            width: 100%; max-width: 800px; position: relative;
             box-shadow: 0 32px 80px rgba(0,0,0,.6);
         }
         #videoModalContent iframe { display: block; width: 100%; height: 450px; border: none; }
         #videoModalClose {
-            position: absolute;
-            top: 12px; right: 16px;
-            font-size: 28px;
-            color: rgba(255,255,255,.8);
-            cursor: pointer;
-            line-height: 1;
-            transition: color .2s;
-            z-index: 10;
+            position: absolute; top: 12px; right: 16px; font-size: 26px;
+            color: rgba(255,255,255,.8); cursor: pointer; line-height: 1;
+            transition: color .2s; z-index: 10;
         }
         #videoModalClose:hover { color: #fff; }
-
-        /* ---- CTA ---- */
-        .cta-strip {
-            background: linear-gradient(135deg, var(--primary), #0a4a80);
-            border-radius: var(--r-xl);
-            padding: 48px 40px;
-            text-align: center;
-            margin: 0 0 60px;
-        }
-        .cta-strip h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; color: #fff; margin-bottom: 12px; }
-        .cta-strip p { font-size: .98rem; color: rgba(255,255,255,.72); margin-bottom: 24px; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 600; padding: 13px 28px; border-radius: var(--r-sm); border: none; cursor: pointer; transition: all .2s; }
-        .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(0,204,136,.3); }
-        .btn-accent:hover { background: var(--accent-dk); transform: translateY(-1px); }
 
         /* ---- Footer ---- */
         footer { background: var(--dark); color: rgba(255,255,255,.5); padding: 32px 0; text-align: center; }
@@ -184,7 +209,8 @@
         @media (max-width: 640px) {
             .nav-links { display: none; } .nav-back { display: none; } #navToggle { display: flex; }
             #videoModalContent iframe { height: 240px; }
-            .cta-strip { padding: 36px 24px; }
+            .cta-strip { padding: 36px 22px; }
+            .uc-card { width: 272px; }
         }
     </style>
 </head>
@@ -211,159 +237,50 @@
     <a href="/contact.html">Contact</a>
 </div>
 
+<!-- Hero -->
 <section class="page-hero">
     <div class="container">
         <div class="section-tag">Use Cases</div>
         <h1>Explore QRTagAll in<br>the Real World</h1>
-        <p>From medical records to mementos, farm produce to factory floors — see how QRTagAll transforms the way we tag, track, and share information about physical things.</p>
+        <p>From medical records to farm produce, heirlooms to factory floors — see how QRTagAll transforms how we tag, track, and share information about physical things.</p>
     </div>
 </section>
 
-<div class="grid-section">
+<!-- Filter bar -->
+<div class="filter-bar">
     <div class="container">
-        <div class="grid">
+        <div class="filter-pills" id="filterPills">
+            <span class="pill active" data-tag="all">All</span>
+            <!-- additional pills injected by JS -->
+        </div>
+    </div>
+</div>
 
-            <div class="card">
-                <div class="card-num">1</div>
-                <h3>🏥 Medical Records Organizer</h3>
-                <p>Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files. Instant access in any hospital, anytime.</p>
-                <span class="demo-btn" onclick="openVideo('https://www.youtube.com/embed/cvZmiNxrKL8')">▶ Watch Demo</span>
+<!-- Horizontal scroll -->
+<div class="scroll-section">
+    <div class="container">
+        <div class="scroll-bar">
+            <span class="count" id="countLabel">Loading…</span>
+            <div class="scroll-arrows">
+                <button class="scroll-arrow" onclick="shiftTrack(-1)" aria-label="Scroll left">&#8592;</button>
+                <button class="scroll-arrow" onclick="shiftTrack(1)"  aria-label="Scroll right">&#8594;</button>
             </div>
-
-            <div class="card">
-                <div class="card-num">2</div>
-                <h3>🛠️ Appliance Warranty &amp; Repair Logs</h3>
-                <p>Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable when you need them most.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/Jk7DMaCxTrA')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">3</div>
-                <h3>🎓 Educational Certificates Holder</h3>
-                <p>Students can link degrees, awards, training certifications under one smart QR identity — shareable with employers instantly.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/P4k1xdgnBkU')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">4</div>
-                <h3>🏡 House Ownership &amp; Repair History</h3>
-                <p>Blueprints, approvals, maintenance history — attach everything securely to your home's QR. Perfect for resale documentation.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/yVxisXYDKQg')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">5</div>
-                <h3>🚗 Vehicle History Recorder</h3>
-                <p>Cars, bikes, trucks — QR holds purchase, insurance, servicing, and resale trust details. Builds buyer confidence instantly.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/J--3-2BOihY')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">6</div>
-                <h3>🌳 Plant &amp; Tree Tagging</h3>
-                <p>Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks. Scan to know the story of a plant.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/OkvyDAPYAgU')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">6A</div>
-                <h3>🌱 Journey of a Little Plant in a Pot</h3>
-                <p>Expand the boundary of visibility of a plant in a pot and beyond. A living story told through a QR code.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/iu44XRrOwcE')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">7</div>
-                <h3>🖼️ Artworks &amp; Antiques Provenance</h3>
-                <p>Boost trust by storing ownership transfer, exhibition history, and restoration info under QR tags. Authentic, tamper-evident records.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/8IF6NV2YHNg')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">8</div>
-                <h3>🔧 Rental Equipment Tracking</h3>
-                <p>Manage rental history, damage reports, condition records of cameras, tools, bikes — all accessible via a single QR scan.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/Bi4-j-16M_8')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">9</div>
-                <h3>🎪 Event Management</h3>
-                <p>QRs at events for navigation, stall details, security protocols, visitor feedback links. Update info in real-time without reprinting.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/CpDEENmIVfk')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">10</div>
-                <h3>🎒 Lost &amp; Found Recovery</h3>
-                <p>Attach QR to bags, gadgets, pets — making owner info recoverable without exposing private contact details. Finder-friendly by design.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/T145-Qf0E8s')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">11</div>
-                <h3>📦 Supply Chain Authenticity</h3>
-                <p>Prove origin, transfers, repairs across manufacturer, retailer, and service chain. Build consumer trust with transparent provenance.</p>
-                <span class="demo-btn" onclick="openVideo('https://www.youtube.com/watch?v=pnkiL9pAxMs')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">12</div>
-                <h3>📚 Community Sharing Items</h3>
-                <p>QRs for lending libraries, shared tools, community gardens with lending and usage history. Track who has what and when it's due back.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/dtNS1JtdxUc')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">13</div>
-                <h3>💎 Memory Vault for Heirlooms</h3>
-                <p>Attach emotional stories, photos, and timelines to family jewels, watches, vintage items. Preserve the story behind every treasure.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/ZZZ0hU0tL6Q')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">13A</div>
-                <h3>💎 Memento – Memory-Linked Artifacts</h3>
-                <p>A birthday gift from a loved one, a trophy from school, a souvenir from a distant land. Every memento holds a moment — now preserved forever.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/GyPDEuf7qCc')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">14</div>
-                <h3>🏗️ Construction Equipment Tracking</h3>
-                <p>Track cranes, excavators, mixers with rental history, damage notes, and safety inspection records via QR. Compliant documentation made easy.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/pzGUs4I7kiM')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">15</div>
-                <h3>🍎 Farm Produce Traceability</h3>
-                <p>Link mango crates, wheat bags to farm origin, harvest dates, and pesticide-free certifications. Farm-to-fork transparency at scale.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/t79DWEHhtwc')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">16</div>
-                <h3>💼 Digital Business Cards</h3>
-                <p>Professionals attach QR to visiting cards linking to resumes, portfolios, LinkedIn profiles. Never run out of business cards again.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtu.be/ONa1uCHT1Oo')">▶ Watch Demo</span>
-            </div>
-
-            <div class="card">
-                <div class="card-num">17</div>
-                <h3>🧵 Authenticity Trail (Handcrafted Fashion)</h3>
-                <p>Garments featuring regional embroidery, each with a QRTagAll code verifying its journey — with info, photos, geo-tags, and timestamps from artisan to customer.</p>
-                <span class="demo-btn" onclick="openVideo('https://youtube.com/shorts/iXra13gwWbE')">▶ Watch Demo</span>
-            </div>
-
         </div>
 
-        <!-- CTA -->
-        <div class="cta-strip" style="margin-top:60px;">
-            <h2>Ready to tag your world?</h2>
-            <p>Generate your first QR identity in seconds — no account needed to start.</p>
-            <a href="https://qrtagall.com" class="btn btn-accent">Generate Your Free QR →</a>
+        <div class="scroll-outer">
+            <div class="uc-track" id="ucTrack">
+                <div style="padding:40px 24px; color:var(--text-3); font-size:.9rem;">Loading use cases…</div>
+            </div>
         </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="container">
+    <div class="cta-strip">
+        <h2>Ready to tag your world?</h2>
+        <p>Generate your first QR identity in seconds — no account needed to start.</p>
+        <a href="https://qrtagall.com" class="btn btn-accent">Generate Your Free QR →</a>
     </div>
 </div>
 
@@ -390,33 +307,128 @@
 </footer>
 
 <script>
-    const t = document.getElementById('navToggle');
-    const m = document.getElementById('mobileMenu');
-    t.addEventListener('click', () => { t.classList.toggle('open'); m.classList.toggle('open'); });
-    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { t.classList.remove('open'); m.classList.remove('open'); }));
+/* -------- mobile nav -------- */
+const nt = document.getElementById('navToggle');
+const nm = document.getElementById('mobileMenu');
+nt.addEventListener('click', () => { nt.classList.toggle('open'); nm.classList.toggle('open'); });
+document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { nt.classList.remove('open'); nm.classList.remove('open'); }));
 
-    function openVideo(url) {
-        if (!url || url.trim() === '' || url.includes('sample')) { alert('Video coming soon!'); return; }
-        if (url.includes('youtu.be/')) {
-            const id = url.split('youtu.be/')[1].split('?')[0];
-            url = `https://www.youtube.com/embed/${id}`;
-        } else if (url.includes('watch?v=')) {
-            const id = url.split('watch?v=')[1].split('&')[0];
-            url = `https://www.youtube.com/embed/${id}`;
-        } else if (url.includes('shorts/')) {
-            const id = url.split('shorts/')[1].split('?')[0];
-            url = `https://www.youtube.com/embed/${id}`;
-        }
-        document.getElementById('videoFrame').src = url + '?autoplay=1';
-        document.getElementById('videoModal').style.display = 'flex';
+/* -------- data + state -------- */
+let ALL_CASES = [];
+let activeTag  = 'all';
+
+/* -------- normalise YouTube URL to embed -------- */
+function toEmbed(url) {
+    if (!url) return null;
+    if (url.includes('youtu.be/'))  return 'https://www.youtube.com/embed/' + url.split('youtu.be/')[1].split('?')[0];
+    if (url.includes('watch?v='))   return 'https://www.youtube.com/embed/' + url.split('watch?v=')[1].split('&')[0];
+    if (url.includes('shorts/'))    return 'https://www.youtube.com/embed/' + url.split('shorts/')[1].split('?')[0];
+    return url;
+}
+
+/* -------- render cards -------- */
+function renderCards(data) {
+    const track = document.getElementById('ucTrack');
+    document.getElementById('countLabel').textContent = `${data.length} use case${data.length !== 1 ? 's' : ''}`;
+
+    if (!data.length) {
+        track.innerHTML = '<div class="empty-msg">No use cases found for this filter.</div>';
+        return;
     }
 
-    function closeVideo() {
-        document.getElementById('videoFrame').src = '';
-        document.getElementById('videoModal').style.display = 'none';
-    }
+    track.innerHTML = data.map(uc => {
+        const embed = toEmbed(uc.video);
+        const tagPills = (uc.tags || []).map(t => `<span class="uc-tag">${t}</span>`).join('');
+        return `
+        <div class="uc-card">
+            <div class="uc-card-head">
+                <div class="uc-emoji">${uc.emoji}</div>
+                <div>
+                    <div class="uc-num">#${uc.num}</div>
+                    <div class="uc-title">${uc.title}</div>
+                </div>
+            </div>
+            <div class="uc-card-body">
+                <p class="uc-desc">${uc.desc}</p>
+                <div class="uc-tags">${tagPills}</div>
+                ${embed ? `<span class="uc-demo" onclick="openVideo('${embed}')">▶ Watch Demo</span>` : ''}
+            </div>
+        </div>`;
+    }).join('');
 
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
+    /* reset scroll position on filter change */
+    track.scrollLeft = 0;
+}
+
+/* -------- build filter pills -------- */
+function buildFilters(data) {
+    const tags = new Set();
+    data.forEach(uc => (uc.tags || []).forEach(t => tags.add(t)));
+
+    const container = document.getElementById('filterPills');
+    tags.forEach(tag => {
+        const btn = document.createElement('span');
+        btn.className = 'pill';
+        btn.dataset.tag = tag;
+        btn.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+        btn.addEventListener('click', () => setFilter(tag));
+        container.appendChild(btn);
+    });
+}
+
+function setFilter(tag) {
+    activeTag = tag;
+    document.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p.dataset.tag === tag));
+    const filtered = tag === 'all' ? ALL_CASES : ALL_CASES.filter(uc => (uc.tags || []).includes(tag));
+    renderCards(filtered);
+}
+
+/* -------- fetch data -------- */
+async function loadData() {
+    try {
+        const res  = await fetch('data/usecases.json');
+        ALL_CASES  = await res.json();
+        buildFilters(ALL_CASES);
+        renderCards(ALL_CASES);
+    } catch (e) {
+        document.getElementById('ucTrack').innerHTML = '<div class="empty-msg">Could not load use cases.</div>';
+        console.error(e);
+    }
+}
+loadData();
+
+/* -------- scroll arrows -------- */
+function shiftTrack(dir) {
+    const track = document.getElementById('ucTrack');
+    const card  = track.querySelector('.uc-card');
+    const step  = card ? card.offsetWidth + 18 : 330;
+    track.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
+}
+
+/* -------- drag-to-scroll -------- */
+(function() {
+    const el = document.getElementById('ucTrack');
+    let isDown = false, startX, scrollLeft;
+    el.addEventListener('mousedown',  e => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+    el.addEventListener('mouseleave', () => isDown = false);
+    el.addEventListener('mouseup',    () => isDown = false);
+    el.addEventListener('mousemove',  e => {
+        if (!isDown) return;
+        e.preventDefault();
+        el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
+    });
+})();
+
+/* -------- video modal -------- */
+function openVideo(url) {
+    document.getElementById('videoFrame').src = url + '?autoplay=1';
+    document.getElementById('videoModal').style.display = 'flex';
+}
+function closeVideo() {
+    document.getElementById('videoFrame').src = '';
+    document.getElementById('videoModal').style.display = 'none';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 </script>
 </body>
 </html>

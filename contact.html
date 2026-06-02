@@ -57,24 +57,37 @@
         .page-hero p { font-size: 1rem; color: rgba(255,255,255,.65); margin-top: 10px; }
 
         .content-wrap { background: #fff; padding: 60px 0 80px; }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-        .contact-info h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
-        .contact-info p { font-size: .94rem; color: var(--text-2); line-height: 1.72; margin-bottom: 20px; }
-        .c-link { display: flex; align-items: center; gap: 10px; font-size: .9rem; font-weight: 500; color: var(--primary); margin-bottom: 12px; transition: opacity .2s; }
-        .c-link:hover { opacity: .75; }
-
-        .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 30px 28px; }
-        .fg { margin-bottom: 16px; }
-        .fg label { display: block; font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: 7px; }
-        .fg input, .fg textarea, .fg select {
-            width: 100%; padding: 11px 14px; font-family: 'Inter', sans-serif; font-size: .92rem; color: var(--text);
-            background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-sm); outline: none; transition: border-color .2s, box-shadow .2s;
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            max-width: 860px;
+            margin: 0 auto;
         }
-        .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,119,204,.1); }
-        .fg textarea { height: 110px; resize: vertical; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 600; padding: 13px 28px; border-radius: var(--r-sm); border: none; cursor: pointer; transition: all .2s; }
-        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 14px rgba(0,119,204,.3); }
-        .btn-primary:hover { background: #005fa3; transform: translateY(-1px); }
+        .contact-chip-big {
+            display: flex; align-items: center; gap: 16px;
+            background: var(--surface); border: 1.5px solid var(--border);
+            border-radius: var(--r-lg); padding: 22px 24px;
+            text-decoration: none;
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+        .contact-chip-big:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 18px rgba(0,119,204,.12);
+            transform: translateY(-2px);
+        }
+        .cc-icon { font-size: 1.8rem; flex-shrink: 0; }
+        .cc-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--text-3); margin-bottom: 3px; }
+        .cc-value { font-size: .96rem; font-weight: 600; color: var(--primary); }
+
+        .contact-note {
+            text-align: center;
+            max-width: 480px;
+            margin: 28px auto 0;
+            font-size: .88rem;
+            color: var(--text-3);
+            line-height: 1.65;
+        }
 
         footer { background: var(--dark); color: rgba(255,255,255,.5); padding: 32px 0; text-align: center; }
         footer .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: 800; color: #FFA500; margin-bottom: 10px; }
@@ -122,43 +135,37 @@
 
 <div class="content-wrap">
     <div class="container">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h2>Let's talk</h2>
-                <p>Whether you're an individual looking to tag your first object or an enterprise ready to deploy QR identity at scale — we're here to help.</p>
-                <a href="mailto:qrtagall@gmail.com" class="c-link">📧 qrtagall@gmail.com</a>
-                <a href="https://api.whatsapp.com/send?text=Hi, I have a question about QRTagAll: https://qrtagall.com" target="_blank" class="c-link">📱 Chat on WhatsApp</a>
-                <a href="/about.html" class="c-link">ℹ️ About QRTagAll</a>
-                <a href="/privacy.html" class="c-link">🔒 Privacy Policy</a>
-                <a href="/terms.html" class="c-link">📄 Terms of Service</a>
-            </div>
-
-            <div class="form-card">
-                <div class="fg">
-                    <label for="cf-name">Your Name</label>
-                    <input id="cf-name" type="text" placeholder="Jane Smith" />
+        <div class="contact-cards">
+            <a href="mailto:qrtagall@gmail.com" class="contact-chip-big">
+                <span class="cc-icon">📧</span>
+                <div>
+                    <div class="cc-label">Email us</div>
+                    <div class="cc-value">qrtagall@gmail.com</div>
                 </div>
-                <div class="fg">
-                    <label for="cf-email">Email Address</label>
-                    <input id="cf-email" type="email" placeholder="jane@example.com" />
+            </a>
+            <a href="https://api.whatsapp.com/send?text=Hi, I have a question about QRTagAll: https://qrtagall.com" target="_blank" class="contact-chip-big">
+                <span class="cc-icon">📱</span>
+                <div>
+                    <div class="cc-label">WhatsApp</div>
+                    <div class="cc-value">Chat with us</div>
                 </div>
-                <div class="fg">
-                    <label for="cf-type">Inquiry Type</label>
-                    <select id="cf-type">
-                        <option>General Question</option>
-                        <option>Enterprise Inquiry</option>
-                        <option>Bug Report</option>
-                        <option>Partnership</option>
-                        <option>Other</option>
-                    </select>
+            </a>
+            <a href="/about.html" class="contact-chip-big">
+                <span class="cc-icon">ℹ️</span>
+                <div>
+                    <div class="cc-label">About</div>
+                    <div class="cc-value">Our story &amp; mission</div>
                 </div>
-                <div class="fg">
-                    <label for="cf-msg">Message</label>
-                    <textarea id="cf-msg" placeholder="Tell us how we can help..."></textarea>
+            </a>
+            <a href="/privacy.html" class="contact-chip-big">
+                <span class="cc-icon">🔒</span>
+                <div>
+                    <div class="cc-label">Privacy Policy</div>
+                    <div class="cc-value">How we use your data</div>
                 </div>
-                <button class="btn btn-primary" id="cfSubmit">Send Message</button>
-            </div>
+            </a>
         </div>
+        <p class="contact-note">We typically respond within 24–48 hours. For urgent matters, WhatsApp is the fastest way to reach us.</p>
     </div>
 </div>
 
@@ -181,15 +188,6 @@
     t.addEventListener('click', () => { t.classList.toggle('open'); m.classList.toggle('open'); });
     document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { t.classList.remove('open'); m.classList.remove('open'); }));
 
-    document.getElementById('cfSubmit').addEventListener('click', () => {
-        const name  = document.getElementById('cf-name').value.trim();
-        const email = document.getElementById('cf-email').value.trim();
-        const type  = document.getElementById('cf-type').value;
-        const msg   = document.getElementById('cf-msg').value.trim();
-        if (!name || !msg) { alert('Please enter your name and message.'); return; }
-        const text = `QRTagAll Enquiry\nFrom: ${name} (${email || 'no email'})\nType: ${type}\n\n${msg}`;
-        window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
-    });
 </script>
 </body>
 </html>
