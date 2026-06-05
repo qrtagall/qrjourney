@@ -166,6 +166,21 @@
         }
         .nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
         .nav-cta { display: flex; align-items: center; gap: 10px; }
+        .nav-cta .btn {
+            min-height: 36px;
+            min-width: 148px;
+            padding: 0 18px;
+            font-size: .85rem;
+            line-height: 1.25;
+            border-width: 1px;
+            border-style: solid;
+            box-sizing: border-box;
+            text-decoration: none;
+            justify-content: center;
+        }
+        .nav-cta .btn-accent { border-color: var(--primary); }
+        .nav-cta .btn-ghost  { border-color: rgba(255,255,255,.22); }
+        .nav-cta button.btn { appearance: none; -webkit-appearance: none; font-family: inherit; }
 
         /* Hamburger */
         #navToggle {
@@ -214,7 +229,20 @@
         #mobileMenu a:last-of-type { border-bottom: none; }
         #mobileMenu a:hover { color: #fff; }
         .mob-cta { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-        .mob-cta .btn { width: 100%; justify-content: center; }
+        .mob-cta .btn {
+            width: 100%;
+            min-height: 44px;
+            padding: 0 18px;
+            justify-content: center;
+            border-width: 1px;
+            border-style: solid;
+            box-sizing: border-box;
+            text-decoration: none;
+            line-height: 1.25;
+        }
+        .mob-cta .btn-accent { border-color: var(--primary); }
+        .mob-cta .btn-ghost  { border-color: rgba(255,255,255,.22); }
+        .mob-cta button.btn { appearance: none; -webkit-appearance: none; font-family: inherit; }
 
         /* ===== HERO ===== */
         #hero {
