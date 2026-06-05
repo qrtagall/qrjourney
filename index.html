@@ -213,7 +213,8 @@
         }
         #mobileMenu a:last-of-type { border-bottom: none; }
         #mobileMenu a:hover { color: #fff; }
-        #mobileMenu .btn { margin-top: 16px; width: 100%; justify-content: center; }
+        .mob-cta { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .mob-cta .btn { width: 100%; justify-content: center; }
 
         /* ===== HERO ===== */
         #hero {
@@ -797,10 +798,10 @@
             <li><a href="#howitworks">How It Works</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="https://process.qrtagall.com/userlogin.html" target="_blank" rel="noopener">User Dashboard</a></li>
         </ul>
 
         <div class="nav-cta">
+            <a href="https://process.qrtagall.com/userlogin.html" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">User Dashboard</a>
             <button class="btn btn-accent btn-sm" id="startBtn">Generate QR →</button>
         </div>
 
@@ -817,8 +818,10 @@
     <a href="#howitworks" class="mob-link">How It Works</a>
     <a href="#about"      class="mob-link">About</a>
     <a href="#contact"    class="mob-link">Contact</a>
-    <a href="https://process.qrtagall.com/userlogin.html" target="_blank" rel="noopener" class="mob-link">User Dashboard</a>
-    <button class="btn btn-accent" id="startBtnMob">Generate Your QR →</button>
+    <div class="mob-cta">
+        <button class="btn btn-accent" id="startBtnMob">Generate Your QR →</button>
+        <a href="https://process.qrtagall.com/userlogin.html" target="_blank" rel="noopener" class="btn btn-ghost">User Dashboard</a>
+    </div>
 </div>
 
 <!-- ===============================================================
@@ -1075,15 +1078,6 @@
                 <div>
                     <div class="cc-label">About</div>
                     <div class="cc-value">Our story &amp; mission</div>
-                </div>
-            </a>
-            <a href="https://process.qrtagall.com/userlogin.html" target="_blank" rel="noopener" class="contact-chip-big">
-                <span class="cc-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                </span>
-                <div>
-                    <div class="cc-label">User Dashboard</div>
-                    <div class="cc-value">Sign in to manage your QRs</div>
                 </div>
             </a>
         </div>
