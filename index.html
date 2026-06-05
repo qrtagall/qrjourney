@@ -1325,9 +1325,30 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeUCVideo
 })();
 
 /* ================================================================
-   QR GENERATION — ALL ORIGINAL LOGIC PRESERVED
+   QR GENERATION
+   Origin guard: set enforceProxyOrigin false to disable (or ?noProxyOrigin=1).
+   Tests: ?testQrOrigin=1  or  QRTagAllOriginTest.testQrOriginGuard() in console
 ================================================================ */
-const proxyFrame = document.getElementById('proxyFrame');
+const QR_GEN_CONFIG = {
+    enforceProxyOrigin: true,
+    proxyOrigin: "https://proxy.qrtagall.com"
+};
+
+if (new URLSearchParams(location.search).has("noProxyOrigin")) {
+    QR_GEN_CONFIG.enforceProxyOrigin = false;
+    console.warn("[QRTagAll] Proxy origin check DISABLED (?noProxyOrigin=1)");
+}
+
+const proxyFrame = document.getElementById("proxyFrame");
+
+function isAllowedProxyMessage(event) {
+    if (!QR_GEN_CONFIG.enforceProxyOrigin) return true;
+    return event.origin === QR_GEN_CONFIG.proxyOrigin;
+}
+
+function getProxyPostMessageTarget() {
+    return QR_GEN_CONFIG.enforceProxyOrigin ? QR_GEN_CONFIG.proxyOrigin : "*";
+}
 
 function getReadableTimestamp() {
     const now  = new Date();
@@ -1340,16 +1361,92 @@ async function Generateid(timestamp) {
     const staticKey = "chandanmaity";
     return new Promise((resolve, reject) => {
         const handler = (event) => {
+            if (!isAllowedProxyMessage(event)) return;
             if (!event.data || (event.data.type !== "qr_generated" && event.data.type !== "qr_error")) return;
             window.removeEventListener("message", handler);
             if (event.data.type === "qr_generated") resolve(event.data.id);
             else reject(new Error(event.data.error));
         };
         window.addEventListener("message", handler);
+        if (!proxyFrame?.contentWindow) {
+            window.removeEventListener("message", handler);
+            reject(new Error("Proxy iframe not ready"));
+            return;
+        }
         proxyFrame.contentWindow.postMessage(
             { type: "generate", timestamp: timestamp, ccpubkey: staticKey },
-            "*"
+            getProxyPostMessageTarget()
         );
+    });
+}
+
+/* ---- Origin-guard tests (console or ?testQrOrigin=1) ---- */
+function testQrOriginGuard() {
+    const proxyOk = isAllowedProxyMessage({
+        origin: QR_GEN_CONFIG.proxyOrigin,
+        data: { type: "qr_generated" }
+    });
+    const evilBlocked = !isAllowedProxyMessage({
+        origin: "https://evil.example",
+        data: { type: "qr_generated" }
+    });
+    const samePageBlocked = QR_GEN_CONFIG.enforceProxyOrigin
+        ? !isAllowedProxyMessage({ origin: location.origin, data: { type: "qr_generated" } })
+        : true;
+
+    console.group("[QRTagAll] Origin guard — unit checks");
+    console.log("Config:", JSON.parse(JSON.stringify(QR_GEN_CONFIG)));
+    console.log(proxyOk ? "PASS" : "FAIL", "— proxy origin accepted");
+    console.log(evilBlocked ? "PASS" : "FAIL", "— evil origin rejected");
+    console.log(samePageBlocked ? "PASS" : "FAIL", "— same-page origin rejected (when enforced)");
+    console.groupEnd();
+    return proxyOk && evilBlocked && samePageBlocked;
+}
+
+async function testQrOriginSpoofDuringGenerate() {
+    const spoofId = "IN_SPOOF_TEST_00000000";
+    const ts = "IN_TEST_" + getReadableTimestamp();
+    console.group("[QRTagAll] Origin guard — live spoof test");
+    console.log("Starting real generate; injecting spoof postMessage from this page…");
+
+    const genPromise = Generateid(ts);
+    await new Promise(r => setTimeout(r, 80));
+    window.postMessage({ type: "qr_generated", id: spoofId }, "*");
+
+    try {
+        const id = await Promise.race([
+            genPromise,
+            new Promise((_, rej) => setTimeout(() => rej(new Error("Timed out waiting for proxy (15s)")), 15000))
+        ]);
+        const spoofRejected = id !== spoofId;
+        const looksReal = /^IN_\d+_[0-9a-f]{8}$/i.test(id);
+        console.log(spoofRejected ? "PASS" : "FAIL", "— spoof id not used; got:", id);
+        console.log(looksReal ? "PASS" : "WARN", "— id format looks like proxy output");
+        console.groupEnd();
+        return spoofRejected && looksReal;
+    } catch (err) {
+        console.error("FAIL —", err.message || err);
+        console.groupEnd();
+        return false;
+    }
+}
+
+window.QRTagAllOriginTest = {
+    config: QR_GEN_CONFIG,
+    isAllowedProxyMessage,
+    testQrOriginGuard,
+    testQrOriginSpoofDuringGenerate,
+    async runAll() {
+        const unit = testQrOriginGuard();
+        const live = await testQrOriginSpoofDuringGenerate();
+        console.log("[QRTagAll] Summary:", unit && live ? "ALL PASS" : "SOME FAILED");
+        return unit && live;
+    }
+};
+
+if (new URLSearchParams(location.search).has("testQrOrigin")) {
+    window.addEventListener("load", () => {
+        setTimeout(() => window.QRTagAllOriginTest.runAll(), 500);
     });
 }
 
