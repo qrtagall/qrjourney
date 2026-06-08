@@ -1329,6 +1329,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeUCVideo
    Origin guard: set enforceProxyOrigin false to disable (or ?noProxyOrigin=1).
    Tests: ?testQrOrigin=1  or  QRTagAllOriginTest.testQrOriginGuard() in console
 ================================================================ */
+/** Prefix for new QR IDs (must match IDConfig ID_PREFIX in MasterConfig, e.g. TMP → TMP_2026…). */
+const QR_ID_PREFIX = "TMP_";
+
 const QR_GEN_CONFIG = {
     enforceProxyOrigin: true,
     proxyOrigin: "https://proxy.qrtagall.com"
@@ -1405,7 +1408,7 @@ function testQrOriginGuard() {
 
 async function testQrOriginSpoofDuringGenerate() {
     const spoofId = "IN_SPOOF_TEST_00000000";
-    const ts = "IN_TEST_" + getReadableTimestamp();
+    const ts = QR_ID_PREFIX + "TEST_" + getReadableTimestamp();
     console.group("[QRTagAll] Origin guard — live spoof test");
     console.log("Starting real generate; injecting spoof postMessage from this page…");
 
@@ -1419,7 +1422,7 @@ async function testQrOriginSpoofDuringGenerate() {
             new Promise((_, rej) => setTimeout(() => rej(new Error("Timed out waiting for proxy (15s)")), 15000))
         ]);
         const spoofRejected = id !== spoofId;
-        const looksReal = /^IN_\d+_[0-9a-f]{8}$/i.test(id);
+        const looksReal = new RegExp("^" + QR_ID_PREFIX.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\d+_[0-9a-f]{8}$", "i").test(id);
         console.log(spoofRejected ? "PASS" : "FAIL", "— spoof id not used; got:", id);
         console.log(looksReal ? "PASS" : "WARN", "— id format looks like proxy output");
         console.groupEnd();
@@ -1451,7 +1454,7 @@ if (new URLSearchParams(location.search).has("testQrOrigin")) {
 }
 
 async function generateSecureQR() {
-    const timestamp = "IN_" + getReadableTimestamp();
+    const timestamp = QR_ID_PREFIX + getReadableTimestamp();
 
     document.getElementById("qrSpinner").style.display = "block";
     document.getElementById("popupQR").style.display = "none";
