@@ -906,7 +906,7 @@
                 <div class="qr-float-card">
                     <canvas id="heroQRDemo" width="180" height="180"></canvas>
                     <div class="qr-float-label">QRTagAll</div>
-                    <div class="qr-float-sub">Universal QR · Scan to Own</div>
+                    <div class="qr-float-sub">General QR · Scan to Own</div>
                 </div>
                 <div class="chip chip-1">Cryptographically Signed</div>
                 <div class="chip chip-2">Claimed &amp; Verified</div>
@@ -1165,7 +1165,7 @@
         <div id="qrPopupHeading"></div>
         <p id="qrIdLabel"></p>
 
-        <div id="qrSpinner" style="display:none;">⏳ Generating Universal QR...</div>
+        <div id="qrSpinner" style="display:none;">⏳ Generating General QR...</div>
 
         <div id="popupQR" style="display:none; text-align:center;">
             <canvas id="popupQRCanvas" style="display:block; margin:0 auto;"></canvas>
@@ -1173,7 +1173,7 @@
                  contenteditable="true"
                  onfocus="this.style.outline='1px dashed #ccc'"
                  onblur="this.style.outline='none'"
-            >Universal QR</div>
+            >General QR</div>
         </div>
 
         <p id="qrUrl" style="display:none; text-align:center;">
@@ -1462,7 +1462,7 @@ async function generateSecureQR() {
     document.getElementById("popupButtons").style.display = "none";
     document.getElementById("qrPopupHeading").style.display = "none";
     document.getElementById("qrIdLabel").style.display = "none";
-    document.getElementById("qrCaption").innerText = "Universal QR";
+    document.getElementById("qrCaption").innerText = "General QR";
 
     try {
         const id  = await Generateid(timestamp);
@@ -1485,7 +1485,7 @@ async function generateSecureQR() {
         alert("⚠️ QR generation error. Please try again.");
         closeModal();
     } finally {
-        document.getElementById("qrPopupHeading").innerText       = "🎉 Your Universal QR is ready!";
+        document.getElementById("qrPopupHeading").innerText       = "🎉 Your General QR is ready!";
         document.getElementById("qrPopupHeading").style.display   = "block";
         document.getElementById("qrSpinner").style.display        = "none";
         document.getElementById("popupQR").style.display          = "inline-block";
