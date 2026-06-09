@@ -375,7 +375,6 @@
             gap: 7px;
         }
         .chip-1 { top: -18px; right: -32px; animation: bob 3s ease-in-out infinite; }
-        .chip-2 { bottom: 16px; left: -44px; animation: bob 3s ease-in-out infinite .8s; }
         @keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
 
         /* ===== FEATURES ===== */
@@ -906,10 +905,9 @@
                 <div class="qr-float-card">
                     <canvas id="heroQRDemo" width="180" height="180"></canvas>
                     <div class="qr-float-label">QRTagAll</div>
-                    <div class="qr-float-sub">General QR · Scan to Own</div>
+                    <div class="qr-float-sub">Live asset · Scan to explore</div>
                 </div>
-                <div class="chip chip-1">Cryptographically Signed</div>
-                <div class="chip chip-2">Claimed &amp; Verified</div>
+                <div class="chip chip-1">Live Demo</div>
             </div>
         </div>
     </div>
@@ -1234,7 +1232,7 @@ window.addEventListener('load', () => {
     try {
         QRCode.toCanvas(
             document.getElementById('heroQRDemo'),
-            'https://qrtagall.com',
+            'https://process.qrtagall.com/?id=QRTAG_20260609040731552_C67042F8',
             { width: 180, margin: 1, color: { dark: '#0D1B2A', light: '#ffffff' } },
             () => {}
         );
