@@ -217,7 +217,7 @@
             border-bottom: 1px solid rgba(255,255,255,.08);
         }
         #mobileMenu.open { display: block; }
-        #mobileMenu a {
+        #mobileMenu .mob-link {
             display: block;
             font-size: .98rem;
             font-weight: 500;
@@ -226,14 +226,18 @@
             border-bottom: 1px solid rgba(255,255,255,.06);
             transition: color .2s;
         }
-        #mobileMenu a:last-of-type { border-bottom: none; }
-        #mobileMenu a:hover { color: #fff; }
-        .mob-cta { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-        .mob-cta .btn {
+        #mobileMenu .mob-link:last-of-type { border-bottom: none; }
+        #mobileMenu .mob-link:hover { color: #fff; }
+        .mob-cta { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+        #mobileMenu .mob-cta .btn,
+        #mobileMenu .mob-cta a.btn {
             width: 100%;
             min-height: 44px;
             padding: 0 18px;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            text-align: center;
             border-width: 1px;
             border-style: solid;
             box-sizing: border-box;
@@ -383,6 +387,38 @@
         }
         .chip-1 { top: -18px; right: -32px; animation: bob 3s ease-in-out infinite; }
         @keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+
+        /* Hero QR — mobile-only block (above Contact) */
+        .hero-qr-mobile {
+            display: none;
+            padding: 56px 0;
+            background: var(--surface);
+            text-align: center;
+        }
+        .hero-qr-mobile .hero-visual {
+            display: block;
+            margin: 0 auto;
+            width: max-content;
+        }
+        .hero-qr-mobile .qr-float-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            backdrop-filter: none;
+        }
+        .hero-qr-mobile .qr-float-label { color: var(--text-3); }
+        .hero-qr-mobile .qr-float-sub { color: var(--text-3); }
+        .hero-qr-mobile .chip-1 {
+            position: static;
+            display: inline-flex;
+            margin: 0 auto 14px;
+            animation: none;
+        }
+        .hero-qr-mobile-hint {
+            font-size: .9rem;
+            color: var(--text-2);
+            margin-bottom: 20px;
+        }
 
         /* ===== FEATURES ===== */
         #features { background: #fff; }
@@ -794,7 +830,8 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .hero-inner { grid-template-columns: 1fr; }
-            .hero-visual { display: none; }
+            #hero .hero-visual { display: none; }
+            .hero-qr-mobile { display: block; }
             .about-inner { grid-template-columns: 1fr; gap: 48px; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
             .contact-grid { grid-template-columns: 1fr; }
@@ -1086,6 +1123,25 @@
 </section>
 
 <!-- ===============================================================
+     LIVE DEMO QR (mobile only — above Contact)
+================================================================ -->
+<section id="live-demo-qr" class="hero-qr-mobile" aria-label="Live demo QR">
+    <div class="container">
+        <p class="hero-qr-mobile-hint fade-up">Tap the QR to open a live asset</p>
+        <div class="hero-visual fade-up">
+            <div class="chip chip-1">Live Demo</div>
+            <div class="qr-float-card">
+                <a id="heroQrLinkMobile" class="hero-qr-link" href="https://process.qrtagall.com/?id=QRTAG_20260609040731552_C67042F8" target="_blank" rel="noopener" aria-label="Open live demo asset in new tab">
+                    <canvas id="heroQRDemoMobile" width="180" height="180"></canvas>
+                </a>
+                <div class="qr-float-label">QRTagAll</div>
+                <div class="qr-float-sub">Live asset · Scan to explore</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===============================================================
      CONTACT
 ================================================================ -->
 <section id="contact" style="background:#fff; padding:80px 0;">
@@ -1239,16 +1295,23 @@ document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
 /* ---- Hero demo QR (clickable → process app) ---- */
 const HERO_DEMO_QR_URL = 'https://process.qrtagall.com/?id=QRTAG_20260609040731552_C67042F8';
 
+function initHeroDemoQr(canvasId, linkId) {
+    const link = linkId ? document.getElementById(linkId) : null;
+    if (link) link.href = HERO_DEMO_QR_URL;
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    QRCode.toCanvas(
+        canvas,
+        HERO_DEMO_QR_URL,
+        { width: 180, margin: 1, color: { dark: '#0D1B2A', light: '#ffffff' } },
+        err => { if (err) console.error(err); }
+    );
+}
+
 window.addEventListener('load', () => {
-    const heroLink = document.getElementById('heroQrLink');
-    if (heroLink) heroLink.href = HERO_DEMO_QR_URL;
     try {
-        QRCode.toCanvas(
-            document.getElementById('heroQRDemo'),
-            HERO_DEMO_QR_URL,
-            { width: 180, margin: 1, color: { dark: '#0D1B2A', light: '#ffffff' } },
-            () => {}
-        );
+        initHeroDemoQr('heroQRDemo', 'heroQrLink');
+        initHeroDemoQr('heroQRDemoMobile', 'heroQrLinkMobile');
     } catch (e) { /* non-critical */ }
 });
 
