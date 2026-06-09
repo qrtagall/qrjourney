@@ -544,6 +544,26 @@
         }
         .uc-demo:hover { background: rgba(0,119,204,.14); }
 
+        .uc-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .uc-qr-link {
+            display: block;
+            line-height: 0;
+            border-radius: var(--r-sm);
+            border: 1px solid var(--border);
+            padding: 4px;
+            background: #fff;
+            transition: box-shadow .2s, border-color .2s;
+            flex-shrink: 0;
+        }
+        .uc-qr-link:hover { box-shadow: var(--shadow-sm); border-color: rgba(0,119,204,.35); }
+        .uc-qr-canvas { display: block; width: 56px; height: 56px; }
+
         /* scroll nav arrows */
         .scroll-arrows {
             display: flex;
@@ -1316,8 +1336,13 @@ window.addEventListener('load', () => {
 });
 
 /* ---- Load use cases from JSON ---- */
+function hasUseCaseVideo(url) {
+    return typeof url === 'string' && url.trim() !== '';
+}
+
 function normaliseYouTubeEmbed(url) {
-    if (!url) return null;
+    if (!hasUseCaseVideo(url)) return null;
+    url = url.trim();
     if (url.includes('youtu.be/')) {
         const id = url.split('youtu.be/')[1].split('?')[0];
         return `https://www.youtube.com/embed/${id}`;
@@ -1333,6 +1358,18 @@ function normaliseYouTubeEmbed(url) {
     return url;
 }
 
+function drawUseCaseQrs(root) {
+    if (!window.QRCode) return;
+    (root || document).querySelectorAll('.uc-qr-canvas').forEach(canvas => {
+        const url = canvas.dataset.qrUrl;
+        if (!url) return;
+        QRCode.toCanvas(canvas, url, {
+            width: 56, margin: 1,
+            color: { dark: '#0D1B2A', light: '#ffffff' }
+        }, err => { if (err) console.error(err); });
+    });
+}
+
 async function loadUseCases() {
     const track = document.getElementById('ucTrack');
     try {
@@ -1340,6 +1377,15 @@ async function loadUseCases() {
         const data = await res.json();
         track.innerHTML = data.map(uc => {
             const embedUrl = normaliseYouTubeEmbed(uc.video);
+            const qrUrl = (uc.qr || '').trim();
+            const demoBtn = embedUrl
+                ? `<span class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</span>`
+                : '';
+            const qrBlock = qrUrl
+                ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
+                       <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
+                   </a>`
+                : '';
             return `
             <div class="uc-card">
                 <div class="uc-head">
@@ -1351,10 +1397,11 @@ async function loadUseCases() {
                 </div>
                 <div class="uc-body">
                     <p class="uc-desc">${uc.desc}</p>
-                    ${embedUrl ? `<span class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</span>` : ''}
+                    <div class="uc-actions">${qrBlock}${demoBtn}</div>
                 </div>
             </div>`;
         }).join('');
+        drawUseCaseQrs(track);
     } catch (e) {
         track.innerHTML = '<div style="padding:32px;color:var(--text-3);font-size:.9rem;">Could not load use cases.</div>';
         console.error('Failed to load usecases.json', e);
