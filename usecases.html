@@ -157,29 +157,32 @@
 
         .uc-demo {
             display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+            font-family: inherit;
             font-size: .76rem; font-weight: 600; line-height: 1;
             color: var(--primary); background: rgba(0,119,204,.07);
             border: 1px solid rgba(0,119,204,.2);
-            padding: 0 10px; min-height: 34px; border-radius: var(--r-sm);
+            padding: 0 10px; height: 34px; border-radius: var(--r-sm);
             cursor: pointer; transition: background .18s, border-color .18s;
             box-sizing: border-box; user-select: none;
             white-space: nowrap; flex-shrink: 0;
+            vertical-align: middle;
         }
         .uc-demo:hover { background: rgba(0,119,204,.14); border-color: rgba(0,119,204,.4); }
+        button.uc-demo { appearance: none; -webkit-appearance: none; margin: 0; }
 
         .uc-buy {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 5px;
-            font-size: .76rem;
+            font-size: .74rem;
             font-weight: 600;
             line-height: 1;
             color: #fff;
             background: var(--primary);
             border: 1px solid var(--primary);
-            padding: 0 10px;
-            min-height: 34px;
+            padding: 0 8px;
+            height: 34px;
             border-radius: var(--r-sm);
             text-decoration: none;
             transition: background .18s, border-color .18s;
@@ -193,7 +196,9 @@
         .uc-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            width: 100%;
+            gap: 8px;
             margin-top: 12px;
             flex-wrap: nowrap;
         }
@@ -380,7 +385,7 @@ function renderUseCaseBuyBtn(uc) {
     if (!isBuyEnabled(uc)) return '';
     const link = uc.BuyLink.trim();
     const safeTitle = String(uc.title || 'item').replace(/"/g, '&quot;');
-    return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy ${safeTitle}">Buy</a>`;
+    return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy QRTags for ${safeTitle}">Buy QRTags</a>`;
 }
 
 function toEmbed(url) {
@@ -407,7 +412,7 @@ function renderCards(data) {
         const qrUrl = (uc.qr || '').trim();
         const tagPills = (uc.tags || []).map(t => `<span class="uc-tag">${t}</span>`).join('');
         const demoBtn = embed
-            ? `<span class="uc-demo" onclick="openVideo('${embed}')">▶ Watch Demo</span>`
+            ? `<button type="button" class="uc-demo" onclick="openVideo('${embed}')">▶ Watch Demo</button>`
             : '';
         const buyBtn = renderUseCaseBuyBtn(uc);
         const qrBlock = qrUrl
