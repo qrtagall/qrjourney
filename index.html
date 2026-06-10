@@ -492,7 +492,7 @@
 
         .uc-card {
             flex-shrink: 0;
-            width: 300px;
+            width: 348px;
             scroll-snap-align: start;
             background: #fff;
             border-radius: var(--r-xl);
@@ -528,45 +528,49 @@
         .uc-demo {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             margin-top: 14px;
-            font-size: .78rem;
+            font-size: .76rem;
             font-weight: 600;
             color: var(--primary);
             background: rgba(0,119,204,.07);
             border: 1px solid rgba(0,119,204,.18);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: var(--r-sm);
             cursor: pointer;
             transition: background .2s;
             align-self: flex-start;
             user-select: none;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .uc-demo:hover { background: rgba(0,119,204,.14); }
 
         .uc-buy {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: .78rem;
+            gap: 5px;
+            font-size: .76rem;
             font-weight: 600;
             color: #fff;
             background: var(--primary);
             border: 1px solid var(--primary);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: var(--r-sm);
             text-decoration: none;
             transition: background .2s, border-color .2s;
             user-select: none;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .uc-buy:hover { background: var(--primary-dk); border-color: var(--primary-dk); }
 
         .uc-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             margin-top: 14px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
         .uc-actions .uc-demo,
         .uc-actions .uc-buy { margin-top: 0; }

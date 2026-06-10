@@ -118,7 +118,7 @@
         /* ---- Use case card ---- */
         .uc-card {
             flex-shrink: 0;
-            width: 310px;
+            width: 348px;
             scroll-snap-align: start;
             background: #fff;
             border-radius: var(--r-xl);
@@ -156,39 +156,42 @@
         }
 
         .uc-demo {
-            display: inline-flex; align-items: center; gap: 6px;
-            margin-top: 14px; font-size: .8rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 5px;
+            margin-top: 14px; font-size: .76rem; font-weight: 600;
             color: var(--primary); background: rgba(0,119,204,.07);
             border: 1.5px solid rgba(0,119,204,.2);
-            padding: 7px 14px; border-radius: var(--r-sm);
+            padding: 6px 10px; border-radius: var(--r-sm);
             cursor: pointer; transition: background .18s, border-color .18s;
             align-self: flex-start; user-select: none;
+            white-space: nowrap; flex-shrink: 0;
         }
         .uc-demo:hover { background: rgba(0,119,204,.14); border-color: rgba(0,119,204,.4); }
 
         .uc-buy {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: .8rem;
+            gap: 5px;
+            font-size: .76rem;
             font-weight: 600;
             color: #fff;
             background: var(--primary);
             border: 1.5px solid var(--primary);
-            padding: 7px 14px;
+            padding: 6px 10px;
             border-radius: var(--r-sm);
             text-decoration: none;
             transition: background .18s, border-color .18s;
             user-select: none;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .uc-buy:hover { background: #005fa3; border-color: #005fa3; }
 
         .uc-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             margin-top: 14px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
         .uc-qr-link {
             display: block;
@@ -250,7 +253,7 @@
             .nav-links { display: none; } .nav-back { display: none; } #navToggle { display: flex; }
             #videoModalContent iframe { height: 240px; }
             .cta-strip { padding: 36px 22px; }
-            .uc-card { width: 272px; }
+            .uc-card { width: 348px; }
         }
     </style>
 </head>
