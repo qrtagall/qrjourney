@@ -166,6 +166,23 @@
         }
         .uc-demo:hover { background: rgba(0,119,204,.14); border-color: rgba(0,119,204,.4); }
 
+        .uc-buy {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--primary);
+            border: 1.5px solid var(--primary);
+            padding: 7px 14px;
+            border-radius: var(--r-sm);
+            text-decoration: none;
+            transition: background .18s, border-color .18s;
+            user-select: none;
+        }
+        .uc-buy:hover { background: #005fa3; border-color: #005fa3; }
+
         .uc-actions {
             display: flex;
             align-items: center;
@@ -185,6 +202,8 @@
         }
         .uc-qr-link:hover { box-shadow: var(--shadow-sm); border-color: rgba(0,119,204,.35); }
         .uc-qr-canvas { display: block; width: 56px; height: 56px; }
+        .uc-actions .uc-demo,
+        .uc-actions .uc-buy { margin-top: 0; }
 
         /* ---- No results ---- */
         .empty-msg { padding: 48px 24px; text-align: center; color: var(--text-3); font-size: .95rem; }
@@ -343,6 +362,19 @@ function hasUseCaseVideo(url) {
     return typeof url === 'string' && url.trim() !== '';
 }
 
+function isBuyEnabled(uc) {
+    if (!uc || uc.EnableBuy !== true) return false;
+    const link = (uc.BuyLink || '').trim();
+    return link.length > 0 && /^https?:\/\//i.test(link);
+}
+
+function renderUseCaseBuyBtn(uc) {
+    if (!isBuyEnabled(uc)) return '';
+    const link = uc.BuyLink.trim();
+    const safeTitle = String(uc.title || 'item').replace(/"/g, '&quot;');
+    return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy ${safeTitle}">Buy</a>`;
+}
+
 function toEmbed(url) {
     if (!hasUseCaseVideo(url)) return null;
     url = url.trim();
@@ -369,6 +401,7 @@ function renderCards(data) {
         const demoBtn = embed
             ? `<span class="uc-demo" onclick="openVideo('${embed}')">▶ Watch Demo</span>`
             : '';
+        const buyBtn = renderUseCaseBuyBtn(uc);
         const qrBlock = qrUrl
             ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
                    <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
@@ -386,7 +419,7 @@ function renderCards(data) {
             <div class="uc-card-body">
                 <p class="uc-desc">${uc.desc}</p>
                 <div class="uc-tags">${tagPills}</div>
-                <div class="uc-actions">${qrBlock}${demoBtn}</div>
+                <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}</div>
             </div>
         </div>`;
     }).join('');

@@ -544,6 +544,23 @@
         }
         .uc-demo:hover { background: rgba(0,119,204,.14); }
 
+        .uc-buy {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 12px;
+            border-radius: var(--r-sm);
+            text-decoration: none;
+            transition: background .2s, border-color .2s;
+            user-select: none;
+        }
+        .uc-buy:hover { background: var(--primary-dk); border-color: var(--primary-dk); }
+
         .uc-actions {
             display: flex;
             align-items: center;
@@ -551,6 +568,8 @@
             margin-top: 14px;
             flex-wrap: wrap;
         }
+        .uc-actions .uc-demo,
+        .uc-actions .uc-buy { margin-top: 0; }
         .uc-qr-link {
             display: block;
             line-height: 0;
@@ -1340,6 +1359,19 @@ function hasUseCaseVideo(url) {
     return typeof url === 'string' && url.trim() !== '';
 }
 
+function isBuyEnabled(uc) {
+    if (!uc || uc.EnableBuy !== true) return false;
+    const link = (uc.BuyLink || '').trim();
+    return link.length > 0 && /^https?:\/\//i.test(link);
+}
+
+function renderUseCaseBuyBtn(uc) {
+    if (!isBuyEnabled(uc)) return '';
+    const link = uc.BuyLink.trim();
+    const safeTitle = String(uc.title || 'item').replace(/"/g, '&quot;');
+    return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy ${safeTitle}">Buy</a>`;
+}
+
 function normaliseYouTubeEmbed(url) {
     if (!hasUseCaseVideo(url)) return null;
     url = url.trim();
@@ -1381,6 +1413,7 @@ async function loadUseCases() {
             const demoBtn = embedUrl
                 ? `<span class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</span>`
                 : '';
+            const buyBtn = renderUseCaseBuyBtn(uc);
             const qrBlock = qrUrl
                 ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
                        <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
@@ -1397,7 +1430,7 @@ async function loadUseCases() {
                 </div>
                 <div class="uc-body">
                     <p class="uc-desc">${uc.desc}</p>
-                    <div class="uc-actions">${qrBlock}${demoBtn}</div>
+                    <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}</div>
                 </div>
             </div>`;
         }).join('');

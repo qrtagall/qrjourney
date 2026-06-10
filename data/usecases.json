@@ -6,7 +6,11 @@
     "desc": "Scan this QR — this is the product. No app needed. See how QRTagAll turns a sticker into a living digital identity with privacy controls, attachments, and owner-verified contact.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609040731552_C67042F8",
-    "tags": ["product"]
+    "tags": [
+      "product"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "1",
@@ -15,7 +19,12 @@
     "desc": "Each patient has a QR storing prescriptions, lab reports, scans — no more lost papers or files. Instant access in any hospital, anytime.",
     "video": "https://www.youtube.com/embed/cvZmiNxrKL8",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442481_B48D92A9",
-    "tags": ["healthcare", "personal"]
+    "tags": [
+      "healthcare",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "2",
@@ -24,7 +33,12 @@
     "desc": "Track fridge, AC, washing machine repairs, warranties, part replacements — easily retrievable when you need them most.",
     "video": "https://www.youtube.com/embed/Jk7DMaCxTrA",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442525_86CC370A",
-    "tags": ["personal", "home"]
+    "tags": [
+      "personal",
+      "home"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "3",
@@ -33,7 +47,12 @@
     "desc": "Students can link degrees, awards, training certifications under one smart QR identity — shareable with employers instantly.",
     "video": "https://www.youtube.com/embed/P4k1xdgnBkU",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442553_7238EF5D",
-    "tags": ["education", "personal"]
+    "tags": [
+      "education",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "4",
@@ -42,7 +61,12 @@
     "desc": "Blueprints, approvals, maintenance history — attach everything securely to your home's QR. Perfect for resale documentation.",
     "video": "https://www.youtube.com/embed/yVxisXYDKQg",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442581_4B1177A4",
-    "tags": ["home", "personal"]
+    "tags": [
+      "home",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "03",
@@ -51,7 +75,12 @@
     "desc": "Windshield QR for insurance, PUC, police, medical, and roadside help. Owner phone stays private — finders use Message Owner instead.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442609_C71854B8",
-    "tags": ["vehicle", "safety"]
+    "tags": [
+      "vehicle",
+      "safety"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "5",
@@ -60,7 +89,12 @@
     "desc": "Cars, bikes, trucks — QR holds purchase, insurance, servicing, and resale trust details. Builds buyer confidence instantly.",
     "video": "https://www.youtube.com/embed/J--3-2BOihY",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442636_F581BDC6",
-    "tags": ["vehicle", "personal"]
+    "tags": [
+      "vehicle",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "6",
@@ -69,7 +103,12 @@
     "desc": "Track species, planting date, fertilizer routine, care logs for farms, gardens, and botanic parks. Scan to know the full story of a plant.",
     "video": "https://www.youtube.com/embed/OkvyDAPYAgU",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442664_E2F3F89F",
-    "tags": ["agriculture", "personal"]
+    "tags": [
+      "agriculture",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "6A",
@@ -78,7 +117,12 @@
     "desc": "Expand the boundary of visibility of a plant in a pot and beyond. A living story told through a QR code.",
     "video": "https://www.youtube.com/embed/iu44XRrOwcE",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442692_CE20AD79",
-    "tags": ["agriculture", "personal"]
+    "tags": [
+      "agriculture",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "7",
@@ -87,7 +131,12 @@
     "desc": "Boost trust by storing ownership transfer, exhibition history, and restoration info under QR tags. Authentic, tamper-evident records.",
     "video": "https://www.youtube.com/embed/8IF6NV2YHNg",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442722_F150339F",
-    "tags": ["art", "enterprise"]
+    "tags": [
+      "art",
+      "enterprise"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "8",
@@ -96,7 +145,12 @@
     "desc": "Manage rental history, damage reports, and condition records of cameras, tools, bikes — all accessible via a single QR scan.",
     "video": "https://www.youtube.com/embed/Bi4-j-16M_8",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442751_7B939BF0",
-    "tags": ["enterprise", "rental"]
+    "tags": [
+      "enterprise",
+      "rental"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "9",
@@ -105,7 +159,12 @@
     "desc": "QRs at events for navigation, stall details, security protocols, visitor feedback links. Update info in real-time without reprinting.",
     "video": "https://www.youtube.com/embed/CpDEENmIVfk",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442779_17486586",
-    "tags": ["events", "enterprise"]
+    "tags": [
+      "events",
+      "enterprise"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "10",
@@ -114,7 +173,12 @@
     "desc": "Attach QR to bags, gadgets, pets — making owner info recoverable without exposing private contact details. Finder-friendly by design.",
     "video": "https://www.youtube.com/embed/T145-Qf0E8s",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442806_5741DD9F",
-    "tags": ["personal", "safety"]
+    "tags": [
+      "personal",
+      "safety"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "11",
@@ -123,7 +187,12 @@
     "desc": "Prove origin, transfers, and repairs across manufacturer, retailer, and service chain. Build consumer trust with transparent provenance.",
     "video": "https://www.youtube.com/embed/pnkiL9pAxMs",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442835_0DDF2119",
-    "tags": ["enterprise", "logistics"]
+    "tags": [
+      "enterprise",
+      "logistics"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "12",
@@ -132,7 +201,12 @@
     "desc": "QRs for lending libraries, shared tools, community gardens with lending and usage history. Track who has what and when it's due back.",
     "video": "https://www.youtube.com/embed/dtNS1JtdxUc",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442863_42FE0840",
-    "tags": ["community", "personal"]
+    "tags": [
+      "community",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "13",
@@ -141,7 +215,12 @@
     "desc": "Attach emotional stories, photos, and timelines to family jewels, watches, vintage items. Preserve the story behind every treasure.",
     "video": "https://www.youtube.com/embed/ZZZ0hU0tL6Q",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442890_3C1D22D4",
-    "tags": ["personal", "memory"]
+    "tags": [
+      "personal",
+      "memory"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "13A",
@@ -150,7 +229,12 @@
     "desc": "A birthday gift, a school trophy, a souvenir from a distant land. Every memento holds a moment — now preserved forever via QR.",
     "video": "https://www.youtube.com/embed/GyPDEuf7qCc",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442919_BB768452",
-    "tags": ["personal", "memory"]
+    "tags": [
+      "personal",
+      "memory"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "14",
@@ -159,7 +243,12 @@
     "desc": "Track cranes, excavators, mixers with rental history, damage notes, and safety inspection records via QR. Compliant documentation made easy.",
     "video": "https://www.youtube.com/embed/pzGUs4I7kiM",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442947_702AC005",
-    "tags": ["enterprise", "construction"]
+    "tags": [
+      "enterprise",
+      "construction"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "15",
@@ -168,7 +257,12 @@
     "desc": "Link mango crates, wheat bags to farm origin, harvest dates, pesticide-free certifications. Farm-to-fork transparency at scale.",
     "video": "https://www.youtube.com/embed/t79DWEHhtwc",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442976_F5137A37",
-    "tags": ["agriculture", "enterprise"]
+    "tags": [
+      "agriculture",
+      "enterprise"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "16",
@@ -177,7 +271,12 @@
     "desc": "Professionals attach QR to visiting cards linking to resumes, portfolios, and LinkedIn profiles. Never run out of business cards again.",
     "video": "https://www.youtube.com/embed/ONa1uCHT1Oo",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443005_A665D625",
-    "tags": ["personal", "professional"]
+    "tags": [
+      "personal",
+      "professional"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "17",
@@ -186,7 +285,13 @@
     "desc": "Garments featuring regional embroidery, each with a QRTagAll code verifying its journey — with photos, geo-tags, and timestamps from artisan to customer.",
     "video": "https://www.youtube.com/embed/iXra13gwWbE",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443033_EFBDF216",
-    "tags": ["fashion", "enterprise", "authenticity"]
+    "tags": [
+      "fashion",
+      "enterprise",
+      "authenticity"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "21",
@@ -195,7 +300,12 @@
     "desc": "Lost pet? Finder scans the collar QR and messages you — your phone number never appears on screen. Vet records and photo included.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443062_7A3D325F",
-    "tags": ["safety", "personal"]
+    "tags": [
+      "safety",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "22",
@@ -204,7 +314,12 @@
     "desc": "Extended exhibit label — full story, audio guide links, donor credit, and detail photos. Scan deeper than the wall plaque.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443089_5545F5AF",
-    "tags": ["art", "education"]
+    "tags": [
+      "art",
+      "education"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "23",
@@ -213,7 +328,12 @@
     "desc": "QR by the door for WiFi, house rules, appliance tips, and local recommendations. Update anytime without reprinting laminated sheets.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443117_DE9ABC37",
-    "tags": ["home", "hospitality"]
+    "tags": [
+      "home",
+      "hospitality"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "24",
@@ -222,7 +342,12 @@
     "desc": "Personal workshop tag for manuals, bit sets, and maintenance notes on your tools. Your shed, organised — one scan per drawer.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443147_68AAA5B0",
-    "tags": ["personal", "home"]
+    "tags": [
+      "personal",
+      "home"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "25",
@@ -231,7 +356,12 @@
     "desc": "Student ID QR with projects, awards, and achievements beyond a plastic card. Parent contact stays private — school uses Message Owner.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443176_13CEA272",
-    "tags": ["education", "personal"]
+    "tags": [
+      "education",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   },
   {
     "num": "26",
@@ -240,6 +370,11 @@
     "desc": "QR on the invite or album — photos, love story, event details, and a place for guests to share wishes and upload their own shots.",
     "video": "",
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443206_66AA9C08",
-    "tags": ["memory", "personal"]
+    "tags": [
+      "memory",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": false
   }
 ]
