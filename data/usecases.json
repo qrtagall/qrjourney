@@ -23,7 +23,7 @@
       "healthcare",
       "personal"
     ],
-    "BuyLink": "https://www.amazon.in",
+    "BuyLink": "",
     "EnableBuy": true
   },
   {
@@ -38,7 +38,7 @@
       "home"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "3",
@@ -52,7 +52,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "4",
@@ -66,7 +66,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "03",
@@ -80,7 +80,7 @@
       "safety"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "5",
@@ -94,7 +94,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "6",
@@ -108,7 +108,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "6A",
@@ -122,7 +122,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "7",
@@ -136,7 +136,7 @@
       "enterprise"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "8",
@@ -150,7 +150,7 @@
       "rental"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "9",
@@ -164,7 +164,7 @@
       "enterprise"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "10",
@@ -178,7 +178,7 @@
       "safety"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "11",
@@ -192,7 +192,7 @@
       "logistics"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "12",
@@ -206,7 +206,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "13",
@@ -220,7 +220,7 @@
       "memory"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "13A",
@@ -234,7 +234,7 @@
       "memory"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "14",
@@ -248,7 +248,7 @@
       "construction"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "15",
@@ -262,7 +262,7 @@
       "enterprise"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "16",
@@ -276,7 +276,7 @@
       "professional"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "17",
@@ -291,7 +291,7 @@
       "authenticity"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "21",
@@ -305,7 +305,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "22",
@@ -319,7 +319,7 @@
       "education"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "23",
@@ -333,7 +333,7 @@
       "hospitality"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "24",
@@ -347,7 +347,7 @@
       "home"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "25",
@@ -361,7 +361,7 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   },
   {
     "num": "26",
@@ -375,6 +375,6 @@
       "personal"
     ],
     "BuyLink": "",
-    "EnableBuy": false
+    "EnableBuy": true
   }
 ]

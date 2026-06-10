@@ -191,7 +191,12 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .uc-buy:hover { background: #005fa3; border-color: #005fa3; }
+        .uc-buy:hover:not(:disabled) { background: #005fa3; border-color: #005fa3; }
+        .uc-buy:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        button.uc-buy { appearance: none; -webkit-appearance: none; font-family: inherit; margin: 0; }
 
         .uc-actions {
             display: flex;
@@ -375,17 +380,23 @@ function hasUseCaseVideo(url) {
     return typeof url === 'string' && url.trim() !== '';
 }
 
-function isBuyEnabled(uc) {
-    if (!uc || uc.EnableBuy !== true) return false;
+function shouldShowBuyBtn(uc) {
+    return !!(uc && uc.EnableBuy === true);
+}
+
+function isBuyLinkValid(uc) {
     const link = (uc.BuyLink || '').trim();
     return link.length > 0 && /^https?:\/\//i.test(link);
 }
 
 function renderUseCaseBuyBtn(uc) {
-    if (!isBuyEnabled(uc)) return '';
-    const link = uc.BuyLink.trim();
+    if (!shouldShowBuyBtn(uc)) return '';
     const safeTitle = String(uc.title || 'item').replace(/"/g, '&quot;');
-    return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy QRTags for ${safeTitle}">Buy QRTags</a>`;
+    if (isBuyLinkValid(uc)) {
+        const link = uc.BuyLink.trim();
+        return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy QRTags for ${safeTitle}">Buy QRTags</a>`;
+    }
+    return `<button type="button" class="uc-buy" disabled aria-label="Buy QRTags — link not set yet">Buy QRTags</button>`;
 }
 
 function toEmbed(url) {
