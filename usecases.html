@@ -137,17 +137,24 @@
         }
         .uc-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
-        /* ---- Group A / B / C card tints ---- */
-        .uc-card.uc-group-a { background: #f4f9ff; border-color: #c5daf5; }
-        .uc-card.uc-group-b { background: #f2fbf6; border-color: #bfe9d4; }
-        .uc-card.uc-group-c { background: #fffaf3; border-color: #f5ddb8; }
-        .uc-card.uc-group-intro { background: #fff; border-color: var(--border); }
+        /* ---- Serial group card tints (1, 2, 3 … same shade per series) ---- */
+        .uc-card.uc-series-intro { background: #fff; border-color: var(--border); }
+        .uc-card.uc-series-1 { background: #f4f9ff; border-color: #c5daf5; }
+        .uc-card.uc-series-2 { background: #f2fbf6; border-color: #bfe9d4; }
+        .uc-card.uc-series-3 { background: #f0faf8; border-color: #b8e6de; }
+        .uc-card.uc-series-4 { background: #f7f4ff; border-color: #d4c9f5; }
+        .uc-card.uc-series-5 { background: #fffaf3; border-color: #f5ddb8; }
+        .uc-card.uc-series-6 { background: #fff5f8; border-color: #f5c2d4; }
+        .uc-card.uc-series-7 { background: #f6faf0; border-color: #d4e8b8; }
+        .uc-card.uc-series-1 .uc-emoji { background: rgba(0, 90, 180, 0.12); }
+        .uc-card.uc-series-2 .uc-emoji { background: rgba(0, 140, 90, 0.12); }
+        .uc-card.uc-series-3 .uc-emoji { background: rgba(0, 130, 120, 0.12); }
+        .uc-card.uc-series-4 .uc-emoji { background: rgba(90, 60, 180, 0.12); }
+        .uc-card.uc-series-5 .uc-emoji { background: rgba(200, 120, 0, 0.12); }
+        .uc-card.uc-series-6 .uc-emoji { background: rgba(180, 60, 100, 0.12); }
+        .uc-card.uc-series-7 .uc-emoji { background: rgba(80, 140, 40, 0.12); }
 
-        .uc-card.uc-group-a .uc-emoji { background: rgba(0, 90, 180, 0.12); }
-        .uc-card.uc-group-b .uc-emoji { background: rgba(0, 140, 90, 0.12); }
-        .uc-card.uc-group-c .uc-emoji { background: rgba(200, 120, 0, 0.12); }
-
-        .uc-group-divider {
+        .uc-series-divider {
             flex-shrink: 0;
             scroll-snap-align: start;
             width: 200px;
@@ -160,31 +167,39 @@
             border-radius: var(--r-xl);
             border: 2px dashed;
         }
-        .uc-group-divider-a { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
-        .uc-group-divider-b { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
-        .uc-group-divider-c { background: #fef3e4; border-color: #f0c987; color: #7a4f12; }
-        .uc-group-letter {
+        .uc-series-divider-1 { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
+        .uc-series-divider-2 { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
+        .uc-series-divider-3 { background: #e3f5f1; border-color: #7ecbbc; color: #1a5248; }
+        .uc-series-divider-4 { background: #ece8fc; border-color: #b9a8ef; color: #3d2a7a; }
+        .uc-series-divider-5 { background: #fef3e4; border-color: #f0c987; color: #7a4f12; }
+        .uc-series-divider-6 { background: #fce8ef; border-color: #e8a8c0; color: #7a2040; }
+        .uc-series-divider-7 { background: #edf5e3; border-color: #b8d490; color: #3d5c1a; }
+        .uc-series-num {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 2rem; font-weight: 800; line-height: 1;
-            margin-bottom: 10px; opacity: 0.85;
+            margin-bottom: 10px; opacity: 0.9;
         }
-        .uc-group-name {
+        .uc-series-name {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: .92rem; font-weight: 700; line-height: 1.25;
             margin-bottom: 6px;
         }
-        .uc-group-sub { font-size: .76rem; opacity: 0.82; line-height: 1.45; }
+        .uc-series-sub { font-size: .76rem; opacity: 0.82; line-height: 1.45; }
 
-        .uc-num-group {
+        .uc-num-badge {
             display: inline-block;
-            font-size: .62rem; font-weight: 800;
-            padding: 2px 7px; border-radius: 999px;
-            margin-right: 5px; vertical-align: middle;
+            font-size: .66rem; font-weight: 800;
+            padding: 2px 8px; border-radius: 999px;
             letter-spacing: .04em;
         }
-        .uc-num-group-a { background: #d6e8fb; color: #1a4a7a; }
-        .uc-num-group-b { background: #ccefe0; color: #1a5c40; }
-        .uc-num-group-c { background: #fde8c8; color: #7a4f12; }
+        .uc-num-badge.uc-series-num-1 { background: #d6e8fb; color: #1a4a7a; }
+        .uc-num-badge.uc-series-num-2 { background: #ccefe0; color: #1a5c40; }
+        .uc-num-badge.uc-series-num-3 { background: #c5ebe3; color: #1a5248; }
+        .uc-num-badge.uc-series-num-4 { background: #ddd0f7; color: #3d2a7a; }
+        .uc-num-badge.uc-series-num-5 { background: #fde8c8; color: #7a4f12; }
+        .uc-num-badge.uc-series-num-6 { background: #f9d4e3; color: #7a2040; }
+        .uc-num-badge.uc-series-num-7 { background: #dcebc4; color: #3d5c1a; }
+        .uc-num-badge.uc-num-sub { font-weight: 700; opacity: 0.92; }
         .uc-num-intro { font-size: .66rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; }
 
         .uc-card-head {
@@ -464,23 +479,37 @@ function toEmbed(url) {
     return url;
 }
 
-/* -------- group meta -------- */
-const GROUP_META = {
-    A: { title: 'Enterprise & Operations', sub: 'Sites, warehouses, fleets, supply chain' },
-    B: { title: 'Personal & Property', sub: 'Home, safety, vehicles, everyday assets' },
-    C: { title: 'Identity, Culture & Memory', sub: 'Credentials, craft, stories, events' },
+/* -------- serial series meta (1, 1a, 2, 3, 3a …) -------- */
+const SERIES_META = {
+    '1': { title: 'Enterprise & Operations', sub: 'Sites, warehouses, fleets, supply chain' },
+    '2': { title: 'Safety & Emergency', sub: 'Medical ID, vehicles, lost items, pets' },
+    '3': { title: 'Home & Property', sub: 'Appliances, house, tools, sharing' },
+    '4': { title: 'Education & Professional', sub: 'Certificates, student ID, business card' },
+    '5': { title: 'Craft, Art & Culture', sub: 'Fashion, provenance, museums' },
+    '6': { title: 'Memory & Celebrations', sub: 'Heirlooms, weddings, events' },
+    '7': { title: 'Plants & Nature', sub: 'Trees, nursery care, pot journeys' },
 };
+
+function seriesBase(num) {
+    if (!num) return '';
+    const m = String(num).match(/^(\d+)/);
+    return m ? m[1] : '';
+}
+
+function isSeriesHead(num) {
+    return !!num && /^\d+$/.test(String(num));
+}
+
+function seriesClass(uc) {
+    if (!uc.series) return ' uc-series-intro';
+    return ` uc-series-${uc.series}`;
+}
 
 function numLabel(uc) {
     if (!uc.num) return '<span class="uc-num-intro">Intro</span>';
-    const g = (uc.group || '').toLowerCase();
-    if (g) return `<span class="uc-num-group uc-num-group-${g}">${uc.num}</span>`;
-    return uc.num;
-}
-
-function groupClass(uc) {
-    const g = (uc.group || '').toLowerCase();
-    return g ? ` uc-group-${g}` : ' uc-group-intro';
+    const base = seriesBase(uc.num);
+    const sub = /^\d+[a-z]/i.test(uc.num) ? ' uc-num-sub' : '';
+    return `<span class="uc-num-badge uc-series-num-${base}${sub}">${uc.num}</span>`;
 }
 
 function cardHtml(uc) {
@@ -498,7 +527,7 @@ function cardHtml(uc) {
         : '';
     const safeTitle = String(uc.title || '').replace(/"/g, '&quot;');
     return `
-    <div class="uc-card${groupClass(uc)}">
+    <div class="uc-card${seriesClass(uc)}">
         <div class="uc-card-head">
             <div class="uc-emoji">${uc.emoji}</div>
             <div>
@@ -516,18 +545,16 @@ function cardHtml(uc) {
 
 function trackHtml(data) {
     let html = '';
-    let lastGroup = null;
     data.forEach(uc => {
-        const g = uc.group || '';
-        if (g && g !== lastGroup) {
-            const meta = GROUP_META[g] || { title: uc.groupTitle || g, sub: '' };
+        if (isSeriesHead(uc.num)) {
+            const s = uc.series || seriesBase(uc.num);
+            const meta = SERIES_META[s] || { title: uc.seriesTitle || s, sub: '' };
             html += `
-            <div class="uc-group-divider uc-group-divider-${g.toLowerCase()}">
-                <span class="uc-group-letter">${g}</span>
-                <div class="uc-group-name">${meta.title}</div>
-                <div class="uc-group-sub">${meta.sub}</div>
+            <div class="uc-series-divider uc-series-divider-${s}">
+                <span class="uc-series-num">${uc.num}</span>
+                <div class="uc-series-name">${meta.title}</div>
+                <div class="uc-series-sub">${meta.sub}</div>
             </div>`;
-            lastGroup = g;
         }
         html += cardHtml(uc);
     });
