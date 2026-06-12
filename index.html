@@ -553,6 +553,22 @@
             margin-bottom: 6px;
         }
         .uc-series-sub { font-size: .76rem; opacity: 0.82; line-height: 1.45; }
+        .uc-series-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+            width: 100%;
+        }
+        .uc-series-tag {
+            font-size: .65rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.07);
+            text-transform: capitalize;
+            letter-spacing: 0.02em;
+        }
+        .uc-demo-needed { opacity: 0.55; cursor: not-allowed; }
         .uc-num-badge {
             display: inline-block;
             font-size: .66rem; font-weight: 800;
@@ -1497,24 +1513,30 @@ function drawUseCaseQrs(root) {
     });
 }
 
-const UC_SERIES_META = {
-    '1': { title: 'Safety & Emergency', sub: 'Medical ID, vehicles, lost items, pets' },
-    '2': { title: 'Craft, Art & Culture', sub: 'Fashion, provenance, museums' },
-    '3': { title: 'Education & Professional', sub: 'Certificates, student ID, business card' },
-    '4': { title: 'Memory & Celebrations', sub: 'Heirlooms, weddings, events' },
-    '5': { title: 'Plants & Nature', sub: 'Trees, nursery care, pot journeys' },
-    '6': { title: 'Home & Property', sub: 'Appliances, house, tools, sharing' },
-    '7': { title: 'Enterprise & Operations', sub: 'Sites, warehouses, fleets, supply chain' },
-};
+function getVideoUrl(uc) {
+    return (uc && (uc.videoUrl || uc.video || '')).trim();
+}
+
+function parseUseCasesPayload(raw) {
+    if (Array.isArray(raw)) return { version: 1, intro: raw.find(x => !x.num) || null, series: [] };
+    return raw;
+}
+
+function seriesDividerHtml(s) {
+    const tagPills = (s.tags || []).map(t => `<span class="uc-series-tag">${t}</span>`).join('');
+    return `
+            <div class="uc-series-divider uc-series-divider-${s.id}">
+                <span class="uc-series-num">${s.id}</span>
+                <div class="uc-series-name">${s.title}</div>
+                <div class="uc-series-sub">${s.subtitle || ''}</div>
+                ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
+            </div>`;
+}
 
 function ucSeriesBase(num) {
     if (!num) return '';
     const m = String(num).match(/^(\d+)/);
     return m ? m[1] : '';
-}
-
-function ucIsSeriesHead(num) {
-    return !!num && /^\d+-a$/.test(String(num));
 }
 
 function ucSeriesClass(uc) {
@@ -1530,11 +1552,11 @@ function ucNumLabel(uc) {
 }
 
 function ucCardHtml(uc) {
-    const embedUrl = normaliseYouTubeEmbed(uc.video);
+    const embedUrl = normaliseYouTubeEmbed(getVideoUrl(uc));
     const qrUrl = (uc.qr || '').trim();
     const demoBtn = embedUrl
         ? `<button type="button" class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</button>`
-        : '';
+        : (uc.needVideoUrl ? `<button type="button" class="uc-demo uc-demo-needed" disabled title="Demo video URL needed">▶ Demo needed</button>` : '');
     const buyBtn = renderUseCaseBuyBtn(uc);
     const qrBlock = qrUrl
         ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
@@ -1558,21 +1580,17 @@ function ucCardHtml(uc) {
     </div>`;
 }
 
-function ucTrackHtml(data) {
+function ucTrackHtml(payload) {
     let html = '';
-    data.forEach(uc => {
-        if (ucIsSeriesHead(uc.num)) {
-            const s = uc.series || ucSeriesBase(uc.num);
-            const meta = UC_SERIES_META[s] || { title: uc.seriesTitle || s, sub: '' };
-            html += `
-            <div class="uc-series-divider uc-series-divider-${s}">
-                <span class="uc-series-num">${s}</span>
-                <div class="uc-series-name">${meta.title}</div>
-                <div class="uc-series-sub">${meta.sub}</div>
-            </div>`;
+    if (payload.intro) {
+        html += ucCardHtml({ ...payload.intro, num: '' });
+    }
+    for (const s of payload.series || []) {
+        html += seriesDividerHtml(s);
+        for (const uc of s.useCases || []) {
+            html += ucCardHtml({ ...uc, series: s.id });
         }
-        html += ucCardHtml(uc);
-    });
+    }
     return html;
 }
 
@@ -1580,8 +1598,8 @@ async function loadUseCases() {
     const track = document.getElementById('ucTrack');
     try {
         const res  = await fetch('data/usecases.json');
-        const data = await res.json();
-        track.innerHTML = ucTrackHtml(data);
+        const payload = parseUseCasesPayload(await res.json());
+        track.innerHTML = ucTrackHtml(payload);
         drawUseCaseQrs(track);
     } catch (e) {
         track.innerHTML = '<div style="padding:32px;color:var(--text-3);font-size:.9rem;">Could not load use cases.</div>';

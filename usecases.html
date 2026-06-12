@@ -185,6 +185,22 @@
             margin-bottom: 6px;
         }
         .uc-series-sub { font-size: .76rem; opacity: 0.82; line-height: 1.45; }
+        .uc-series-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+            width: 100%;
+        }
+        .uc-series-tag {
+            font-size: .65rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.07);
+            text-transform: capitalize;
+            letter-spacing: 0.02em;
+        }
+        .uc-demo-needed { opacity: 0.55; cursor: not-allowed; }
 
         .uc-num-badge {
             display: inline-block;
@@ -443,8 +459,53 @@ nt.addEventListener('click', () => { nt.classList.toggle('open'); nm.classList.t
 document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => { nt.classList.remove('open'); nm.classList.remove('open'); }));
 
 /* -------- data + state -------- */
+let UC_PAYLOAD = null;
 let ALL_CASES = [];
 let activeTag  = 'all';
+
+function getVideoUrl(uc) {
+    return (uc && (uc.videoUrl || uc.video || '')).trim();
+}
+
+function parseUseCasesPayload(raw) {
+    if (Array.isArray(raw)) return { version: 1, intro: raw.find(x => !x.num) || null, series: [] };
+    return raw;
+}
+
+function flattenUseCases(payload) {
+    const flat = [];
+    if (payload.intro) {
+        flat.push({ ...payload.intro, num: '', series: null, isIntro: true });
+    }
+    for (const s of payload.series || []) {
+        for (const uc of s.useCases || []) {
+            flat.push({
+                ...uc,
+                series: s.id,
+                seriesTitle: s.title,
+                seriesSubtitle: s.subtitle,
+                seriesTags: s.tags || [],
+            });
+        }
+    }
+    return flat;
+}
+
+function matchesTagFilter(row, series, tag) {
+    if (tag === 'all') return true;
+    return (row.tags || []).includes(tag) || (series && (series.tags || []).includes(tag));
+}
+
+function seriesDividerHtml(s) {
+    const tagPills = (s.tags || []).map(t => `<span class="uc-series-tag">${t}</span>`).join('');
+    return `
+            <div class="uc-series-divider uc-series-divider-${s.id}">
+                <span class="uc-series-num">${s.id}</span>
+                <div class="uc-series-name">${s.title}</div>
+                <div class="uc-series-sub">${s.subtitle || ''}</div>
+                ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
+            </div>`;
+}
 
 /* -------- normalise YouTube URL to embed -------- */
 function hasUseCaseVideo(url) {
@@ -479,25 +540,10 @@ function toEmbed(url) {
     return url;
 }
 
-/* -------- serial series meta (main class 1–7; use cases 1-a, 1-b …) -------- */
-const SERIES_META = {
-    '1': { title: 'Safety & Emergency', sub: 'Medical ID, vehicles, lost items, pets' },
-    '2': { title: 'Craft, Art & Culture', sub: 'Fashion, provenance, museums' },
-    '3': { title: 'Education & Professional', sub: 'Certificates, student ID, business card' },
-    '4': { title: 'Memory & Celebrations', sub: 'Heirlooms, weddings, events' },
-    '5': { title: 'Plants & Nature', sub: 'Trees, nursery care, pot journeys' },
-    '6': { title: 'Home & Property', sub: 'Appliances, house, tools, sharing' },
-    '7': { title: 'Enterprise & Operations', sub: 'Sites, warehouses, fleets, supply chain' },
-};
-
 function seriesBase(num) {
     if (!num) return '';
     const m = String(num).match(/^(\d+)/);
     return m ? m[1] : '';
-}
-
-function isSeriesHead(num) {
-    return !!num && /^\d+-a$/.test(String(num));
 }
 
 function seriesClass(uc) {
@@ -513,12 +559,12 @@ function numLabel(uc) {
 }
 
 function cardHtml(uc) {
-    const embed = toEmbed(uc.video);
+    const embed = toEmbed(getVideoUrl(uc));
     const qrUrl = (uc.qr || '').trim();
     const tagPills = (uc.tags || []).map(t => `<span class="uc-tag">${t}</span>`).join('');
     const demoBtn = embed
         ? `<button type="button" class="uc-demo" onclick="openVideo('${embed}')">▶ Watch Demo</button>`
-        : '';
+        : (uc.needVideoUrl ? `<button type="button" class="uc-demo uc-demo-needed" disabled title="Demo video URL needed">▶ Demo needed</button>` : '');
     const buyBtn = renderUseCaseBuyBtn(uc);
     const qrBlock = qrUrl
         ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
@@ -543,35 +589,38 @@ function cardHtml(uc) {
     </div>`;
 }
 
-function trackHtml(data) {
+function trackHtml(payload, tag) {
     let html = '';
-    data.forEach(uc => {
-        if (isSeriesHead(uc.num)) {
-            const s = uc.series || seriesBase(uc.num);
-            const meta = SERIES_META[s] || { title: uc.seriesTitle || s, sub: '' };
-            html += `
-            <div class="uc-series-divider uc-series-divider-${s}">
-                <span class="uc-series-num">${s}</span>
-                <div class="uc-series-name">${meta.title}</div>
-                <div class="uc-series-sub">${meta.sub}</div>
-            </div>`;
+    const showIntro = tag === 'all' || (payload.intro && (payload.intro.tags || []).includes(tag));
+    if (payload.intro && showIntro) {
+        html += cardHtml({ ...payload.intro, num: '' });
+    }
+    for (const s of payload.series || []) {
+        const cases = (s.useCases || []).filter(uc => matchesTagFilter(uc, s, tag));
+        if (!cases.length) continue;
+        html += seriesDividerHtml(s);
+        for (const uc of cases) {
+            html += cardHtml({ ...uc, series: s.id });
         }
-        html += cardHtml(uc);
-    });
+    }
     return html;
 }
 
 /* -------- render cards -------- */
-function renderCards(data) {
+function renderCards(tag) {
     const track = document.getElementById('ucTrack');
-    document.getElementById('countLabel').textContent = `${data.length} use case${data.length !== 1 ? 's' : ''}`;
+    const flat = tag === 'all' ? ALL_CASES : ALL_CASES.filter(uc => {
+        if (uc.isIntro) return (uc.tags || []).includes(tag);
+        return (uc.tags || []).includes(tag) || (uc.seriesTags || []).includes(tag);
+    });
+    document.getElementById('countLabel').textContent = `${flat.length} use case${flat.length !== 1 ? 's' : ''}`;
 
-    if (!data.length) {
+    if (!flat.length) {
         track.innerHTML = '<div class="empty-msg">No use cases found for this filter.</div>';
         return;
     }
 
-    track.innerHTML = trackHtml(data);
+    track.innerHTML = trackHtml(UC_PAYLOAD, tag);
 
     drawUseCaseQrs(track);
 
@@ -592,9 +641,13 @@ function drawUseCaseQrs(root) {
 }
 
 /* -------- build filter pills -------- */
-function buildFilters(data) {
+function buildFilters(payload) {
     const tags = new Set();
-    data.forEach(uc => (uc.tags || []).forEach(t => tags.add(t)));
+    if (payload.intro) (payload.intro.tags || []).forEach(t => tags.add(t));
+    for (const s of payload.series || []) {
+        (s.tags || []).forEach(t => tags.add(t));
+        for (const uc of s.useCases || []) (uc.tags || []).forEach(t => tags.add(t));
+    }
 
     const container = document.getElementById('filterPills');
     tags.forEach(tag => {
@@ -610,17 +663,17 @@ function buildFilters(data) {
 function setFilter(tag) {
     activeTag = tag;
     document.querySelectorAll('.pill').forEach(p => p.classList.toggle('active', p.dataset.tag === tag));
-    const filtered = tag === 'all' ? ALL_CASES : ALL_CASES.filter(uc => (uc.tags || []).includes(tag));
-    renderCards(filtered);
+    renderCards(tag);
 }
 
 /* -------- fetch data -------- */
 async function loadData() {
     try {
         const res  = await fetch('data/usecases.json');
-        ALL_CASES  = await res.json();
-        buildFilters(ALL_CASES);
-        renderCards(ALL_CASES);
+        UC_PAYLOAD = parseUseCasesPayload(await res.json());
+        ALL_CASES  = flattenUseCases(UC_PAYLOAD);
+        buildFilters(UC_PAYLOAD);
+        renderCards('all');
     } catch (e) {
         document.getElementById('ucTrack').innerHTML = '<div class="empty-msg">Could not load use cases.</div>';
         console.error(e);
