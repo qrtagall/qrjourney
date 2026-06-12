@@ -1,5 +1,6 @@
 [
   {
+    "group": "",
     "num": "",
     "emoji": "🏷️",
     "title": "QRTagAll Product Tour",
@@ -13,288 +14,9 @@
     "EnableBuy": false
   },
   {
-    "num": "1",
-    "emoji": "🏥",
-    "title": "Medical Records Organizer",
-    "desc": "Health information is usually scattered — wallet cards, hospital folders, WhatsApp PDFs, insurer apps. QRTagAll attaches one QR to a physical anchor (wallet card, sticker, medical ID) and links it to a structured sheet: emergency facts...",
-    "video": "https://www.youtube.com/embed/cvZmiNxrKL8",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442481_B48D92A9",
-    "tags": [
-      "healthcare",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "2",
-    "emoji": "🛠️",
-    "title": "Appliance Warranty & Repair",
-    "desc": "Appliances outlive their paperwork — invoices fade, manuals get lost, warranty dates live in email threads. QRTagAll sticks one QR on the product or install location (door frame, back panel, utility closet) and links to a living sheet:...",
-    "video": "https://www.youtube.com/embed/Jk7DMaCxTrA",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442525_86CC370A",
-    "tags": [
-      "personal",
-      "home"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "3",
-    "emoji": "🎓",
-    "title": "Educational Certificates",
-    "desc": "Degrees, marksheets, and certificates pile up in folders and lose relevance the moment someone needs a quick proof. QRTagAll turns a resume sticker, ID lanyard, or portfolio cover into a credential wallet: public VIEW artifacts for...",
-    "video": "https://www.youtube.com/embed/P4k1xdgnBkU",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442553_7238EF5D",
-    "tags": [
-      "education",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "4",
-    "emoji": "🏡",
-    "title": "House Ownership & Repair",
-    "desc": "Property paperwork spans decades — sale deeds, society shares, tax receipts, renovation logs, tenant leases. QRTagAll on a kitchen counter or meter cupboard gives buyers and contractors one scan for transparent maintenance history while...",
-    "video": "https://www.youtube.com/embed/yVxisXYDKQg",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442581_4B1177A4",
-    "tags": [
-      "home",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "03",
-    "emoji": "🚗",
-    "title": "Vehicle Emergency Sticker",
-    "desc": "In a roadside crisis, strangers need vehicle identity, insurance validity, and medical hints — not the owner's private mobile on a public sticker.",
-    "video": "",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442609_C71854B8",
-    "tags": [
-      "vehicle",
-      "safety"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "5",
-    "emoji": "🚗",
-    "title": "Vehicle History Recorder",
-    "desc": "Used-vehicle trust fails on verbal claims. QRTagAll on a sun visor or listing plate bundles RC, insurance, service tables, and invoices as verifiable history for buyers; finance and asking price stay NOVIEW.",
-    "video": "https://www.youtube.com/embed/J--3-2BOihY",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442636_F581BDC6",
-    "tags": [
-      "vehicle",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "6",
-    "emoji": "🌳",
-    "title": "Plant & Tree Tagging",
-    "desc": "Plants outlive the nursery staff who sold them. QRTagAll on pot or stake carries species ID, soil recipe, seasonal watering, pest notes, and care PDF — living product support that reduces returns and builds nursery brand after purchase.",
-    "video": "https://www.youtube.com/embed/OkvyDAPYAgU",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442664_E2F3F89F",
-    "tags": [
-      "agriculture",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "6A",
-    "emoji": "🌱",
-    "title": "Pot Plant Journey",
-    "desc": "Beyond care instructions — QRTagAll turns a desk plant into a shared diary: milestones, repot dates, progress photos. Emotional, social, low-stakes proof that a QR can tell a story over months, not just specs.",
-    "video": "https://www.youtube.com/embed/iu44XRrOwcE",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442692_CE20AD79",
-    "tags": [
-      "agriculture",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "7",
-    "emoji": "🖼️",
-    "title": "Artworks & Antiques",
-    "desc": "Provenance drives art market trust. QRTagAll beside a plaque links COA, ownership chain, exhibition history, restoration reports, and detail images; valuation stays NOVIEW.",
-    "video": "https://www.youtube.com/embed/8IF6NV2YHNg",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442722_F150339F",
-    "tags": [
-      "art",
-      "enterprise"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "8",
-    "emoji": "🔧",
-    "title": "Rental Equipment",
-    "desc": "Rental disputes are condition disputes. QRTagAll on camera bodies and tools timestamps issue condition, rental history, damage log, and policy at handover and return.",
-    "video": "https://www.youtube.com/embed/Bi4-j-16M_8",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442751_7B939BF0",
-    "tags": [
-      "enterprise",
-      "rental"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "9",
-    "emoji": "🎪",
-    "title": "Event Management",
-    "desc": "Printed menus and posters go stale by hour two. QRTagAll on a stall counter is the live menu and offer board — update once, every scan stays current.",
-    "video": "https://www.youtube.com/embed/CpDEENmIVfk",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442779_17486586",
-    "tags": [
-      "events",
-      "enterprise"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "10",
-    "emoji": "🎒",
-    "title": "Lost & Found",
-    "desc": "Lost items need finders, not exposed phone numbers. QRTagAll inside a bag flap shows item description, reward, and instructions; reunion runs through Message Owner.",
-    "video": "https://www.youtube.com/embed/T145-Qf0E8s",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442806_5741DD9F",
-    "tags": [
-      "personal",
-      "safety"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "11",
-    "emoji": "📦",
-    "title": "Supply Chain Authenticity",
-    "desc": "Premium food claims need proof at the crate. QRTagAll links batch ID to farm, harvest, pack dates, certifications, and cold-chain stages — farm-to-shelf transparency for retailers and conscious buyers.",
-    "video": "https://www.youtube.com/embed/pnkiL9pAxMs",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442835_0DDF2119",
-    "tags": [
-      "enterprise",
-      "logistics"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "12",
-    "emoji": "📚",
-    "title": "Community Sharing",
-    "desc": "Shared drills and tools disappear into WhatsApp chaos. QRTagAll on the society shelf shows borrow rules, who has it, due date, and office contact — accountability without a new app for residents.",
-    "video": "https://www.youtube.com/embed/dtNS1JtdxUc",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442863_42FE0840",
-    "tags": [
-      "community",
-      "personal"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "13",
-    "emoji": "💎",
-    "title": "Heirloom Memory Vault",
-    "desc": "Objects outlast memory unless stories are attached. QRTagAll inside a watch case or jewellery box preserves family narrative, timeline, photos, and optional appraisal (NOVIEW).",
-    "video": "https://www.youtube.com/embed/ZZZ0hU0tL6Q",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442890_3C1D22D4",
-    "tags": [
-      "personal",
-      "memory"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "13A",
-    "emoji": "💎",
-    "title": "Memento",
-    "desc": "Souvenirs are memory anchors. QRTagAll on a desk totem reopens the trip story, photos, and places — not clutter, a capsule you can re-scan years later.",
-    "video": "https://www.youtube.com/embed/GyPDEuf7qCc",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442919_BB768452",
-    "tags": [
-      "personal",
-      "memory"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "14",
-    "emoji": "🏗️",
-    "title": "Construction Equipment",
-    "desc": "Sites run on compliance paper. QRTagAll in the cab links inspection PASS, maintenance log, daily sheets, incident photos before the operator starts.",
-    "video": "https://www.youtube.com/embed/pzGUs4I7kiM",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442947_702AC005",
-    "tags": [
-      "enterprise",
-      "construction"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "15",
-    "emoji": "🍎",
-    "title": "Farm Produce Traceability",
-    "desc": "Organic and export claims face scepticism. QRTagAll on a grain bag ties batch to farmer, mill dates, organic cert, and lab panel — defensible premium from farm to retailer.",
-    "video": "https://www.youtube.com/embed/t79DWEHhtwc",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442976_F5137A37",
-    "tags": [
-      "agriculture",
-      "enterprise"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "16",
-    "emoji": "💼",
-    "title": "Digital Business Card",
-    "desc": "Paper cards go stale the week after printing. QRTagAll on the last card in your wallet keeps resume, case studies, links, and contact updated — professional presence that survives networking events.",
-    "video": "https://www.youtube.com/embed/ONa1uCHT1Oo",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443005_A665D625",
-    "tags": [
-      "personal",
-      "professional"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "17",
-    "emoji": "🧵",
-    "title": "Handcrafted Fashion",
-    "desc": "Handloom buyers ask 'real or machine?' QRTagAll on the hang tag shows artisan, hours, journey table, process photos — authenticity as wearable proof for craft brands.",
-    "video": "https://www.youtube.com/embed/iXra13gwWbE",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443033_EFBDF216",
-    "tags": [
-      "fashion",
-      "enterprise",
-      "authenticity"
-    ],
-    "BuyLink": "",
-    "EnableBuy": true
-  },
-  {
-    "num": "18",
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A1",
     "emoji": "🏗️",
     "title": "Construction Site Operations",
     "desc": "Construction sites lose money to wrong crews, missing permits, and invisible status. QRTagAll on the site board and material cages gives gate-level orientation, lift plans, and links to per-machine compliance — the scan layer on top of...",
@@ -309,7 +31,25 @@
     "EnableBuy": false
   },
   {
-    "num": "19",
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A2",
+    "emoji": "🏗️",
+    "title": "Construction Equipment",
+    "desc": "Sites run on compliance paper. QRTagAll in the cab links inspection PASS, maintenance log, daily sheets, incident photos before the operator starts.",
+    "video": "https://www.youtube.com/embed/pzGUs4I7kiM",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442947_702AC005",
+    "tags": [
+      "enterprise",
+      "construction"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A3",
     "emoji": "📦",
     "title": "Warehouse and 3PL",
     "desc": "Warehouses bleed margin on mis-picks, shrinkage, and temp workers without SOPs. QRTagAll on a pallet or bin is the field-readable identity: location, batch, count date, damage notes — companion to WMS, not a replacement.",
@@ -324,7 +64,9 @@
     "EnableBuy": false
   },
   {
-    "num": "20",
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A4",
     "emoji": "🚛",
     "title": "Transport Fleet",
     "desc": "Fleet operators lose on roadside compliance failures, paper manifests, and tractor-trailer mix-ups. QRTagAll on cab and trailer is the driver's scan-at-departure layer: checklists, certs, load docs — while TMS/telematics stays the...",
@@ -339,7 +81,9 @@
     "EnableBuy": false
   },
   {
-    "num": "20A",
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A5",
     "emoji": "🤖",
     "title": "Robotic Fleet",
     "desc": "Robotic fleets stall when technicians hunt manuals and shift notes. QRTagAll on each AMR is the human-readable layer: firmware, calibration, faults, handoff — alongside vendor fleet software, not instead of it.",
@@ -354,7 +98,105 @@
     "EnableBuy": false
   },
   {
-    "num": "21",
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A6",
+    "emoji": "📦",
+    "title": "Supply Chain Authenticity",
+    "desc": "Premium food claims need proof at the crate. QRTagAll links batch ID to farm, harvest, pack dates, certifications, and cold-chain stages — farm-to-shelf transparency for retailers and conscious buyers.",
+    "video": "https://www.youtube.com/embed/pnkiL9pAxMs",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442835_0DDF2119",
+    "tags": [
+      "enterprise",
+      "logistics"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A7",
+    "emoji": "🍎",
+    "title": "Farm Produce Traceability",
+    "desc": "Organic and export claims face scepticism. QRTagAll on a grain bag ties batch to farmer, mill dates, organic cert, and lab panel — defensible premium from farm to retailer.",
+    "video": "https://www.youtube.com/embed/t79DWEHhtwc",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442976_F5137A37",
+    "tags": [
+      "agriculture",
+      "enterprise"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "A",
+    "groupTitle": "Enterprise & Operations",
+    "num": "A8",
+    "emoji": "🔧",
+    "title": "Rental Equipment",
+    "desc": "Rental disputes are condition disputes. QRTagAll on camera bodies and tools timestamps issue condition, rental history, damage log, and policy at handover and return.",
+    "video": "https://www.youtube.com/embed/Bi4-j-16M_8",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442751_7B939BF0",
+    "tags": [
+      "enterprise",
+      "rental"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B1",
+    "emoji": "🏥",
+    "title": "Medical Records Organizer",
+    "desc": "Health information is usually scattered — wallet cards, hospital folders, WhatsApp PDFs, insurer apps. QRTagAll attaches one QR to a physical anchor (wallet card, sticker, medical ID) and links it to a structured sheet: emergency facts...",
+    "video": "https://www.youtube.com/embed/cvZmiNxrKL8",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442481_B48D92A9",
+    "tags": [
+      "healthcare",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B2",
+    "emoji": "🚗",
+    "title": "Vehicle Emergency Sticker",
+    "desc": "In a roadside crisis, strangers need vehicle identity, insurance validity, and medical hints — not the owner's private mobile on a public sticker.",
+    "video": "",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442609_C71854B8",
+    "tags": [
+      "vehicle",
+      "safety"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B3",
+    "emoji": "🎒",
+    "title": "Lost & Found",
+    "desc": "Lost items need finders, not exposed phone numbers. QRTagAll inside a bag flap shows item description, reward, and instructions; reunion runs through Message Owner.",
+    "video": "https://www.youtube.com/embed/T145-Qf0E8s",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442806_5741DD9F",
+    "tags": [
+      "personal",
+      "safety"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B4",
     "emoji": "🐾",
     "title": "Pet ID Collar",
     "desc": "Lost pets need finders, not published owner mobiles. QRTagAll on a collar shows pet details, vet notes, and friendly instructions; Message Owner for reunion.",
@@ -368,35 +210,57 @@
     "EnableBuy": true
   },
   {
-    "num": "22",
-    "emoji": "🏛️",
-    "title": "Museum Exhibit",
-    "desc": "Wall plaques are 50 words; learners want depth. QRTagAll delivers extended label, audio link, detail images, donor metadata — culture beyond physical space, accessibility for curious visitors.",
-    "video": "",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443089_5545F5AF",
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B5",
+    "emoji": "🛠️",
+    "title": "Appliance Warranty & Repair",
+    "desc": "Appliances outlive their paperwork — invoices fade, manuals get lost, warranty dates live in email threads. QRTagAll sticks one QR on the product or install location (door frame, back panel, utility closet) and links to a living sheet:...",
+    "video": "https://www.youtube.com/embed/Jk7DMaCxTrA",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442525_86CC370A",
     "tags": [
-      "art",
-      "education"
+      "personal",
+      "home"
     ],
     "BuyLink": "",
     "EnableBuy": true
   },
   {
-    "num": "23",
-    "emoji": "🏠",
-    "title": "Guest House and Airbnb",
-    "desc": "Guests arrive tired and ask the same WiFi questions. QRTagAll by the door is the digital welcome packet: password, rules, appliance tips, local map — host updates without re-laminating.",
-    "video": "",
-    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443117_DE9ABC37",
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B6",
+    "emoji": "🏡",
+    "title": "House Ownership & Repair",
+    "desc": "Property paperwork spans decades — sale deeds, society shares, tax receipts, renovation logs, tenant leases. QRTagAll on a kitchen counter or meter cupboard gives buyers and contractors one scan for transparent maintenance history while...",
+    "video": "https://www.youtube.com/embed/yVxisXYDKQg",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442581_4B1177A4",
     "tags": [
       "home",
-      "hospitality"
+      "personal"
     ],
     "BuyLink": "",
     "EnableBuy": true
   },
   {
-    "num": "24",
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B7",
+    "emoji": "🚗",
+    "title": "Vehicle History Recorder",
+    "desc": "Used-vehicle trust fails on verbal claims. QRTagAll on a sun visor or listing plate bundles RC, insurance, service tables, and invoices as verifiable history for buyers; finance and asking price stay NOVIEW.",
+    "video": "https://www.youtube.com/embed/J--3-2BOihY",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442636_F581BDC6",
+    "tags": [
+      "vehicle",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B8",
     "emoji": "🔩",
     "title": "Workshop Tool",
     "desc": "Home garages duplicate tools and lose manuals. QRTagAll on a impact driver links manual PDF, bit inventory, maintenance, location drawer — DIY organisation in one scan.",
@@ -410,7 +274,57 @@
     "EnableBuy": true
   },
   {
-    "num": "25",
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B9",
+    "emoji": "📚",
+    "title": "Community Sharing",
+    "desc": "Shared drills and tools disappear into WhatsApp chaos. QRTagAll on the society shelf shows borrow rules, who has it, due date, and office contact — accountability without a new app for residents.",
+    "video": "https://www.youtube.com/embed/dtNS1JtdxUc",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442863_42FE0840",
+    "tags": [
+      "community",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "B",
+    "groupTitle": "Personal & Property",
+    "num": "B10",
+    "emoji": "🏠",
+    "title": "Guest House and Airbnb",
+    "desc": "Guests arrive tired and ask the same WiFi questions. QRTagAll by the door is the digital welcome packet: password, rules, appliance tips, local map — host updates without re-laminating.",
+    "video": "",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443117_DE9ABC37",
+    "tags": [
+      "home",
+      "hospitality"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C1",
+    "emoji": "🎓",
+    "title": "Educational Certificates",
+    "desc": "Degrees, marksheets, and certificates pile up in folders and lose relevance the moment someone needs a quick proof. QRTagAll turns a resume sticker, ID lanyard, or portfolio cover into a credential wallet: public VIEW artifacts for...",
+    "video": "https://www.youtube.com/embed/P4k1xdgnBkU",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442553_7238EF5D",
+    "tags": [
+      "education",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C2",
     "emoji": "🎓",
     "title": "Student Portfolio ID",
     "desc": "School ID cards show a photo and roll number; achievements live elsewhere. QRTagAll on the lanyard adds awards table, project PDFs while parent phones stay NOVIEW.",
@@ -424,7 +338,106 @@
     "EnableBuy": true
   },
   {
-    "num": "26",
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C3",
+    "emoji": "💼",
+    "title": "Digital Business Card",
+    "desc": "Paper cards go stale the week after printing. QRTagAll on the last card in your wallet keeps resume, case studies, links, and contact updated — professional presence that survives networking events.",
+    "video": "https://www.youtube.com/embed/ONa1uCHT1Oo",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443005_A665D625",
+    "tags": [
+      "personal",
+      "professional"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C4",
+    "emoji": "🧵",
+    "title": "Handcrafted Fashion",
+    "desc": "Handloom buyers ask 'real or machine?' QRTagAll on the hang tag shows artisan, hours, journey table, process photos — authenticity as wearable proof for craft brands.",
+    "video": "https://www.youtube.com/embed/iXra13gwWbE",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443033_EFBDF216",
+    "tags": [
+      "fashion",
+      "enterprise",
+      "authenticity"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C5",
+    "emoji": "🖼️",
+    "title": "Artworks & Antiques",
+    "desc": "Provenance drives art market trust. QRTagAll beside a plaque links COA, ownership chain, exhibition history, restoration reports, and detail images; valuation stays NOVIEW.",
+    "video": "https://www.youtube.com/embed/8IF6NV2YHNg",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442722_F150339F",
+    "tags": [
+      "art",
+      "enterprise"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C6",
+    "emoji": "🏛️",
+    "title": "Museum Exhibit",
+    "desc": "Wall plaques are 50 words; learners want depth. QRTagAll delivers extended label, audio link, detail images, donor metadata — culture beyond physical space, accessibility for curious visitors.",
+    "video": "",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443089_5545F5AF",
+    "tags": [
+      "art",
+      "education"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C7",
+    "emoji": "💎",
+    "title": "Heirloom Memory Vault",
+    "desc": "Objects outlast memory unless stories are attached. QRTagAll inside a watch case or jewellery box preserves family narrative, timeline, photos, and optional appraisal (NOVIEW).",
+    "video": "https://www.youtube.com/embed/ZZZ0hU0tL6Q",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442890_3C1D22D4",
+    "tags": [
+      "personal",
+      "memory"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C8",
+    "emoji": "💎",
+    "title": "Memento",
+    "desc": "Souvenirs are memory anchors. QRTagAll on a desk totem reopens the trip story, photos, and places — not clutter, a capsule you can re-scan years later.",
+    "video": "https://www.youtube.com/embed/GyPDEuf7qCc",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442919_BB768452",
+    "tags": [
+      "personal",
+      "memory"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C9",
     "emoji": "💒",
     "title": "Wedding Memory",
     "desc": "Wedding day ends; photos keep arriving. QRTagAll on the invitation becomes a growing album: official shots, guest upload link, highlight video — one-day event → months of shared memory.",
@@ -433,6 +446,54 @@
     "tags": [
       "memory",
       "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C10",
+    "emoji": "🌳",
+    "title": "Plant & Tree Tagging",
+    "desc": "Plants outlive the nursery staff who sold them. QRTagAll on pot or stake carries species ID, soil recipe, seasonal watering, pest notes, and care PDF — living product support that reduces returns and builds nursery brand after purchase.",
+    "video": "https://www.youtube.com/embed/OkvyDAPYAgU",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442664_E2F3F89F",
+    "tags": [
+      "agriculture",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C11",
+    "emoji": "🌱",
+    "title": "Pot Plant Journey",
+    "desc": "Beyond care instructions — QRTagAll turns a desk plant into a shared diary: milestones, repot dates, progress photos. Emotional, social, low-stakes proof that a QR can tell a story over months, not just specs.",
+    "video": "https://www.youtube.com/embed/iu44XRrOwcE",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442692_CE20AD79",
+    "tags": [
+      "agriculture",
+      "personal"
+    ],
+    "BuyLink": "",
+    "EnableBuy": true
+  },
+  {
+    "group": "C",
+    "groupTitle": "Identity, Culture & Memory",
+    "num": "C12",
+    "emoji": "🎪",
+    "title": "Event Management",
+    "desc": "Printed menus and posters go stale by hour two. QRTagAll on a stall counter is the live menu and offer board — update once, every scan stays current.",
+    "video": "https://www.youtube.com/embed/CpDEENmIVfk",
+    "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442779_17486586",
+    "tags": [
+      "events",
+      "enterprise"
     ],
     "BuyLink": "",
     "EnableBuy": true

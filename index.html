@@ -505,6 +505,53 @@
         }
         .uc-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
+        /* Group A / B / C card tints */
+        .uc-card.uc-group-a { background: #f4f9ff; border-color: #c5daf5; }
+        .uc-card.uc-group-b { background: #f2fbf6; border-color: #bfe9d4; }
+        .uc-card.uc-group-c { background: #fffaf3; border-color: #f5ddb8; }
+        .uc-card.uc-group-intro { background: #fff; border-color: var(--border); }
+        .uc-card.uc-group-a .uc-emoji { background: rgba(0, 90, 180, 0.12); }
+        .uc-card.uc-group-b .uc-emoji { background: rgba(0, 140, 90, 0.12); }
+        .uc-card.uc-group-c .uc-emoji { background: rgba(200, 120, 0, 0.12); }
+
+        .uc-group-divider {
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            width: 200px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 16px;
+            border-radius: var(--r-xl);
+            border: 2px dashed;
+        }
+        .uc-group-divider-a { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
+        .uc-group-divider-b { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
+        .uc-group-divider-c { background: #fef3e4; border-color: #f0c987; color: #7a4f12; }
+        .uc-group-letter {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2rem; font-weight: 800; line-height: 1;
+            margin-bottom: 10px; opacity: 0.85;
+        }
+        .uc-group-name {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: .92rem; font-weight: 700; line-height: 1.25;
+            margin-bottom: 6px;
+        }
+        .uc-group-sub { font-size: .76rem; opacity: 0.82; line-height: 1.45; }
+        .uc-num-group {
+            display: inline-block;
+            font-size: .66rem; font-weight: 800;
+            padding: 2px 8px; border-radius: 999px;
+            letter-spacing: .04em;
+        }
+        .uc-num-group-a { background: #d6e8fb; color: #1a4a7a; }
+        .uc-num-group-b { background: #ccefe0; color: #1a5c40; }
+        .uc-num-group-c { background: #fde8c8; color: #7a4f12; }
+        .uc-num-intro { font-size: .66rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; }
+
         .uc-head {
             padding: 20px 20px 0;
             display: flex;
@@ -612,17 +659,21 @@
             margin-bottom: 16px;
         }
         .scroll-arrow {
-            width: 40px; height: 40px;
+            width: 42px; height: 42px;
             border-radius: 50%;
-            background: #fff;
-            border: 1.5px solid var(--border);
-            cursor: pointer;
-            font-size: 1rem;
+            background: #FF8C00; border: 2px solid #FF8C00;
+            color: #fff; cursor: pointer;
+            font-size: 1.05rem; font-weight: 700;
             display: flex; align-items: center; justify-content: center;
             transition: all .2s;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 3px 12px rgba(255, 140, 0, 0.45);
         }
-        .scroll-arrow:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .scroll-arrow:hover {
+            background: #E67E00; border-color: #E67E00; color: #fff;
+            transform: scale(1.06);
+            box-shadow: 0 5px 16px rgba(255, 140, 0, 0.55);
+        }
+        .scroll-arrow:active { transform: scale(0.98); }
 
         /* "View all" link */
         .uc-footer { text-align: center; margin-top: 20px; }
@@ -1429,38 +1480,79 @@ function drawUseCaseQrs(root) {
     });
 }
 
+const UC_GROUP_META = {
+    A: { title: 'Enterprise & Operations', sub: 'Sites, warehouses, fleets, supply chain' },
+    B: { title: 'Personal & Property', sub: 'Home, safety, vehicles, everyday assets' },
+    C: { title: 'Identity, Culture & Memory', sub: 'Credentials, craft, stories, events' },
+};
+
+function ucNumLabel(uc) {
+    if (!uc.num) return '<span class="uc-num-intro">Intro</span>';
+    const g = (uc.group || '').toLowerCase();
+    if (g) return `<span class="uc-num-group uc-num-group-${g}">${uc.num}</span>`;
+    return uc.num;
+}
+
+function ucGroupClass(uc) {
+    const g = (uc.group || '').toLowerCase();
+    return g ? ` uc-group-${g}` : ' uc-group-intro';
+}
+
+function ucCardHtml(uc) {
+    const embedUrl = normaliseYouTubeEmbed(uc.video);
+    const qrUrl = (uc.qr || '').trim();
+    const demoBtn = embedUrl
+        ? `<button type="button" class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</button>`
+        : '';
+    const buyBtn = renderUseCaseBuyBtn(uc);
+    const qrBlock = qrUrl
+        ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
+               <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
+           </a>`
+        : '';
+    const safeTitle = String(uc.title || '').replace(/"/g, '&quot;');
+    return `
+    <div class="uc-card${ucGroupClass(uc)}">
+        <div class="uc-head">
+            <div class="uc-emoji">${uc.emoji}</div>
+            <div>
+                <div class="uc-num">${ucNumLabel(uc)}</div>
+                <div class="uc-title">${safeTitle}</div>
+            </div>
+        </div>
+        <div class="uc-body">
+            <p class="uc-desc">${uc.desc}</p>
+            <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}</div>
+        </div>
+    </div>`;
+}
+
+function ucTrackHtml(data) {
+    let html = '';
+    let lastGroup = null;
+    data.forEach(uc => {
+        const g = uc.group || '';
+        if (g && g !== lastGroup) {
+            const meta = UC_GROUP_META[g] || { title: uc.groupTitle || g, sub: '' };
+            html += `
+            <div class="uc-group-divider uc-group-divider-${g.toLowerCase()}">
+                <span class="uc-group-letter">${g}</span>
+                <div class="uc-group-name">${meta.title}</div>
+                <div class="uc-group-sub">${meta.sub}</div>
+            </div>`;
+            lastGroup = g;
+        }
+        html += ucCardHtml(uc);
+    });
+    return html;
+}
+
 async function loadUseCases() {
     const track = document.getElementById('ucTrack');
     try {
         const res  = await fetch('data/usecases.json');
         const data = await res.json();
-        track.innerHTML = data.map(uc => {
-            const embedUrl = normaliseYouTubeEmbed(uc.video);
-            const qrUrl = (uc.qr || '').trim();
-            const demoBtn = embedUrl
-                ? `<button type="button" class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</button>`
-                : '';
-            const buyBtn = renderUseCaseBuyBtn(uc);
-            const qrBlock = qrUrl
-                ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
-                       <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
-                   </a>`
-                : '';
-            return `
-            <div class="uc-card">
-                <div class="uc-head">
-                    <div class="uc-emoji">${uc.emoji}</div>
-                    <div>
-                        <div class="uc-num">#${uc.num}</div>
-                        <div class="uc-title">${uc.title}</div>
-                    </div>
-                </div>
-                <div class="uc-body">
-                    <p class="uc-desc">${uc.desc}</p>
-                    <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}</div>
-                </div>
-            </div>`;
-        }).join('');
+        track.innerHTML = ucTrackHtml(data);
         drawUseCaseQrs(track);
     } catch (e) {
         track.innerHTML = '<div style="padding:32px;color:var(--text-3);font-size:.9rem;">Could not load use cases.</div>';
