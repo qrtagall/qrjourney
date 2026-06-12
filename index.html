@@ -1514,7 +1514,7 @@ function ucSeriesBase(num) {
 }
 
 function ucIsSeriesHead(num) {
-    return !!num && /^\d+$/.test(String(num));
+    return !!num && /^\d+-a$/.test(String(num));
 }
 
 function ucSeriesClass(uc) {
@@ -1525,7 +1525,7 @@ function ucSeriesClass(uc) {
 function ucNumLabel(uc) {
     if (!uc.num) return '<span class="uc-num-intro">Intro</span>';
     const base = ucSeriesBase(uc.num);
-    const sub = /^\d+[a-z]/i.test(uc.num) ? ' uc-num-sub' : '';
+    const sub = /^\d+-[b-z]$/.test(uc.num) ? ' uc-num-sub' : '';
     return `<span class="uc-num-badge uc-series-num-${base}${sub}">${uc.num}</span>`;
 }
 
@@ -1566,7 +1566,7 @@ function ucTrackHtml(data) {
             const meta = UC_SERIES_META[s] || { title: uc.seriesTitle || s, sub: '' };
             html += `
             <div class="uc-series-divider uc-series-divider-${s}">
-                <span class="uc-series-num">${uc.num}</span>
+                <span class="uc-series-num">${s}</span>
                 <div class="uc-series-name">${meta.title}</div>
                 <div class="uc-series-sub">${meta.sub}</div>
             </div>`;
