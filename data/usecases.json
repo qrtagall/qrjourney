@@ -24,6 +24,8 @@
         "safety",
         "vehicle"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "1-a",
@@ -98,6 +100,8 @@
         "enterprise",
         "fashion"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "2-a",
@@ -156,6 +160,8 @@
         "personal",
         "professional"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "3-a",
@@ -214,6 +220,8 @@
         "memory",
         "personal"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "4-a",
@@ -285,6 +293,8 @@
         "agriculture",
         "personal"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "5-a",
@@ -329,6 +339,8 @@
         "personal",
         "vehicle"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "6-a",
@@ -437,6 +449,8 @@
         "safety",
         "warehouse"
       ],
+      "videoUrl": "",
+      "needVideoUrl": false,
       "useCases": [
         {
           "num": "7-a",
