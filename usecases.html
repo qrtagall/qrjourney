@@ -162,24 +162,43 @@
         .uc-series-divider {
             flex-shrink: 0;
             scroll-snap-align: start;
-            width: 200px;
+            width: 328px;
             height: var(--uc-tile-height);
             min-height: var(--uc-tile-height);
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-start;
-            gap: 4px;
-            padding: 20px 16px 16px;
+            justify-content: flex-start;
+            align-items: stretch;
+            gap: 0;
+            padding: 0 0 16px;
             border-radius: var(--r-xl);
             border: 2px dashed;
             box-sizing: border-box;
-        }
-        .uc-series-top {
-            flex: 0 1 auto;
-            width: 100%;
             overflow: hidden;
         }
+        .uc-series-head {
+            padding: 20px 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+        .uc-series-divider .uc-emoji { background: rgba(0, 119, 204, 0.1); }
+        .uc-series-divider-1 .uc-emoji { background: rgba(0, 90, 180, 0.12); }
+        .uc-series-divider-2 .uc-emoji { background: rgba(0, 140, 90, 0.12); }
+        .uc-series-divider-3 .uc-emoji { background: rgba(0, 130, 120, 0.12); }
+        .uc-series-divider-4 .uc-emoji { background: rgba(90, 60, 180, 0.12); }
+        .uc-series-divider-5 .uc-emoji { background: rgba(200, 120, 0, 0.12); }
+        .uc-series-divider-6 .uc-emoji { background: rgba(180, 60, 100, 0.12); }
+        .uc-series-divider-7 .uc-emoji { background: rgba(80, 140, 40, 0.12); }
+        .uc-series-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            padding: 0 20px;
+        }
+        .uc-series-divider .uc-title { color: var(--text); }
         .uc-series-divider-1 { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
         .uc-series-divider-2 { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
         .uc-series-divider-3 { background: #e3f5f1; border-color: #7ecbbc; color: #1a5248; }
@@ -187,17 +206,6 @@
         .uc-series-divider-5 { background: #fef3e4; border-color: #f0c987; color: #7a4f12; }
         .uc-series-divider-6 { background: #fce8ef; border-color: #e8a8c0; color: #7a2040; }
         .uc-series-divider-7 { background: #edf5e3; border-color: #b8d490; color: #3d5c1a; }
-        .uc-series-num {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 2rem; font-weight: 800; line-height: 1;
-            margin-bottom: 10px; opacity: 0.9;
-        }
-        .uc-series-name {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: .92rem; font-weight: 700; line-height: 1.25;
-            margin-bottom: 6px;
-        }
-        .uc-series-sub { font-size: .76rem; opacity: 0.82; line-height: 1.45; }
         .uc-series-tags {
             display: flex;
             flex-wrap: wrap;
@@ -215,6 +223,9 @@
         }
         .uc-series-actions {
             align-self: stretch;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
         }
 
         .uc-num-badge {
@@ -246,8 +257,28 @@
         .uc-num { font-size: .66rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 3px; }
         .uc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: .96rem; font-weight: 700; color: var(--text); line-height: 1.3; }
 
-        .uc-card-body { padding: 12px 20px 16px; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; min-height: 0; }
-        .uc-desc { font-size: .86rem; color: var(--text-2); line-height: 1.68; flex: 0 1 auto; max-height: 100%; min-height: 0; overflow-y: auto; text-align: left; margin: 0; }
+        .uc-card-body { padding: 8px 20px 0; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .uc-body-mid {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 0;
+            overflow: hidden;
+            gap: 8px;
+        }
+        .uc-desc {
+            font-size: .86rem;
+            color: var(--text-2);
+            line-height: 1.68;
+            flex: 0 1 auto;
+            min-height: 0;
+            max-height: 100%;
+            overflow-y: auto;
+            text-align: justify;
+            text-justify: inter-word;
+            margin: 0;
+        }
 
         .uc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0; flex-shrink: 0; }
         .uc-tag {
@@ -307,7 +338,7 @@
             width: 100%;
             gap: 8px;
             margin-top: 0;
-            padding: 0 6px;
+            padding: 8px 6px 0;
             flex-wrap: nowrap;
             box-sizing: border-box;
             flex-shrink: 0;
@@ -576,17 +607,36 @@ function demoBtnHtml(item, openFn) {
     return renderUseCaseDemoBtn(item, openFn);
 }
 
+function seriesNumLabel(id) {
+    return `<span class="uc-num-badge uc-series-num-${id}">${id}</span>`;
+}
+
+function seriesDividerEmoji(s) {
+    const first = (s.useCases || [])[0];
+    return (first && first.emoji) ? first.emoji : '📋';
+}
+
 function seriesDividerHtml(s) {
     const item = { ...s, desc: s.subtitle || '' };
     const tagPills = (s.tags || []).map(t => `<span class="uc-series-tag">${t}</span>`).join('');
+    const emoji = seriesDividerEmoji(s);
+    const safeTitle = escapeHtmlAttr(s.title);
+    const safeSub = escapeHtmlAttr(s.subtitle);
     const actionsHtml = renderUseCaseActionsHtml(item, 'openVideo', { actionClass: 'uc-series-actions' });
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
-                <div class="uc-series-top">
-                    <span class="uc-series-num">${s.id}</span>
-                    <div class="uc-series-name">${s.title}</div>
-                    <div class="uc-series-sub">${s.subtitle || ''}</div>
-                    ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
+                <div class="uc-series-head">
+                    <div class="uc-emoji">${emoji}</div>
+                    <div>
+                        <div class="uc-num">${seriesNumLabel(s.id)}</div>
+                        <div class="uc-title">${safeTitle}</div>
+                    </div>
+                </div>
+                <div class="uc-series-body">
+                    <div class="uc-body-mid">
+                        ${safeSub ? `<p class="uc-desc">${safeSub}</p>` : ''}
+                        ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
+                    </div>
                 </div>
                 ${actionsHtml}
             </div>`;
@@ -745,8 +795,10 @@ function cardHtml(uc) {
             </div>
         </div>
         <div class="uc-card-body">
-            <p class="uc-desc">${uc.desc}</p>
-            <div class="uc-tags">${tagPills}</div>
+            <div class="uc-body-mid">
+                <p class="uc-desc">${uc.desc}</p>
+                <div class="uc-tags">${tagPills}</div>
+            </div>
             ${actionsHtml}
         </div>
     </div>`;
