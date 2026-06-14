@@ -200,14 +200,9 @@
             text-transform: capitalize;
             letter-spacing: 0.02em;
         }
-        .uc-demo-needed { opacity: 0.55; cursor: not-allowed; }
-        .uc-series-demo {
-            margin-top: 10px;
-            font-size: .72rem;
-            padding: 6px 10px;
+        .uc-series-actions {
+            margin-top: 12px;
             align-self: stretch;
-            width: 100%;
-            text-align: center;
         }
 
         .uc-num-badge {
@@ -551,27 +546,20 @@ function demoBtnHtml(item, openFn) {
     return renderUseCaseDemoBtn(item, openFn);
 }
 
-function seriesDemoBtnHtml(s) {
-    const embed = toEmbed(getVideoUrl(s));
-    if (embed) {
-        return `<button type="button" class="uc-demo uc-series-demo" onclick="openVideo('${embed}')">▶ Series overview</button>`;
-    }
-    if (s.needVideoUrl) {
-        return `<button type="button" class="uc-demo uc-series-demo uc-demo-needed" disabled title="Series overview video needed">▶ Series demo needed</button>`;
-    }
-    return '';
-}
-
 function seriesDividerHtml(s) {
+    const item = { ...s, desc: s.subtitle || '' };
     const tagPills = (s.tags || []).map(t => `<span class="uc-series-tag">${t}</span>`).join('');
-    const seriesDemo = seriesDemoBtnHtml(s);
+    const qrBlock = renderUseCaseQrBlock(item);
+    const demoBtn = renderUseCaseDemoBtn(item, 'openVideo');
+    const buyBtn = renderUseCaseBuyBtn(item);
+    const waBtn = renderUseCaseWhatsAppBtn(item);
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
                 <span class="uc-series-num">${s.id}</span>
                 <div class="uc-series-name">${s.title}</div>
                 <div class="uc-series-sub">${s.subtitle || ''}</div>
                 ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
-                ${seriesDemo}
+                <div class="uc-actions uc-series-actions">${qrBlock}${demoBtn}${buyBtn}${waBtn}</div>
             </div>`;
 }
 
@@ -598,7 +586,7 @@ const UC_WA_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 
 function buildUseCaseShareMessage(uc) {
     const title = (uc && uc.title) ? String(uc.title).trim() : 'Use case';
     const parts = [`QRTagAll-${title}`, ''];
-    const desc = (uc && uc.desc ? String(uc.desc).trim() : '');
+    const desc = (uc && (uc.desc || uc.subtitle) ? String(uc.desc || uc.subtitle).trim() : '');
     if (desc) parts.push(desc);
     const buy = (uc && uc.BuyLink ? String(uc.BuyLink).trim() : '');
     if (buy) parts.push('', `Buy: ${buy}`);
@@ -627,7 +615,7 @@ function renderUseCaseWhatsAppBtn(uc) {
     return `<button type="button" class="uc-share-wa" onclick="shareUseCaseWhatsApp(this)"
         aria-label="Share ${safeTitle} on WhatsApp" title="Share on WhatsApp"
         data-uc-title="${safeTitle}"
-        data-uc-desc="${escapeHtmlAttr(uc.desc)}"
+        data-uc-desc="${escapeHtmlAttr(uc.desc || uc.subtitle)}"
         data-uc-buy="${escapeHtmlAttr(uc.BuyLink)}"
         data-uc-video="${escapeHtmlAttr(getVideoUrl(uc))}"
         data-uc-qr="${escapeHtmlAttr(uc.qr)}">${UC_WA_ICON_SVG}</button>`;
@@ -638,9 +626,6 @@ function renderUseCaseDemoBtn(uc, openFn) {
     const safeTitle = escapeHtmlAttr(uc.title || 'use case');
     if (embed) {
         return `<button type="button" class="uc-demo uc-demo-icon" onclick="${openFn}('${embed}')" aria-label="Watch demo video for ${safeTitle}" title="Watch demo">${UC_YT_ICON_SVG}</button>`;
-    }
-    if (uc.needVideoUrl) {
-        return `<button type="button" class="uc-demo uc-demo-icon uc-demo-needed" disabled title="Demo video needed">${UC_YT_ICON_SVG}</button>`;
     }
     return '';
 }

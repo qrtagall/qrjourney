@@ -8,7 +8,6 @@
       "product"
     ],
     "videoUrl": "https://youtu.be/vVbTgdPbIDE",
-    "needVideoUrl": false,
     "qr": "https://process.qrtagall.com/?id=QRTAG_20260609040731552_C67042F8",
     "BuyLink": "",
     "EnableBuy": false
@@ -25,7 +24,6 @@
         "vehicle"
       ],
       "videoUrl": "https://youtu.be/vVbTgdPbIDE",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "1-a",
@@ -37,7 +35,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/cvZmiNxrKL8",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442481_B48D92A9",
           "BuyLink": "",
           "EnableBuy": true
@@ -52,7 +49,6 @@
             "safety"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442609_C71854B8",
           "BuyLink": "",
           "EnableBuy": true
@@ -67,7 +63,6 @@
             "safety"
           ],
           "videoUrl": "https://www.youtube.com/embed/T145-Qf0E8s",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442806_5741DD9F",
           "BuyLink": "",
           "EnableBuy": true
@@ -82,7 +77,6 @@
             "personal"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443062_7A3D325F",
           "BuyLink": "",
           "EnableBuy": true
@@ -101,7 +95,6 @@
         "fashion"
       ],
       "videoUrl": "",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "2-a",
@@ -114,7 +107,6 @@
             "authenticity"
           ],
           "videoUrl": "https://www.youtube.com/embed/iXra13gwWbE",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443033_EFBDF216",
           "BuyLink": "",
           "EnableBuy": true
@@ -129,7 +121,6 @@
             "enterprise"
           ],
           "videoUrl": "https://www.youtube.com/embed/8IF6NV2YHNg",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442722_F150339F",
           "BuyLink": "",
           "EnableBuy": true
@@ -144,7 +135,6 @@
             "education"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443089_5545F5AF",
           "BuyLink": "",
           "EnableBuy": true
@@ -161,7 +151,6 @@
         "professional"
       ],
       "videoUrl": "",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "3-a",
@@ -173,7 +162,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/P4k1xdgnBkU",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442553_7238EF5D",
           "BuyLink": "",
           "EnableBuy": true
@@ -188,7 +176,6 @@
             "personal"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443176_13CEA272",
           "BuyLink": "",
           "EnableBuy": true
@@ -203,7 +190,6 @@
             "professional"
           ],
           "videoUrl": "https://www.youtube.com/embed/ONa1uCHT1Oo",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443005_A665D625",
           "BuyLink": "",
           "EnableBuy": true
@@ -221,7 +207,6 @@
         "personal"
       ],
       "videoUrl": "",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "4-a",
@@ -233,7 +218,6 @@
             "memory"
           ],
           "videoUrl": "https://www.youtube.com/embed/ZZZ0hU0tL6Q",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442890_3C1D22D4",
           "BuyLink": "",
           "EnableBuy": true
@@ -248,7 +232,6 @@
             "memory"
           ],
           "videoUrl": "https://www.youtube.com/embed/GyPDEuf7qCc",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442919_BB768452",
           "BuyLink": "",
           "EnableBuy": true
@@ -263,7 +246,6 @@
             "personal"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443206_66AA9C08",
           "BuyLink": "",
           "EnableBuy": true
@@ -278,7 +260,6 @@
             "enterprise"
           ],
           "videoUrl": "https://www.youtube.com/embed/CpDEENmIVfk",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442779_17486586",
           "BuyLink": "",
           "EnableBuy": true
@@ -294,7 +275,6 @@
         "personal"
       ],
       "videoUrl": "",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "5-a",
@@ -306,7 +286,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/OkvyDAPYAgU",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442664_E2F3F89F",
           "BuyLink": "",
           "EnableBuy": true
@@ -321,7 +300,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/iu44XRrOwcE",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442692_CE20AD79",
           "BuyLink": "",
           "EnableBuy": true
@@ -340,7 +318,6 @@
         "vehicle"
       ],
       "videoUrl": "",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "6-a",
@@ -352,7 +329,6 @@
             "home"
           ],
           "videoUrl": "https://www.youtube.com/embed/Jk7DMaCxTrA",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442525_86CC370A",
           "BuyLink": "",
           "EnableBuy": true
@@ -367,7 +343,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/yVxisXYDKQg",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442581_4B1177A4",
           "BuyLink": "",
           "EnableBuy": true
@@ -382,7 +357,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/J--3-2BOihY",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442636_F581BDC6",
           "BuyLink": "",
           "EnableBuy": true
@@ -397,7 +371,6 @@
             "home"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443147_68AAA5B0",
           "BuyLink": "",
           "EnableBuy": true
@@ -412,7 +385,6 @@
             "personal"
           ],
           "videoUrl": "https://www.youtube.com/embed/dtNS1JtdxUc",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442863_42FE0840",
           "BuyLink": "",
           "EnableBuy": true
@@ -427,7 +399,6 @@
             "hospitality"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180443117_DE9ABC37",
           "BuyLink": "",
           "EnableBuy": true
@@ -450,7 +421,6 @@
         "warehouse"
       ],
       "videoUrl": "",
-      "needVideoUrl": false,
       "useCases": [
         {
           "num": "7-a",
@@ -463,7 +433,6 @@
             "safety"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "",
           "BuyLink": "",
           "EnableBuy": false
@@ -478,7 +447,6 @@
             "construction"
           ],
           "videoUrl": "https://www.youtube.com/embed/pzGUs4I7kiM",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442947_702AC005",
           "BuyLink": "",
           "EnableBuy": true
@@ -494,7 +462,6 @@
             "warehouse"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "",
           "BuyLink": "",
           "EnableBuy": false
@@ -510,7 +477,6 @@
             "fleet"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "",
           "BuyLink": "",
           "EnableBuy": false
@@ -526,7 +492,6 @@
             "automation"
           ],
           "videoUrl": "",
-          "needVideoUrl": true,
           "qr": "",
           "BuyLink": "",
           "EnableBuy": false
@@ -541,7 +506,6 @@
             "logistics"
           ],
           "videoUrl": "https://www.youtube.com/embed/pnkiL9pAxMs",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442835_0DDF2119",
           "BuyLink": "",
           "EnableBuy": true
@@ -556,7 +520,6 @@
             "enterprise"
           ],
           "videoUrl": "https://www.youtube.com/embed/t79DWEHhtwc",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442976_F5137A37",
           "BuyLink": "",
           "EnableBuy": true
@@ -571,7 +534,6 @@
             "rental"
           ],
           "videoUrl": "https://www.youtube.com/embed/Bi4-j-16M_8",
-          "needVideoUrl": false,
           "qr": "https://process.qrtagall.com/?id=QRTAG_20260609180442751_7B939BF0",
           "BuyLink": "",
           "EnableBuy": true
