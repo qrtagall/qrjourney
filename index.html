@@ -670,7 +670,7 @@
         .uc-actions {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             width: 100%;
             gap: 8px;
             margin-top: 12px;
@@ -678,19 +678,62 @@
         }
         .uc-qr-link {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            line-height: 0;
+            line-height: 1;
             border-radius: var(--r-sm);
             border: 1px solid var(--border);
-            padding: 4px;
+            padding: 4px 4px 3px;
             background: #fff;
             transition: box-shadow .2s, border-color .2s;
             flex-shrink: 0;
             box-sizing: border-box;
+            text-decoration: none;
         }
         .uc-qr-link:hover { box-shadow: var(--shadow-sm); border-color: rgba(0,119,204,.35); }
+        .uc-qr-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
         .uc-qr-canvas { display: block; width: 56px; height: 56px; }
+        .uc-qr-label {
+            font-size: .58rem;
+            font-weight: 700;
+            color: var(--text-3);
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .uc-demo-icon {
+            width: 34px;
+            min-width: 34px;
+            padding: 0;
+        }
+        .uc-demo-icon svg { display: block; }
+
+        .uc-share-wa {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            min-width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid rgba(37, 211, 102, 0.35);
+            background: rgba(37, 211, 102, 0.08);
+            border-radius: var(--r-sm);
+            cursor: pointer;
+            transition: background .18s, border-color .18s;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+        .uc-share-wa:hover { background: rgba(37, 211, 102, 0.16); border-color: rgba(37, 211, 102, 0.55); }
+        .uc-share-wa svg { display: block; }
+        button.uc-share-wa { appearance: none; -webkit-appearance: none; margin: 0; font-family: inherit; }
 
         /* scroll nav arrows */
         .scroll-arrows {
@@ -1476,6 +1519,79 @@ function shouldShowBuyBtn(uc) {
     return !!(uc && uc.EnableBuy === true);
 }
 
+function escapeHtmlAttr(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;');
+}
+
+const UC_YT_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8z"/><path fill="#fff" d="M9.75 15.02l6.26-3.02-6.26-3.02v6.04z"/></svg>';
+
+const UC_WA_ICON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><path fill="#25D366" d="M16 .5C7.439.5.5 7.439.5 16c0 2.832.744 5.488 2.041 7.813L.5 31.5l7.884-2.028A15.36 15.36 0 0 0 16 31.5C24.561 31.5 31.5 24.561 31.5 16S24.561.5 16 .5z"/><path fill="#FFF" d="M24.124 22.002c-.329.924-1.882 1.729-2.597 1.843-.67.106-1.534.152-2.48-.152-.57-.183-1.31-.427-2.259-.838-3.966-1.708-6.554-5.633-6.756-5.895-.201-.261-1.613-2.149-1.613-4.097 0-1.948 1.021-2.91 1.385-3.308.364-.397.796-.497 1.06-.497.264 0 .53.003.764.013.246.01.577-.093.905.692.329.792 1.114 2.739 1.215 2.937.101.198.167.43.031.691-.133.261-.198.43-.396.661-.198.231-.419.516-.599.693-.198.198-.405.412-.173.81.231.397 1.031 1.698 2.211 2.748 1.522 1.354 2.806 1.773 3.203 1.971.397.198.627.165.86-.099.231-.264.993-1.157 1.26-1.554.264-.397.529-.33.893-.198.364.132 2.306 1.088 2.706 1.284.397.198.661.297.757.462.099.165.099.961-.23 1.885z"/></svg>';
+
+function buildUseCaseShareMessage(uc) {
+    const title = (uc && uc.title) ? String(uc.title).trim() : 'Use case';
+    const parts = [`QRTagAll-${title}`, ''];
+    const desc = (uc && uc.desc ? String(uc.desc).trim() : '');
+    if (desc) parts.push(desc);
+    const buy = (uc && uc.BuyLink ? String(uc.BuyLink).trim() : '');
+    if (buy) parts.push('', `Buy: ${buy}`);
+    const video = getVideoUrl(uc);
+    if (video) parts.push('', `Demo video: ${video}`);
+    const qr = (uc && uc.qr ? String(uc.qr).trim() : '');
+    if (qr) parts.push('', `Live QR: ${qr}`);
+    return parts.join('\n');
+}
+
+function shareUseCaseWhatsApp(btn) {
+    if (!btn || !btn.dataset) return;
+    const uc = {
+        title: btn.dataset.ucTitle || '',
+        desc: btn.dataset.ucDesc || '',
+        BuyLink: btn.dataset.ucBuy || '',
+        videoUrl: btn.dataset.ucVideo || '',
+        qr: btn.dataset.ucQr || '',
+    };
+    const text = buildUseCaseShareMessage(uc);
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+}
+
+function renderUseCaseWhatsAppBtn(uc) {
+    const safeTitle = escapeHtmlAttr(uc.title || 'use case');
+    return `<button type="button" class="uc-share-wa" onclick="shareUseCaseWhatsApp(this)"
+        aria-label="Share ${safeTitle} on WhatsApp" title="Share on WhatsApp"
+        data-uc-title="${safeTitle}"
+        data-uc-desc="${escapeHtmlAttr(uc.desc)}"
+        data-uc-buy="${escapeHtmlAttr(uc.BuyLink)}"
+        data-uc-video="${escapeHtmlAttr(getVideoUrl(uc))}"
+        data-uc-qr="${escapeHtmlAttr(uc.qr)}">${UC_WA_ICON_SVG}</button>`;
+}
+
+function renderUseCaseDemoBtn(uc, openFn) {
+    const embedUrl = normaliseYouTubeEmbed(getVideoUrl(uc));
+    const safeTitle = escapeHtmlAttr(uc.title || 'use case');
+    if (embedUrl) {
+        return `<button type="button" class="uc-demo uc-demo-icon" onclick="${openFn}('${embedUrl}')" aria-label="Watch demo video for ${safeTitle}" title="Watch demo">${UC_YT_ICON_SVG}</button>`;
+    }
+    if (uc.needVideoUrl) {
+        return `<button type="button" class="uc-demo uc-demo-icon uc-demo-needed" disabled title="Demo video needed">${UC_YT_ICON_SVG}</button>`;
+    }
+    return '';
+}
+
+function renderUseCaseQrBlock(uc) {
+    const qrUrl = (uc.qr || '').trim();
+    if (!qrUrl) return '';
+    const safeTitle = escapeHtmlAttr(uc.title || 'use case');
+    return `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${safeTitle}">
+               <span class="uc-qr-stack">
+                   <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
+                   <span class="uc-qr-label">Live QR</span>
+               </span>
+           </a>`;
+}
+
 function isBuyLinkValid(uc) {
     const link = (uc.BuyLink || '').trim();
     return link.length > 0 && /^https?:\/\//i.test(link);
@@ -1486,9 +1602,9 @@ function renderUseCaseBuyBtn(uc) {
     const safeTitle = String(uc.title || 'item').replace(/"/g, '&quot;');
     if (isBuyLinkValid(uc)) {
         const link = uc.BuyLink.trim();
-        return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy QRTags for ${safeTitle}">Buy QRTags</a>`;
+        return `<a class="uc-buy" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Buy QRTags for ${safeTitle}">Buy</a>`;
     }
-    return `<button type="button" class="uc-buy" disabled aria-label="Buy QRTags — link not set yet">Buy QRTags</button>`;
+    return `<button type="button" class="uc-buy" disabled aria-label="Buy QRTags — link not set yet">Buy</button>`;
 }
 
 function normaliseYouTubeEmbed(url) {
@@ -1573,20 +1689,10 @@ function ucNumLabel(uc) {
 }
 
 function ucCardHtml(uc) {
-    const embedUrl = normaliseYouTubeEmbed(getVideoUrl(uc));
-    const qrUrl = (uc.qr || '').trim();
-    let demoBtn = '';
-    if (embedUrl) {
-        demoBtn = `<button type="button" class="uc-demo" onclick="openUCVideo('${embedUrl}')">▶ Watch Demo</button>`;
-    } else if (uc.needVideoUrl) {
-        demoBtn = `<button type="button" class="uc-demo uc-demo-needed" disabled title="Demo video URL needed">▶ Demo needed</button>`;
-    }
+    const demoBtn = renderUseCaseDemoBtn(uc, 'openUCVideo');
     const buyBtn = renderUseCaseBuyBtn(uc);
-    const qrBlock = qrUrl
-        ? `<a class="uc-qr-link" href="${qrUrl}" target="_blank" rel="noopener" aria-label="Open live demo for ${uc.title}">
-               <canvas class="uc-qr-canvas" data-qr-url="${qrUrl}" width="56" height="56"></canvas>
-           </a>`
-        : '';
+    const waBtn = renderUseCaseWhatsAppBtn(uc);
+    const qrBlock = renderUseCaseQrBlock(uc);
     const safeTitle = String(uc.title || '').replace(/"/g, '&quot;');
     return `
     <div class="uc-card${ucSeriesClass(uc)}">
@@ -1599,7 +1705,7 @@ function ucCardHtml(uc) {
         </div>
         <div class="uc-body">
             <p class="uc-desc">${uc.desc}</p>
-            <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}</div>
+            <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}${waBtn}</div>
         </div>
     </div>`;
 }
