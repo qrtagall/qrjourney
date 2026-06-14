@@ -455,7 +455,7 @@
         .feat-card p { font-size: .91rem; color: var(--text-2); line-height: 1.68; text-align: left; }
 
         /* ===== USE CASES – HORIZONTAL SCROLL ===== */
-        #usecases { background: var(--surface); }
+        #usecases { background: var(--surface); --uc-tile-height: 380px; }
 
         .uc-scroll-outer {
             position: relative;
@@ -475,6 +475,7 @@
 
         .uc-track {
             display: flex;
+            align-items: stretch;
             gap: 20px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
@@ -493,6 +494,8 @@
         .uc-card {
             flex-shrink: 0;
             width: 328px;
+            height: var(--uc-tile-height);
+            min-height: var(--uc-tile-height);
             scroll-snap-align: start;
             background: #fff;
             border-radius: var(--r-xl);
@@ -502,6 +505,7 @@
             transition: box-shadow .25s, transform .25s;
             display: flex;
             flex-direction: column;
+            box-sizing: border-box;
         }
         .uc-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
@@ -526,14 +530,22 @@
             flex-shrink: 0;
             scroll-snap-align: start;
             width: 200px;
-            min-height: 280px;
+            height: var(--uc-tile-height);
+            min-height: var(--uc-tile-height);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: flex-start;
             padding: 20px 16px;
             border-radius: var(--r-xl);
             border: 2px dashed;
+            box-sizing: border-box;
+        }
+        .uc-series-top {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            overflow: hidden;
         }
         .uc-series-divider-1 { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
         .uc-series-divider-2 { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
@@ -569,7 +581,8 @@
             letter-spacing: 0.02em;
         }
         .uc-series-actions {
-            margin-top: 12px;
+            margin-top: auto;
+            padding-top: 12px;
             align-self: stretch;
         }
         .uc-num-badge {
@@ -605,8 +618,8 @@
         .uc-num { font-size: .68rem; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
         .uc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: .96rem; font-weight: 700; color: var(--text); line-height: 1.3; }
 
-        .uc-body { padding: 12px 20px 20px; flex: 1; display: flex; flex-direction: column; }
-        .uc-desc { font-size: .86rem; color: var(--text-2); line-height: 1.62; flex: 1; text-align: left; margin: 0; }
+        .uc-body { padding: 12px 20px 20px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .uc-desc { font-size: .86rem; color: var(--text-2); line-height: 1.62; flex: 1; min-height: 0; overflow-y: auto; text-align: left; margin: 0; }
 
         .uc-demo {
             display: inline-flex;
@@ -668,8 +681,25 @@
             justify-content: flex-start;
             width: 100%;
             gap: 8px;
-            margin-top: 12px;
+            margin-top: auto;
+            padding: 12px 6px 0;
             flex-wrap: nowrap;
+            box-sizing: border-box;
+        }
+        .uc-actions-with-buy {
+            justify-content: space-between;
+            gap: 0;
+        }
+        .uc-actions-main {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 1 auto;
+            min-width: 0;
+        }
+        .uc-actions-buy {
+            margin-left: 16px;
+            flex-shrink: 0;
         }
         .uc-qr-link {
             display: flex;
@@ -1584,6 +1614,24 @@ function renderUseCaseQrBlock(uc) {
            </a>`;
 }
 
+function isUseCaseItem(uc) {
+    const num = uc && uc.num != null ? String(uc.num) : '';
+    return num.includes('-');
+}
+
+function renderUseCaseActionsHtml(uc, openFn, opts = {}) {
+    const withBuy = opts.withBuy === true;
+    const extraClass = opts.actionClass ? ` ${opts.actionClass}` : '';
+    const qrBlock = renderUseCaseQrBlock(uc);
+    const demoBtn = renderUseCaseDemoBtn(uc, openFn);
+    const waBtn = renderUseCaseWhatsAppBtn(uc);
+    const buyBtn = withBuy ? renderUseCaseBuyBtn(uc) : '';
+    if (withBuy && buyBtn) {
+        return `<div class="uc-actions uc-actions-with-buy${extraClass}"><div class="uc-actions-main">${qrBlock}${demoBtn}${waBtn}</div><div class="uc-actions-buy">${buyBtn}</div></div>`;
+    }
+    return `<div class="uc-actions${extraClass}">${qrBlock}${demoBtn}${waBtn}</div>`;
+}
+
 function isBuyLinkValid(uc) {
     const link = (uc.BuyLink || '').trim();
     return link.length > 0 && /^https?:\/\//i.test(link);
@@ -1641,17 +1689,16 @@ function parseUseCasesPayload(raw) {
 function seriesDividerHtml(s) {
     const item = { ...s, desc: s.subtitle || '' };
     const tagPills = (s.tags || []).map(t => `<span class="uc-series-tag">${t}</span>`).join('');
-    const qrBlock = renderUseCaseQrBlock(item);
-    const demoBtn = renderUseCaseDemoBtn(item, 'openUCVideo');
-    const buyBtn = renderUseCaseBuyBtn(item);
-    const waBtn = renderUseCaseWhatsAppBtn(item);
+    const actionsHtml = renderUseCaseActionsHtml(item, 'openUCVideo', { actionClass: 'uc-series-actions' });
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
-                <span class="uc-series-num">${s.id}</span>
-                <div class="uc-series-name">${s.title}</div>
-                <div class="uc-series-sub">${s.subtitle || ''}</div>
-                ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
-                <div class="uc-actions uc-series-actions">${qrBlock}${demoBtn}${buyBtn}${waBtn}</div>
+                <div class="uc-series-top">
+                    <span class="uc-series-num">${s.id}</span>
+                    <div class="uc-series-name">${s.title}</div>
+                    <div class="uc-series-sub">${s.subtitle || ''}</div>
+                    ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
+                </div>
+                ${actionsHtml}
             </div>`;
 }
 
@@ -1674,11 +1721,8 @@ function ucNumLabel(uc) {
 }
 
 function ucCardHtml(uc) {
-    const demoBtn = renderUseCaseDemoBtn(uc, 'openUCVideo');
-    const buyBtn = renderUseCaseBuyBtn(uc);
-    const waBtn = renderUseCaseWhatsAppBtn(uc);
-    const qrBlock = renderUseCaseQrBlock(uc);
     const safeTitle = String(uc.title || '').replace(/"/g, '&quot;');
+    const actionsHtml = renderUseCaseActionsHtml(uc, 'openUCVideo', { withBuy: isUseCaseItem(uc) });
     return `
     <div class="uc-card${ucSeriesClass(uc)}">
         <div class="uc-head">
@@ -1690,7 +1734,7 @@ function ucCardHtml(uc) {
         </div>
         <div class="uc-body">
             <p class="uc-desc">${uc.desc}</p>
-            <div class="uc-actions">${qrBlock}${demoBtn}${buyBtn}${waBtn}</div>
+            ${actionsHtml}
         </div>
     </div>`;
 }
