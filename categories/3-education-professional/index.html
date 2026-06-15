@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRTagAll — Category</title>
+    <meta name="description" content="QRTagAll category landing page.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/qr-shared.css?v=20260615">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+</head>
+<body class="qrj-category" data-category-id="3-education-professional">
+
+<iframe id="proxyFrame" src="https://proxy.qrtagall.com" style="display:none;" title="QR proxy"></iframe>
+
+<nav id="navbar" class="transparent">
+    <div class="nav-inner">
+        <a href="#hero" class="nav-logo">QRTagAll<span class="nav-logo-sub" id="navLogoSub"></span></a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#usecases">Use Cases</a></li>
+            <li><a href="#howitworks">How It Works</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="#" id="navMainLink" class="btn btn-ghost btn-sm cat-main-link">Main site</a>
+            <button class="btn btn-accent btn-sm" id="startBtn">Generate QR →</button>
+        </div>
+        <button id="navToggle" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+    </div>
+</nav>
+
+<div id="mobileMenu" role="navigation" aria-label="Mobile menu">
+    <a href="#features" class="mob-link">Features</a>
+    <a href="#usecases" class="mob-link">Use Cases</a>
+    <a href="#howitworks" class="mob-link">How It Works</a>
+    <a href="#about" class="mob-link">About</a>
+    <a href="#contact" class="mob-link">Contact</a>
+    <div class="mob-cta">
+        <button class="btn btn-accent" id="startBtnMob">Generate Your QR →</button>
+        <a href="#" id="navMainLinkMob" class="btn btn-ghost">Main site</a>
+    </div>
+</div>
+
+<section id="hero">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="container">
+        <div class="hero-inner">
+            <div>
+                <div class="hero-badge" id="heroBadge"></div>
+                <h1 class="hero-headline" id="heroHeadline"></h1>
+                <p class="hero-sub" id="heroSub"></p>
+                <div class="hero-actions">
+                    <button class="btn btn-accent btn-lg" id="startBtnHero">Generate Your QR →</button>
+                    <a href="#howitworks" class="btn btn-ghost">See How It Works</a>
+                </div>
+                <div class="hero-trust" id="heroTrust"></div>
+            </div>
+            <div class="hero-visual">
+                <div class="qr-float-card">
+                    <a id="heroQrLink" class="hero-qr-link" href="#" target="_blank" rel="noopener" aria-label="Open live demo">
+                        <canvas id="heroQRDemo" width="180" height="180"></canvas>
+                    </a>
+                    <div class="qr-float-label">Live demo</div>
+                    <div class="qr-float-sub">Scan to explore</div>
+                </div>
+                <div class="chip chip-1">Category tour</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="section" style="background:#fff;">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag" id="featuresTag"></div>
+            <h2 id="featuresTitle"></h2>
+            <p id="featuresSub"></p>
+        </div>
+        <div class="features-grid" id="featuresGrid"></div>
+    </div>
+</section>
+
+<section id="usecases" class="section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag" id="useCasesTag"></div>
+            <h2 id="useCasesTitle"></h2>
+            <p id="useCasesSub"></p>
+        </div>
+        <div class="scroll-arrows fade-up">
+            <button class="scroll-arrow" onclick="QRJUseCases.shiftUC(-1)" aria-label="Scroll left">&#8592;</button>
+            <button class="scroll-arrow" onclick="QRJUseCases.shiftUC(1)" aria-label="Scroll right">&#8594;</button>
+        </div>
+        <div class="uc-scroll-outer fade-up">
+            <div class="uc-track" id="ucTrack">
+                <div style="padding:40px;color:var(--text-3);font-size:.9rem;">Loading use cases…</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="ucVideoModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.78); backdrop-filter:blur(8px); z-index:3000; justify-content:center; align-items:center; padding:20px;">
+    <div style="background:#000; border-radius:20px; overflow:hidden; width:100%; max-width:800px; position:relative; box-shadow:0 32px 80px rgba(0,0,0,.6);">
+        <span onclick="QRJUseCases.closeUCVideo()" style="position:absolute;top:12px;right:16px;font-size:26px;color:rgba(255,255,255,.8);cursor:pointer;z-index:10;line-height:1;">×</span>
+        <iframe id="ucVideoFrame" src="" allow="autoplay; encrypted-media" allowfullscreen style="display:block;width:100%;height:450px;border:none;"></iframe>
+    </div>
+</div>
+
+<section id="howitworks" class="section" style="background:#fff;">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag" id="howItWorksTag"></div>
+            <h2 id="howItWorksTitle"></h2>
+            <p id="howItWorksSub"></p>
+        </div>
+        <div class="steps fade-up" id="stepsGrid"></div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <div class="about-inner">
+            <div class="about-text fade-up">
+                <div class="section-tag" id="aboutTag"></div>
+                <h2 id="aboutTitle"></h2>
+                <div id="aboutParagraphs"></div>
+            </div>
+            <div class="about-stats fade-up" id="aboutStats"></div>
+        </div>
+    </div>
+</section>
+
+<section id="cta-band" class="section">
+    <div class="container">
+        <div class="cta-box fade-up">
+            <h2 id="ctaTitle"></h2>
+            <p id="ctaSub"></p>
+            <button class="btn btn-accent btn-lg" id="startBtnCta">Generate Your QR →</button>
+        </div>
+    </div>
+</section>
+
+<section id="live-demo-qr" class="hero-qr-mobile" aria-label="Live demo QR">
+    <div class="container">
+        <p class="hero-qr-mobile-hint fade-up">Tap the QR to open a live demo</p>
+        <div class="hero-visual fade-up">
+            <div class="chip chip-1">Live Demo</div>
+            <div class="qr-float-card">
+                <a id="heroQrLinkMobile" class="hero-qr-link" href="#" target="_blank" rel="noopener">
+                    <canvas id="heroQRDemoMobile" width="180" height="180"></canvas>
+                </a>
+                <div class="qr-float-label">Live demo</div>
+                <div class="qr-float-sub">Scan to explore</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" style="background:#fff; padding:80px 0;">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-tag">Contact</div>
+            <h2>Get in touch</h2>
+            <p>Questions about this vertical? Reach us directly.</p>
+        </div>
+        <div class="contact-cards fade-up">
+            <a id="contactMailLink" href="#" class="contact-chip-big">
+                <span class="cc-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                </span>
+                <div>
+                    <div class="cc-label">Email us</div>
+                    <div class="cc-value" id="contactEmail"></div>
+                </div>
+            </a>
+            <a href="#" id="contactMainLink" class="contact-chip-big">
+                <span class="cc-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </span>
+                <div>
+                    <div class="cc-label">QRTagAll main</div>
+                    <div class="cc-value">Platform overview</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">QRTagAll</div>
+                <p>Category branch — synced with master use cases. Template sheets from MasterTemplate on claim (when backend linked).</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#usecases">Use Cases</a></li>
+                    <li><a href="#howitworks">How It Works</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/usecases.html">All use cases</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 QRTagAll. Tag it. Own it.</p>
+        </div>
+    </div>
+</footer>
+
+<div id="popupModal" role="dialog" aria-modal="true" aria-labelledby="qrPopupHeading">
+    <div id="popupModalContent">
+        <button class="closeBtn" onclick="QRJGenerate.closeModal()" aria-label="Close">×</button>
+        <div id="qrPopupHeading"></div>
+        <p id="qrIdLabel"></p>
+        <label for="qrTemplateSelect" style="font-size:.78rem;color:var(--text-3);display:block;margin-bottom:4px;">Use-case template (MasterTemplate sheet)</label>
+        <select id="qrTemplateSelect" aria-label="Use-case template"></select>
+        <div id="qrSpinner" style="display:none;">⏳ Generating QR...</div>
+        <div id="popupQR" style="display:none; text-align:center;">
+            <canvas id="popupQRCanvas" style="display:block; margin:0 auto;"></canvas>
+            <div id="qrCaption" contenteditable="true" onfocus="this.style.outline='1px dashed #ccc'" onblur="this.style.outline='none'">QR</div>
+        </div>
+        <p id="qrUrl" style="display:none; text-align:center;">
+            <a id="qrLink" href="#" target="_blank">Loading link...</a>
+        </p>
+        <div id="popupButtons" style="display:none;">
+            <button onclick="QRJGenerate.printQR()">Print</button>
+            <button onclick="QRJGenerate.goNext()" style="background:var(--primary);color:#fff;">Next →</button>
+            <button onclick="QRJGenerate.downloadQR()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/qr-config.js?v=20260615"></script>
+<script src="/js/qr-usecases.js?v=20260615"></script>
+<script src="/js/qr-generate.js?v=20260615"></script>
+<script src="/js/qr-site-common.js?v=20260615"></script>
+<script src="/js/qr-category-page.js?v=20260615"></script>
+</body>
+</html>
