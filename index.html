@@ -831,6 +831,18 @@
         }
         .uc-footer a:hover { border-color: var(--primary); }
 
+        .uc-series-explore {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: .78rem;
+            font-weight: 700;
+            margin-top: 10px;
+            text-decoration: none;
+            opacity: .92;
+        }
+        .uc-series-divider .uc-series-explore:hover { text-decoration: underline; }
+
         /* ===== HOW IT WORKS ===== */
         #howitworks { background: #fff; }
         .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; position: relative; }
@@ -1727,6 +1739,10 @@ function seriesDividerHtml(s) {
     const safeTitle = escapeHtmlAttr(s.title);
     const safeSub = escapeHtmlAttr(s.subtitle);
     const actionsHtml = renderUseCaseActionsHtml(item, 'openUCVideo', { actionClass: 'uc-series-actions' });
+    const exploreUrl = RJ_CATEGORY_URLS[s.id];
+    const exploreHtml = exploreUrl
+        ? `<a class="uc-series-explore" href="${exploreUrl}" target="_blank" rel="noopener">Explore ${safeTitle} →</a>`
+        : '';
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
                 <div class="uc-series-head">
@@ -1739,6 +1755,7 @@ function seriesDividerHtml(s) {
                     <div class="uc-body-mid">
                         ${safeSub ? `<p class="uc-desc">${safeSub}</p>` : ''}
                         ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
+                        ${exploreHtml}
                     </div>
                 </div>
                 ${actionsHtml}
@@ -1798,6 +1815,24 @@ function ucTrackHtml(payload) {
     return html;
 }
 
+/* ---- Category branch URLs (site-config) ---- */
+const RJ_CATEGORY_URLS = {};
+
+async function initMainExploreLinks() {
+    try {
+        const res = await fetch('/data/site-config.json');
+        const cfg = await res.json();
+        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        for (const [id, cat] of Object.entries(cfg.categories || {})) {
+            RJ_CATEGORY_URLS[cat.seriesId] = isLocal
+                ? `/categories/${id}/`
+                : `https://${cat.subdomain}.${cfg.mainHost}/`;
+        }
+    } catch (e) {
+        console.warn('Could not load site-config for category links', e);
+    }
+}
+
 async function loadUseCases() {
     const track = document.getElementById('ucTrack');
     try {
@@ -1810,7 +1845,7 @@ async function loadUseCases() {
         console.error('Failed to load usecases.json', e);
     }
 }
-loadUseCases();
+initMainExploreLinks().then(() => loadUseCases());
 
 /* ---- Horizontal scroll buttons ---- */
 function shiftUC(dir) {
