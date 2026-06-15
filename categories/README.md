@@ -18,6 +18,8 @@ Local preview: `http://localhost/categories/1-safety-emergency/` (or your static
 
 Until category subdomains are live, **`categoryUrlMode`** in `site-config.json` is `"path"` — explore links on the main page use `/categories/{id}/` on `qrtagall.com`. Set `"subdomain"` when DNS is ready.
 
+**QR ID prefixes** on child pages: `{categoryCode}{letter}` per use case (e.g. Safety: `SERA_` Medical, `SERB_` Vehicle, `SERC_` Personal). Defined in `useCaseTemplates` in `site-config.json`.
+
 ## Regenerate HTML shells
 
 ```bash

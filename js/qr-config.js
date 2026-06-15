@@ -61,8 +61,20 @@
         return null;
     }
 
-    function getTemplateForUseCase(num) {
-        return siteConfig?.useCaseTemplates?.[num] || null;
+    function getTemplateForUseCase(num, categoryCode) {
+        const tpl = siteConfig?.useCaseTemplates?.[num];
+        if (!tpl) return null;
+        const out = { ...tpl };
+        if (!out.qrPrefix && categoryCode) {
+            out.qrPrefix = computeUseCaseQrPrefix(categoryCode, num);
+        }
+        return out;
+    }
+
+    function computeUseCaseQrPrefix(categoryCode, useCaseNum) {
+        const m = String(useCaseNum).match(/-([a-z])$/i);
+        if (!categoryCode || !m) return null;
+        return `${categoryCode}${m[1].toUpperCase()}_`;
     }
 
     function mainSiteUrl() {
@@ -81,6 +93,7 @@
         categoryPublicUrl,
         categoryUrlBySeriesId,
         getTemplateForUseCase,
+        computeUseCaseQrPrefix,
         mainSiteUrl,
     };
 })(typeof window !== 'undefined' ? window : this);

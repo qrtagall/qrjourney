@@ -1,6 +1,6 @@
 /* QRTagAll category branch page bootstrap */
 (function (global) {
-    const ASSET_V = '20260616';
+    const ASSET_V = '20260617';
 
     function assetUrl(path) {
         return `${path}?v=${ASSET_V}`;
@@ -61,27 +61,24 @@
         return items.map((t) => `<span class="trust-item">${check}${t}</span>`).join('');
     }
 
-    function buildTemplateSelect(useCases, templates) {
+    function buildTemplateSelect(useCases, templates, categoryCode) {
         const select = el('qrTemplateSelect');
         if (!select) return;
-        select.innerHTML = '<option value="">— Select use-case template —</option>';
+        select.innerHTML = '<option value="">— Select use case —</option>';
         useCases.forEach((uc) => {
-            const tpl = templates[uc.num];
-            const sheet = tpl?.masterTemplateSheet ? ` (${tpl.masterTemplateSheet})` : '';
+            const tpl = templates[uc.num] || {};
+            const prefix = (tpl.qrPrefix || global.QRJConfig.computeUseCaseQrPrefix(categoryCode, uc.num) || '').replace(/_$/, '');
+            const sheet = tpl.masterTemplateSheet ? ` · ${tpl.masterTemplateSheet}` : '';
             const opt = document.createElement('option');
             opt.value = uc.num;
-            opt.textContent = `${uc.num} — ${uc.title}${sheet}`;
+            opt.dataset.ucTitle = uc.title || '';
+            opt.textContent = prefix
+                ? `${prefix} — ${uc.title}${sheet}`
+                : `${uc.num} — ${uc.title}${sheet}`;
             select.appendChild(opt);
         });
-        if (useCases.length === 1) {
-            select.value = useCases[0].num;
-            const tpl = templates[useCases[0].num];
-            global.QRJGenerate.setSelectedTemplate({
-                num: useCases[0].num,
-                title: useCases[0].title,
-                ...tpl,
-            });
-        }
+        select.value = '';
+        global.QRJGenerate.setSelectedTemplate(null);
     }
 
     async function loadOverrides(categoryId) {
@@ -170,7 +167,7 @@
         let useCases = series ? [...(series.useCases || [])] : [];
         useCases = global.QRJUseCases.applyUseCaseOverrides(useCases, overrides);
 
-        buildTemplateSelect(useCases, config.useCaseTemplates || {});
+        buildTemplateSelect(useCases, config.useCaseTemplates || {}, category.code);
 
         const tourQr = (() => {
             for (const uc of useCases) {
@@ -193,15 +190,17 @@
 
         global.QRJGenerate.applyConfig({
             proxyOrigin: config.proxyOrigin,
-            qrIdPrefix: category.qrPrefix,
             routingFallbackPrefix: config.routingFallbackPrefix,
         });
 
         const genOpts = {
-            qrIdPrefix: category.qrPrefix,
             processUrl: config.processUrl,
+            categoryCode: category.code,
+            requireTemplate: true,
             defaultCaption: `${category.code} QR`,
-            readyHeading: `🎉 Your ${content.heroBadge || category.code} QR is ready!`,
+            readyHeading: '🎉 Your QR is ready!',
+            pickTemplateHeading: 'Choose a use case',
+            pickTemplateHint: 'Each option sets the ID prefix (e.g. SERA Medical, SERB Vehicle). QR is generated after you select.',
         };
 
         global.QRJGenerate.wireModal(genOpts);
