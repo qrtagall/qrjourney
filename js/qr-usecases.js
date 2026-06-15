@@ -196,22 +196,23 @@
         const safeSub = escapeHtmlAttr(s.subtitle);
         const actionsHtml = renderUseCaseActionsHtml(item, 'QRJUseCases.openUCVideo', { actionClass: 'uc-series-actions' });
         const exploreUrl = opts.exploreUrlForSeries ? opts.exploreUrlForSeries(s.id) : null;
-        const exploreHtml = exploreUrl
-            ? `<a class="uc-series-explore" href="${escapeHtmlAttr(exploreUrl)}" target="_blank" rel="noopener">Explore ${safeTitle} →</a>`
-            : '';
+        const external = opts.exploreExternalForSeries ? opts.exploreExternalForSeries(s.id) : false;
+        const exploreTarget = external ? ' target="_blank" rel="noopener"' : '';
+        const titleHtml = exploreUrl
+            ? `<a class="uc-title uc-series-title-link" href="${escapeHtmlAttr(exploreUrl)}"${exploreTarget} aria-label="Open ${safeTitle} category page">${safeTitle}</a>`
+            : `<div class="uc-title">${safeTitle}</div>`;
         return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
                 <div class="uc-series-head">
                     <div class="uc-series-id" aria-hidden="true">${s.id}</div>
                     <div class="uc-series-head-text">
-                        <div class="uc-title">${safeTitle}</div>
+                        ${titleHtml}
                     </div>
                 </div>
                 <div class="uc-series-body">
                     <div class="uc-body-mid">
                         ${safeSub ? `<p class="uc-desc">${safeSub}</p>` : ''}
                         ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
-                        ${exploreHtml}
                     </div>
                 </div>
                 ${actionsHtml}
