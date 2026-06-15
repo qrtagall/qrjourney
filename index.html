@@ -1740,8 +1740,9 @@ function seriesDividerHtml(s) {
     const safeSub = escapeHtmlAttr(s.subtitle);
     const actionsHtml = renderUseCaseActionsHtml(item, 'openUCVideo', { actionClass: 'uc-series-actions' });
     const exploreUrl = RJ_CATEGORY_URLS[s.id];
+    const exploreTarget = RJ_CATEGORY_URLS_EXTERNAL[s.id] ? ' target="_blank" rel="noopener"' : '';
     const exploreHtml = exploreUrl
-        ? `<a class="uc-series-explore" href="${exploreUrl}" target="_blank" rel="noopener">Explore ${safeTitle} →</a>`
+        ? `<a class="uc-series-explore" href="${exploreUrl}"${exploreTarget}>Explore ${safeTitle} →</a>`
         : '';
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
@@ -1817,16 +1818,19 @@ function ucTrackHtml(payload) {
 
 /* ---- Category branch URLs (site-config) ---- */
 const RJ_CATEGORY_URLS = {};
+const RJ_CATEGORY_URLS_EXTERNAL = {};
 
 async function initMainExploreLinks() {
     try {
         const res = await fetch('/data/site-config.json');
         const cfg = await res.json();
-        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        const mode = cfg.categoryUrlMode || 'path';
         for (const [id, cat] of Object.entries(cfg.categories || {})) {
-            RJ_CATEGORY_URLS[cat.seriesId] = isLocal
-                ? `/categories/${id}/`
-                : `https://${cat.subdomain}.${cfg.mainHost}/`;
+            const external = mode === 'subdomain';
+            RJ_CATEGORY_URLS_EXTERNAL[cat.seriesId] = external;
+            RJ_CATEGORY_URLS[cat.seriesId] = external
+                ? `https://${cat.subdomain}.${cfg.mainHost}/`
+                : `/categories/${id}/`;
         }
     } catch (e) {
         console.warn('Could not load site-config for category links', e);

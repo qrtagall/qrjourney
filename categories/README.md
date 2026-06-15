@@ -16,6 +16,8 @@ Vertical landing pages synced with `data/usecases.json` and configured in `data/
 
 Local preview: `http://localhost/categories/1-safety-emergency/` (or your static server root).
 
+Until category subdomains are live, **`categoryUrlMode`** in `site-config.json` is `"path"` — explore links on the main page use `/categories/{id}/` on `qrtagall.com`. Set `"subdomain"` when DNS is ready.
+
 ## Regenerate HTML shells
 
 ```bash

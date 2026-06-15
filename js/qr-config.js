@@ -37,19 +37,19 @@
         return null;
     }
 
+    function categoryPathUrl(catId) {
+        return `/categories/${catId}/`;
+    }
+
     function categoryPublicUrl(catId) {
         const cat = siteConfig?.categories?.[catId];
         if (!cat || !siteConfig) return '#';
 
-        const isLocal =
-            location.hostname === 'localhost' ||
-            location.hostname === '127.0.0.1' ||
-            location.hostname.endsWith('.local');
-
-        if (isLocal) {
-            return `/categories/${catId}/`;
+        const mode = siteConfig.categoryUrlMode || 'path';
+        if (mode === 'subdomain') {
+            return `https://${cat.subdomain}.${siteConfig.mainHost}/`;
         }
-        return `https://${cat.subdomain}.${siteConfig.mainHost}/`;
+        return categoryPathUrl(catId);
     }
 
     function categoryUrlBySeriesId(seriesId) {

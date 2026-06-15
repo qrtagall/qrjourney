@@ -5,6 +5,7 @@
   "proxyOrigin": "https://proxy.qrtagall.com",
   "routingFallbackPrefix": "IN",
   "masterTemplateWorkbook": "MasterTemplate",
+  "categoryUrlMode": "path",
   "main": {
     "qrPrefix": "TMP1_",
     "contactEmail": "qrtagall@gmail.com",
