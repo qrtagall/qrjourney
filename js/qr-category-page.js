@@ -1,6 +1,6 @@
 /* QRTagAll category branch page bootstrap */
 (function (global) {
-    const ASSET_V = '20260615';
+    const ASSET_V = '20260616';
 
     function assetUrl(path) {
         return `${path}?v=${ASSET_V}`;

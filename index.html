@@ -571,6 +571,7 @@
             padding: 0 20px;
         }
         .uc-series-divider .uc-title { color: var(--text); }
+        .uc-series-divider .uc-title.uc-series-title-link { color: inherit; }
         .uc-series-divider-1 { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
         .uc-series-divider-2 { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
         .uc-series-divider-3 { background: #e3f5f1; border-color: #7ecbbc; color: #1a5248; }
@@ -842,6 +843,16 @@
             opacity: .92;
         }
         .uc-series-divider .uc-series-explore:hover { text-decoration: underline; }
+
+        .uc-series-title-link {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity .2s, text-decoration .2s;
+        }
+        .uc-series-title-link:hover {
+            text-decoration: underline;
+            opacity: 0.88;
+        }
 
         /* ===== HOW IT WORKS ===== */
         #howitworks { background: #fff; }
@@ -1741,22 +1752,21 @@ function seriesDividerHtml(s) {
     const actionsHtml = renderUseCaseActionsHtml(item, 'openUCVideo', { actionClass: 'uc-series-actions' });
     const exploreUrl = RJ_CATEGORY_URLS[s.id];
     const exploreTarget = RJ_CATEGORY_URLS_EXTERNAL[s.id] ? ' target="_blank" rel="noopener"' : '';
-    const exploreHtml = exploreUrl
-        ? `<a class="uc-series-explore" href="${exploreUrl}"${exploreTarget}>Explore ${safeTitle} →</a>`
-        : '';
+    const titleHtml = exploreUrl
+        ? `<a class="uc-title uc-series-title-link" href="${exploreUrl}"${exploreTarget} aria-label="Open ${safeTitle} category page">${safeTitle}</a>`
+        : `<div class="uc-title">${safeTitle}</div>`;
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
                 <div class="uc-series-head">
                     <div class="uc-series-id" aria-hidden="true">${s.id}</div>
                     <div class="uc-series-head-text">
-                        <div class="uc-title">${safeTitle}</div>
+                        ${titleHtml}
                     </div>
                 </div>
                 <div class="uc-series-body">
                     <div class="uc-body-mid">
                         ${safeSub ? `<p class="uc-desc">${safeSub}</p>` : ''}
                         ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
-                        ${exploreHtml}
                     </div>
                 </div>
                 ${actionsHtml}
