@@ -12,36 +12,156 @@
     "heroDemoQr": "https://process.qrtagall.com/?id=QRTAG_20260609040731552_C67042F8"
   },
   "useCaseTemplates": {
-    "1-a": { "masterTemplateSheet": "Medical", "demoFolder": "1-a_Medical Records Organizer" },
-    "1-b": { "masterTemplateSheet": "Vehicle", "demoFolder": "1-b_Vehicle Emergency Sticker" },
-    "1-c": { "masterTemplateSheet": "Personal", "demoFolder": "1-c_Lost & Found" },
-    "1-d": { "masterTemplateSheet": "Pet", "demoFolder": "1-d_Pet ID Collar" },
-    "2-a": { "masterTemplateSheet": "Fashion", "demoFolder": "2-a_Handcrafted Fashion" },
-    "2-b": { "masterTemplateSheet": "Art", "demoFolder": "2-b_Artworks & Antiques" },
-    "2-c": { "masterTemplateSheet": "Museum", "demoFolder": "2-c_Museum Exhibit" },
-    "3-a": { "masterTemplateSheet": "Certificate", "demoFolder": "3-a_Educational Certificates" },
-    "3-b": { "masterTemplateSheet": "Student", "demoFolder": "3-b_Student Portfolio ID" },
-    "3-c": { "masterTemplateSheet": "BusinessCard", "demoFolder": "3-c_Digital Business Card" },
-    "4-a": { "masterTemplateSheet": "Heirloom", "demoFolder": "4-a_Heirloom Memory Vault" },
-    "4-b": { "masterTemplateSheet": "Memento", "demoFolder": "4-b_Memento" },
-    "4-c": { "masterTemplateSheet": "Wedding", "demoFolder": "4-c_Wedding Memory" },
-    "4-d": { "masterTemplateSheet": "Event", "demoFolder": "4-d_Event Management" },
-    "5-a": { "masterTemplateSheet": "Plant", "demoFolder": "5-a_Plant & Tree Tagging" },
-    "5-b": { "masterTemplateSheet": "Plant", "demoFolder": "5-b_Pot Plant Journey" },
-    "6-a": { "masterTemplateSheet": "Appliance", "demoFolder": "6-a_Appliance Warranty & Repair" },
-    "6-b": { "masterTemplateSheet": "Property", "demoFolder": "6-b_House Ownership & Repair" },
-    "6-c": { "masterTemplateSheet": "Vehicle", "demoFolder": "6-c_Vehicle History Recorder" },
-    "6-d": { "masterTemplateSheet": "Tool", "demoFolder": "6-d_Workshop Tool" },
-    "6-e": { "masterTemplateSheet": "Community", "demoFolder": "6-e_Community Sharing" },
-    "6-f": { "masterTemplateSheet": "Hospitality", "demoFolder": "6-f_Guest House and Airbnb" },
-    "7-a": { "masterTemplateSheet": "Construction", "demoFolder": "7-a_Construction Site Operations" },
-    "7-b": { "masterTemplateSheet": "Construction", "demoFolder": "7-b_Construction Equipment" },
-    "7-c": { "masterTemplateSheet": "Warehouse", "demoFolder": "7-c_Warehouse and 3PL" },
-    "7-d": { "masterTemplateSheet": "Fleet", "demoFolder": "7-d_Transport Fleet" },
-    "7-e": { "masterTemplateSheet": "Robotics", "demoFolder": "7-e_Robotic Fleet" },
-    "7-f": { "masterTemplateSheet": "SupplyChain", "demoFolder": "7-f_Supply Chain Authenticity" },
-    "7-g": { "masterTemplateSheet": "Farm", "demoFolder": "7-g_Farm Produce Traceability" },
-    "7-h": { "masterTemplateSheet": "Rental", "demoFolder": "7-h_Rental Equipment" }
+    "1-a": {
+      "masterTemplateSheet": "Medical",
+      "demoFolder": "1-a_Medical Records Organizer",
+      "qrPrefix": "SERA_"
+    },
+    "1-b": {
+      "masterTemplateSheet": "Vehicle",
+      "demoFolder": "1-b_Vehicle Emergency Sticker",
+      "qrPrefix": "SERB_"
+    },
+    "1-c": {
+      "masterTemplateSheet": "Personal",
+      "demoFolder": "1-c_Lost & Found",
+      "qrPrefix": "SERC_"
+    },
+    "1-d": {
+      "masterTemplateSheet": "Pet",
+      "demoFolder": "1-d_Pet ID Collar",
+      "qrPrefix": "SERD_"
+    },
+    "2-a": {
+      "masterTemplateSheet": "Fashion",
+      "demoFolder": "2-a_Handcrafted Fashion",
+      "qrPrefix": "CACA_"
+    },
+    "2-b": {
+      "masterTemplateSheet": "Art",
+      "demoFolder": "2-b_Artworks & Antiques",
+      "qrPrefix": "CACB_"
+    },
+    "2-c": {
+      "masterTemplateSheet": "Museum",
+      "demoFolder": "2-c_Museum Exhibit",
+      "qrPrefix": "CACC_"
+    },
+    "3-a": {
+      "masterTemplateSheet": "Certificate",
+      "demoFolder": "3-a_Educational Certificates",
+      "qrPrefix": "EPA_"
+    },
+    "3-b": {
+      "masterTemplateSheet": "Student",
+      "demoFolder": "3-b_Student Portfolio ID",
+      "qrPrefix": "EPB_"
+    },
+    "3-c": {
+      "masterTemplateSheet": "BusinessCard",
+      "demoFolder": "3-c_Digital Business Card",
+      "qrPrefix": "EPC_"
+    },
+    "4-a": {
+      "masterTemplateSheet": "Heirloom",
+      "demoFolder": "4-a_Heirloom Memory Vault",
+      "qrPrefix": "MCA_"
+    },
+    "4-b": {
+      "masterTemplateSheet": "Memento",
+      "demoFolder": "4-b_Memento",
+      "qrPrefix": "MCB_"
+    },
+    "4-c": {
+      "masterTemplateSheet": "Wedding",
+      "demoFolder": "4-c_Wedding Memory",
+      "qrPrefix": "MCC_"
+    },
+    "4-d": {
+      "masterTemplateSheet": "Event",
+      "demoFolder": "4-d_Event Management",
+      "qrPrefix": "MCD_"
+    },
+    "5-a": {
+      "masterTemplateSheet": "Plant",
+      "demoFolder": "5-a_Plant & Tree Tagging",
+      "qrPrefix": "PNA_"
+    },
+    "5-b": {
+      "masterTemplateSheet": "Plant",
+      "demoFolder": "5-b_Pot Plant Journey",
+      "qrPrefix": "PNB_"
+    },
+    "6-a": {
+      "masterTemplateSheet": "Appliance",
+      "demoFolder": "6-a_Appliance Warranty & Repair",
+      "qrPrefix": "HPA_"
+    },
+    "6-b": {
+      "masterTemplateSheet": "Property",
+      "demoFolder": "6-b_House Ownership & Repair",
+      "qrPrefix": "HPB_"
+    },
+    "6-c": {
+      "masterTemplateSheet": "Vehicle",
+      "demoFolder": "6-c_Vehicle History Recorder",
+      "qrPrefix": "HPC_"
+    },
+    "6-d": {
+      "masterTemplateSheet": "Tool",
+      "demoFolder": "6-d_Workshop Tool",
+      "qrPrefix": "HPD_"
+    },
+    "6-e": {
+      "masterTemplateSheet": "Community",
+      "demoFolder": "6-e_Community Sharing",
+      "qrPrefix": "HPE_"
+    },
+    "6-f": {
+      "masterTemplateSheet": "Hospitality",
+      "demoFolder": "6-f_Guest House and Airbnb",
+      "qrPrefix": "HPF_"
+    },
+    "7-a": {
+      "masterTemplateSheet": "Construction",
+      "demoFolder": "7-a_Construction Site Operations",
+      "qrPrefix": "EOA_"
+    },
+    "7-b": {
+      "masterTemplateSheet": "Construction",
+      "demoFolder": "7-b_Construction Equipment",
+      "qrPrefix": "EOB_"
+    },
+    "7-c": {
+      "masterTemplateSheet": "Warehouse",
+      "demoFolder": "7-c_Warehouse and 3PL",
+      "qrPrefix": "EOC_"
+    },
+    "7-d": {
+      "masterTemplateSheet": "Fleet",
+      "demoFolder": "7-d_Transport Fleet",
+      "qrPrefix": "EOD_"
+    },
+    "7-e": {
+      "masterTemplateSheet": "Robotics",
+      "demoFolder": "7-e_Robotic Fleet",
+      "qrPrefix": "EOE_"
+    },
+    "7-f": {
+      "masterTemplateSheet": "SupplyChain",
+      "demoFolder": "7-f_Supply Chain Authenticity",
+      "qrPrefix": "EOF_"
+    },
+    "7-g": {
+      "masterTemplateSheet": "Farm",
+      "demoFolder": "7-g_Farm Produce Traceability",
+      "qrPrefix": "EOG_"
+    },
+    "7-h": {
+      "masterTemplateSheet": "Rental",
+      "demoFolder": "7-h_Rental Equipment",
+      "qrPrefix": "EOH_"
+    }
   },
   "categories": {
     "1-safety-emergency": {
@@ -58,15 +178,31 @@
         "heroHeadline": "Help When It Matters",
         "heroHeadlineHighlight": "Without Exposing Private Data",
         "heroSub": "Tag wallets, vehicles, bags, and collars with a QR that shows emergency facts to scanners while keeping phone numbers and deep records owner-controlled.",
-        "trustItems": ["Emergency-ready fields", "Message Owner contact", "No app to scan"],
+        "trustItems": [
+          "Emergency-ready fields",
+          "Message Owner contact",
+          "No app to scan"
+        ],
         "featuresTag": "Why QRTagAll for Safety",
         "featuresTitle": "Built for crisis and reunion",
         "featuresSub": "Share what saves time in an emergency. Withhold what is personal until you choose.",
         "features": [
-          { "title": "Emergency VIEW Fields", "desc": "Blood group, allergies, vehicle reg, insurance validity — structured for first responders, not a wall of private data." },
-          { "title": "Privacy Layering", "desc": "Deep records stay NOVIEW. Contact runs through Message Owner so finders never see your mobile on a public tag." },
-          { "title": "Living Updates", "desc": "Change meds, insurance, or pet vet notes anytime — same sticker, updated sheet." },
-          { "title": "Works Everywhere", "desc": "Any smartphone camera scans. No app install for the person helping you." }
+          {
+            "title": "Emergency VIEW Fields",
+            "desc": "Blood group, allergies, vehicle reg, insurance validity — structured for first responders, not a wall of private data."
+          },
+          {
+            "title": "Privacy Layering",
+            "desc": "Deep records stay NOVIEW. Contact runs through Message Owner so finders never see your mobile on a public tag."
+          },
+          {
+            "title": "Living Updates",
+            "desc": "Change meds, insurance, or pet vet notes anytime — same sticker, updated sheet."
+          },
+          {
+            "title": "Works Everywhere",
+            "desc": "Any smartphone camera scans. No app install for the person helping you."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Real safety stories",
@@ -75,9 +211,18 @@
         "howItWorksTitle": "Tag for safety in three steps",
         "howItWorksSub": "Pick a starter template, generate your QR, claim and attach what scanners should see.",
         "steps": [
-          { "title": "Choose Your Template", "desc": "Select Medical, Vehicle, Pet, or Personal — each maps to a MasterTemplate sheet for your use case." },
-          { "title": "Generate & Print", "desc": "Create a unique SER_ QR, print on card or sticker, and attach to wallet, windshield, bag, or collar." },
-          { "title": "Claim & Control", "desc": "Sign in with Google, fill emergency VIEW fields, and set sensitive rows to NOVIEW." }
+          {
+            "title": "Choose Your Template",
+            "desc": "Select Medical, Vehicle, Pet, or Personal — each maps to a MasterTemplate sheet for your use case."
+          },
+          {
+            "title": "Generate & Print",
+            "desc": "Create a unique SER_ QR, print on card or sticker, and attach to wallet, windshield, bag, or collar."
+          },
+          {
+            "title": "Claim & Control",
+            "desc": "Sign in with Google, fill emergency VIEW fields, and set sensitive rows to NOVIEW."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Safety without sacrificing privacy",
@@ -87,10 +232,22 @@
           "Powered by QRTagAll — tag it, own it, share it on your terms."
         ],
         "stats": [
-          { "val": "4", "lbl": "Core safety use cases" },
-          { "val": "0", "lbl": "Apps finders need" },
-          { "val": "VIEW", "lbl": "Emergency facts on scan" },
-          { "val": "100%", "lbl": "Owner-controlled privacy" }
+          {
+            "val": "4",
+            "lbl": "Core safety use cases"
+          },
+          {
+            "val": "0",
+            "lbl": "Apps finders need"
+          },
+          {
+            "val": "VIEW",
+            "lbl": "Emergency facts on scan"
+          },
+          {
+            "val": "100%",
+            "lbl": "Owner-controlled privacy"
+          }
         ],
         "ctaTitle": "Ready to tag for safety?",
         "ctaSub": "Generate a Safety & Emergency QR with a use-case template — ready in seconds."
@@ -110,15 +267,31 @@
         "heroHeadline": "Prove the Story",
         "heroHeadlineHighlight": "Behind the Object",
         "heroSub": "Hang tags, plaques, and labels become living provenance — artisan credits, exhibition history, and detail media scanners can trust.",
-        "trustItems": ["Authenticity on scan", "Rich media & PDFs", "Updatable provenance"],
+        "trustItems": [
+          "Authenticity on scan",
+          "Rich media & PDFs",
+          "Updatable provenance"
+        ],
         "featuresTag": "Why QRTagAll for Culture",
         "featuresTitle": "Authenticity you can scan",
         "featuresSub": "From handloom hang tags to museum plaques — depth beyond 50 words on a label.",
         "features": [
-          { "title": "Provenance Chain", "desc": "Link COA, ownership history, restoration reports, and exhibition logs beside the physical piece." },
-          { "title": "Artisan Credit", "desc": "Show maker, hours, journey tables, and process photos — craft becomes wearable proof." },
-          { "title": "Museum Depth", "desc": "Extended labels, audio links, and donor metadata for curious visitors and accessibility." },
-          { "title": "NOVIEW Valuation", "desc": "Keep appraisal and private sale notes owner-only while public fields build trust." }
+          {
+            "title": "Provenance Chain",
+            "desc": "Link COA, ownership history, restoration reports, and exhibition logs beside the physical piece."
+          },
+          {
+            "title": "Artisan Credit",
+            "desc": "Show maker, hours, journey tables, and process photos — craft becomes wearable proof."
+          },
+          {
+            "title": "Museum Depth",
+            "desc": "Extended labels, audio links, and donor metadata for curious visitors and accessibility."
+          },
+          {
+            "title": "NOVIEW Valuation",
+            "desc": "Keep appraisal and private sale notes owner-only while public fields build trust."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Fashion, art, and museums",
@@ -127,9 +300,18 @@
         "howItWorksTitle": "Tag culture in three steps",
         "howItWorksSub": "Template-backed QRs for fashion, art, or museum layouts — claim and attach your story.",
         "steps": [
-          { "title": "Pick Fashion, Art, or Museum", "desc": "Each template sheet in MasterTemplate matches a provenance layout for your object type." },
-          { "title": "Attach to the Object", "desc": "Print on hang tag, beside a plaque, or on a display stand — one scan, full story." },
-          { "title": "Update Over Time", "desc": "Add exhibitions, new photos, or ownership transfers without reprinting." }
+          {
+            "title": "Pick Fashion, Art, or Museum",
+            "desc": "Each template sheet in MasterTemplate matches a provenance layout for your object type."
+          },
+          {
+            "title": "Attach to the Object",
+            "desc": "Print on hang tag, beside a plaque, or on a display stand — one scan, full story."
+          },
+          {
+            "title": "Update Over Time",
+            "desc": "Add exhibitions, new photos, or ownership transfers without reprinting."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Culture deserves more than a static label",
@@ -139,10 +321,22 @@
           "Powered by QRTagAll — owned identity for physical culture."
         ],
         "stats": [
-          { "val": "3", "lbl": "Culture use cases" },
-          { "val": "PDF", "lbl": "COA & media support" },
-          { "val": "∞", "lbl": "Story updates" },
-          { "val": "Scan", "lbl": "No visitor app" }
+          {
+            "val": "3",
+            "lbl": "Culture use cases"
+          },
+          {
+            "val": "PDF",
+            "lbl": "COA & media support"
+          },
+          {
+            "val": "∞",
+            "lbl": "Story updates"
+          },
+          {
+            "val": "Scan",
+            "lbl": "No visitor app"
+          }
         ],
         "ctaTitle": "Tag your craft or collection",
         "ctaSub": "Generate a Craft, Art & Culture QR with the right starter template."
@@ -162,15 +356,31 @@
         "heroHeadline": "Credentials That",
         "heroHeadlineHighlight": "Travel With You",
         "heroSub": "Turn lanyards, resume stickers, and business cards into updatable credential wallets — proofs on scan, private details NOVIEW.",
-        "trustItems": ["Certificate PDFs", "Portfolio on ID", "Always-current card"],
+        "trustItems": [
+          "Certificate PDFs",
+          "Portfolio on ID",
+          "Always-current card"
+        ],
         "featuresTag": "Why QRTagAll for Education",
         "featuresTitle": "Proof on scan, privacy by default",
         "featuresSub": "Degrees, student achievements, and professional presence — without another app.",
         "features": [
-          { "title": "Credential Wallet", "desc": "Attach marksheets, certificates, and awards as VIEW or NOVIEW artifacts on one QR." },
-          { "title": "Student Portfolio", "desc": "Lanyard ID shows projects and awards; parent contact stays hidden." },
-          { "title": "Living Business Card", "desc": "Update resume, case studies, and links after every event — same printed card." },
-          { "title": "Verifier-Friendly", "desc": "Recruiters and admins scan once for structured proof, not a pile of PDFs." }
+          {
+            "title": "Credential Wallet",
+            "desc": "Attach marksheets, certificates, and awards as VIEW or NOVIEW artifacts on one QR."
+          },
+          {
+            "title": "Student Portfolio",
+            "desc": "Lanyard ID shows projects and awards; parent contact stays hidden."
+          },
+          {
+            "title": "Living Business Card",
+            "desc": "Update resume, case studies, and links after every event — same printed card."
+          },
+          {
+            "title": "Verifier-Friendly",
+            "desc": "Recruiters and admins scan once for structured proof, not a pile of PDFs."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Certificates, students, professionals",
@@ -179,9 +389,18 @@
         "howItWorksTitle": "Tag credentials in three steps",
         "howItWorksSub": "Certificate, Student, or BusinessCard template — generate, print, claim.",
         "steps": [
-          { "title": "Select Template", "desc": "Certificate, Student, or BusinessCard sheet from MasterTemplate for your layout." },
-          { "title": "Print on Card or Lanyard", "desc": "Generate an EP_ QR and attach to ID, portfolio cover, or business card." },
-          { "title": "Share What Matters", "desc": "Set public proofs to VIEW and keep personal contact NOVIEW." }
+          {
+            "title": "Select Template",
+            "desc": "Certificate, Student, or BusinessCard sheet from MasterTemplate for your layout."
+          },
+          {
+            "title": "Print on Card or Lanyard",
+            "desc": "Generate an EP_ QR and attach to ID, portfolio cover, or business card."
+          },
+          {
+            "title": "Share What Matters",
+            "desc": "Set public proofs to VIEW and keep personal contact NOVIEW."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Professional identity that stays current",
@@ -191,10 +410,22 @@
           "Powered by QRTagAll — your credentials, your rules."
         ],
         "stats": [
-          { "val": "3", "lbl": "EP use cases" },
-          { "val": "PDF", "lbl": "Certificate support" },
-          { "val": "1", "lbl": "Scan to verify" },
-          { "val": "Live", "lbl": "Updatable card" }
+          {
+            "val": "3",
+            "lbl": "EP use cases"
+          },
+          {
+            "val": "PDF",
+            "lbl": "Certificate support"
+          },
+          {
+            "val": "1",
+            "lbl": "Scan to verify"
+          },
+          {
+            "val": "Live",
+            "lbl": "Updatable card"
+          }
         ],
         "ctaTitle": "Create your professional QR",
         "ctaSub": "Generate an Education & Professional QR with a template that fits."
@@ -214,15 +445,31 @@
         "heroHeadline": "Objects That",
         "heroHeadlineHighlight": "Hold the Story",
         "heroSub": "Jewellery boxes, souvenirs, wedding invites, and event counters become living albums — photos, timelines, and guest uploads on one scan.",
-        "trustItems": ["Growing albums", "Event live boards", "Family timelines"],
+        "trustItems": [
+          "Growing albums",
+          "Event live boards",
+          "Family timelines"
+        ],
         "featuresTag": "Why QRTagAll for Memory",
         "featuresTitle": "Memory that keeps growing",
         "featuresSub": "One-day events become months of shared story. Heirlooms outlast memory when narrative is attached.",
         "features": [
-          { "title": "Heirloom Vault", "desc": "Family narrative, timeline, photos, and optional appraisal inside the object’s home." },
-          { "title": "Memento Capsules", "desc": "Re-scan a desk totem years later — trip story, places, and photos return instantly." },
-          { "title": "Wedding Album QR", "desc": "Invitation becomes a growing gallery: official shots, guest uploads, highlight video." },
-          { "title": "Live Event Board", "desc": "Update menu and offers once — every scan on the stall stays current." }
+          {
+            "title": "Heirloom Vault",
+            "desc": "Family narrative, timeline, photos, and optional appraisal inside the object’s home."
+          },
+          {
+            "title": "Memento Capsules",
+            "desc": "Re-scan a desk totem years later — trip story, places, and photos return instantly."
+          },
+          {
+            "title": "Wedding Album QR",
+            "desc": "Invitation becomes a growing gallery: official shots, guest uploads, highlight video."
+          },
+          {
+            "title": "Live Event Board",
+            "desc": "Update menu and offers once — every scan on the stall stays current."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Heirlooms, weddings, events",
@@ -231,9 +478,18 @@
         "howItWorksTitle": "Tag memory in three steps",
         "howItWorksSub": "Heirloom, Memento, Wedding, or Event template — then claim and fill your story.",
         "steps": [
-          { "title": "Choose Memory Template", "desc": "Pick the MasterTemplate sheet that matches heirloom, souvenir, wedding, or event layout." },
-          { "title": "Place on the Anchor", "desc": "Inside a box, on an invitation, or at the event counter — one QR, many updates." },
-          { "title": "Grow Over Time", "desc": "Add photos, guest links, and timeline entries long after the day itself." }
+          {
+            "title": "Choose Memory Template",
+            "desc": "Pick the MasterTemplate sheet that matches heirloom, souvenir, wedding, or event layout."
+          },
+          {
+            "title": "Place on the Anchor",
+            "desc": "Inside a box, on an invitation, or at the event counter — one QR, many updates."
+          },
+          {
+            "title": "Grow Over Time",
+            "desc": "Add photos, guest links, and timeline entries long after the day itself."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Celebrations deserve a lasting scan layer",
@@ -243,10 +499,22 @@
           "Powered by QRTagAll — tag the moment, keep the story."
         ],
         "stats": [
-          { "val": "4", "lbl": "Memory use cases" },
-          { "val": "∞", "lbl": "Album growth" },
-          { "val": "Guest", "lbl": "Upload links" },
-          { "val": "Scan", "lbl": "No app needed" }
+          {
+            "val": "4",
+            "lbl": "Memory use cases"
+          },
+          {
+            "val": "∞",
+            "lbl": "Album growth"
+          },
+          {
+            "val": "Guest",
+            "lbl": "Upload links"
+          },
+          {
+            "val": "Scan",
+            "lbl": "No app needed"
+          }
         ],
         "ctaTitle": "Start a memory QR",
         "ctaSub": "Generate a Memory & Celebrations QR with your chosen template."
@@ -266,15 +534,31 @@
         "heroHeadline": "Living Care",
         "heroHeadlineHighlight": "On Every Pot",
         "heroSub": "Nursery stakes and desk plants carry species ID, watering schedules, care PDFs, and milestone photos — support that outlasts the sale.",
-        "trustItems": ["Care instructions", "Species ID", "Growth diary"],
+        "trustItems": [
+          "Care instructions",
+          "Species ID",
+          "Growth diary"
+        ],
         "featuresTag": "Why QRTagAll for Plants",
         "featuresTitle": "Plants outlive the staff who sold them",
         "featuresSub": "Reduce returns and build nursery brand with a QR that keeps helping after purchase.",
         "features": [
-          { "title": "Care Sheet on Scan", "desc": "Soil recipe, seasonal watering, pest notes, and PDF guides on pot or stake." },
-          { "title": "Pot Plant Journey", "desc": "Shared diary: repot dates, milestones, progress photos over months." },
-          { "title": "Nursery Brand", "desc": "Every scan reinforces your nursery — living product support, not a forgotten receipt." },
-          { "title": "Low-Stakes Story", "desc": "Proof that a QR can tell a gentle story over time, not just specs." }
+          {
+            "title": "Care Sheet on Scan",
+            "desc": "Soil recipe, seasonal watering, pest notes, and PDF guides on pot or stake."
+          },
+          {
+            "title": "Pot Plant Journey",
+            "desc": "Shared diary: repot dates, milestones, progress photos over months."
+          },
+          {
+            "title": "Nursery Brand",
+            "desc": "Every scan reinforces your nursery — living product support, not a forgotten receipt."
+          },
+          {
+            "title": "Low-Stakes Story",
+            "desc": "Proof that a QR can tell a gentle story over time, not just specs."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Trees, nursery care, pot journeys",
@@ -283,9 +567,18 @@
         "howItWorksTitle": "Tag plants in three steps",
         "howItWorksSub": "Use the Plant template from MasterTemplate — generate, stake, claim.",
         "steps": [
-          { "title": "Plant Template", "desc": "MasterTemplate Plant sheet gives species, care, and milestone rows to start from." },
-          { "title": "Stake or Pot Label", "desc": "Generate a PN_ QR and attach where growers and owners will scan." },
-          { "title": "Update Seasonally", "desc": "Adjust watering, add pest notes, or log growth photos anytime." }
+          {
+            "title": "Plant Template",
+            "desc": "MasterTemplate Plant sheet gives species, care, and milestone rows to start from."
+          },
+          {
+            "title": "Stake or Pot Label",
+            "desc": "Generate a PN_ QR and attach where growers and owners will scan."
+          },
+          {
+            "title": "Update Seasonally",
+            "desc": "Adjust watering, add pest notes, or log growth photos anytime."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Nature tagged with living instructions",
@@ -295,10 +588,22 @@
           "Powered by QRTagAll — green identity for green things."
         ],
         "stats": [
-          { "val": "2", "lbl": "Plant use cases" },
-          { "val": "PDF", "lbl": "Care guides" },
-          { "val": "365", "lbl": "Days of updates" },
-          { "val": "Scan", "lbl": "Camera only" }
+          {
+            "val": "2",
+            "lbl": "Plant use cases"
+          },
+          {
+            "val": "PDF",
+            "lbl": "Care guides"
+          },
+          {
+            "val": "365",
+            "lbl": "Days of updates"
+          },
+          {
+            "val": "Scan",
+            "lbl": "Camera only"
+          }
         ],
         "ctaTitle": "Tag your plant",
         "ctaSub": "Generate a Plants & Nature QR with the Plant template."
@@ -318,15 +623,31 @@
         "heroHeadline": "Your Home's",
         "heroHeadlineHighlight": "Digital Filing Cabinet",
         "heroSub": "Warranties, renovation logs, tool manuals, society sharing, and Airbnb welcome packs — one scan at the fridge, meter cupboard, or door.",
-        "trustItems": ["Warranty vault", "Guest guides", "Tool inventory"],
+        "trustItems": [
+          "Warranty vault",
+          "Guest guides",
+          "Tool inventory"
+        ],
         "featuresTag": "Why QRTagAll for Home",
         "featuresTitle": "Paperwork that outlives the box",
         "featuresSub": "Appliances, property, garage tools, and guest stays — organized on the object or location.",
         "features": [
-          { "title": "Appliance Warranty", "desc": "Invoice, manual, warranty dates, and service history on the product or install spot." },
-          { "title": "Property History", "desc": "Deeds, renovation logs, and contractor notes for buyers and maintenance." },
-          { "title": "Workshop & Sharing", "desc": "Tool manuals, bit inventory, and society shelf borrow rules in one scan." },
-          { "title": "Guest Welcome", "desc": "WiFi, rules, appliance tips, and local map — update without re-laminating." }
+          {
+            "title": "Appliance Warranty",
+            "desc": "Invoice, manual, warranty dates, and service history on the product or install spot."
+          },
+          {
+            "title": "Property History",
+            "desc": "Deeds, renovation logs, and contractor notes for buyers and maintenance."
+          },
+          {
+            "title": "Workshop & Sharing",
+            "desc": "Tool manuals, bit inventory, and society shelf borrow rules in one scan."
+          },
+          {
+            "title": "Guest Welcome",
+            "desc": "WiFi, rules, appliance tips, and local map — update without re-laminating."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Appliances to Airbnb",
@@ -335,9 +656,18 @@
         "howItWorksTitle": "Tag your home in three steps",
         "howItWorksSub": "Appliance, Property, Vehicle, Tool, Community, or Hospitality template — pick and generate.",
         "steps": [
-          { "title": "Match the Object", "desc": "Select the MasterTemplate sheet for appliance, house, vehicle, tool, community, or guest stay." },
-          { "title": "Stick Where You Look", "desc": "Door frame, back panel, meter cupboard, or visor — generate HP_ and attach." },
-          { "title": "Maintain Over Years", "desc": "Add service records, guest updates, or borrow logs without new stickers." }
+          {
+            "title": "Match the Object",
+            "desc": "Select the MasterTemplate sheet for appliance, house, vehicle, tool, community, or guest stay."
+          },
+          {
+            "title": "Stick Where You Look",
+            "desc": "Door frame, back panel, meter cupboard, or visor — generate HP_ and attach."
+          },
+          {
+            "title": "Maintain Over Years",
+            "desc": "Add service records, guest updates, or borrow logs without new stickers."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Home assets deserve living records",
@@ -347,10 +677,22 @@
           "Powered by QRTagAll — tag home, know home."
         ],
         "stats": [
-          { "val": "6", "lbl": "Home use cases" },
-          { "val": "PDF", "lbl": "Manuals & deeds" },
-          { "val": "Guest", "lbl": "Welcome packs" },
-          { "val": "NOVIEW", "lbl": "Private finance" }
+          {
+            "val": "6",
+            "lbl": "Home use cases"
+          },
+          {
+            "val": "PDF",
+            "lbl": "Manuals & deeds"
+          },
+          {
+            "val": "Guest",
+            "lbl": "Welcome packs"
+          },
+          {
+            "val": "NOVIEW",
+            "lbl": "Private finance"
+          }
         ],
         "ctaTitle": "Tag something at home",
         "ctaSub": "Generate a Home & Property QR with the right template."
@@ -370,15 +712,31 @@
         "heroHeadline": "Ops Visibility",
         "heroHeadlineHighlight": "On the Physical Asset",
         "heroSub": "Site boards, cab stickers, pallets, AMRs, and rental handover tags — compliance and SOPs where crews actually scan.",
-        "trustItems": ["Field-readable", "Companion to WMS/TMS", "Compliance on scan"],
+        "trustItems": [
+          "Field-readable",
+          "Companion to WMS/TMS",
+          "Compliance on scan"
+        ],
         "featuresTag": "Why QRTagAll for Ops",
         "featuresTitle": "The scan layer on top of your systems",
         "featuresSub": "Not a replacement for WMS or telematics — the human-readable identity crews use at the cage, cab, or handover.",
         "features": [
-          { "title": "Site & Equipment", "desc": "Gate orientation, lift plans, inspection PASS, and maintenance logs before start." },
-          { "title": "Warehouse & Fleet", "desc": "Pallet identity, batch, damage notes; driver checklists and load docs at departure." },
-          { "title": "Supply Chain Proof", "desc": "Batch to farm, pack dates, certifications — defensible premium at the crate." },
-          { "title": "Rental Condition", "desc": "Timestamped issue/return photos and policy at handover — fewer disputes." }
+          {
+            "title": "Site & Equipment",
+            "desc": "Gate orientation, lift plans, inspection PASS, and maintenance logs before start."
+          },
+          {
+            "title": "Warehouse & Fleet",
+            "desc": "Pallet identity, batch, damage notes; driver checklists and load docs at departure."
+          },
+          {
+            "title": "Supply Chain Proof",
+            "desc": "Batch to farm, pack dates, certifications — defensible premium at the crate."
+          },
+          {
+            "title": "Rental Condition",
+            "desc": "Timestamped issue/return photos and policy at handover — fewer disputes."
+          }
         ],
         "useCasesTag": "Use Cases",
         "useCasesTitle": "Sites to supply chain",
@@ -387,9 +745,18 @@
         "howItWorksTitle": "Deploy ops QRs in three steps",
         "howItWorksSub": "Construction, Warehouse, Fleet, and more — template per asset class.",
         "steps": [
-          { "title": "Pick Ops Template", "desc": "MasterTemplate sheets for Construction, Warehouse, Fleet, Robotics, SupplyChain, Farm, or Rental." },
-          { "title": "Tag the Asset", "desc": "Site board, cab, pallet, AMR, grain bag, or camera body — generate EO_ and deploy." },
-          { "title": "Keep Crews Current", "desc": "Update SOPs, certs, and manifests once; every scan stays aligned." }
+          {
+            "title": "Pick Ops Template",
+            "desc": "MasterTemplate sheets for Construction, Warehouse, Fleet, Robotics, SupplyChain, Farm, or Rental."
+          },
+          {
+            "title": "Tag the Asset",
+            "desc": "Site board, cab, pallet, AMR, grain bag, or camera body — generate EO_ and deploy."
+          },
+          {
+            "title": "Keep Crews Current",
+            "desc": "Update SOPs, certs, and manifests once; every scan stays aligned."
+          }
         ],
         "aboutTag": "About This Vertical",
         "aboutTitle": "Enterprise scale, field-simple scans",
@@ -399,10 +766,22 @@
           "Powered by QRTagAll — ops identity on the floor."
         ],
         "stats": [
-          { "val": "8", "lbl": "Enterprise use cases" },
-          { "val": "B2B", "lbl": "Ops chain demos" },
-          { "val": "SOP", "lbl": "On-scan access" },
-          { "val": "Field", "lbl": "No special scanner" }
+          {
+            "val": "8",
+            "lbl": "Enterprise use cases"
+          },
+          {
+            "val": "B2B",
+            "lbl": "Ops chain demos"
+          },
+          {
+            "val": "SOP",
+            "lbl": "On-scan access"
+          },
+          {
+            "val": "Field",
+            "lbl": "No special scanner"
+          }
         ],
         "ctaTitle": "Deploy an ops QR",
         "ctaSub": "Generate an Enterprise & Operations QR with your asset template."

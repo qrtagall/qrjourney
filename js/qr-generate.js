@@ -9,6 +9,7 @@
 
     let genConfig = { ...DEFAULT_CONFIG };
     let selectedTemplate = null;
+    let modalGenOpts = {};
 
     function applyConfig(cfg) {
         if (!cfg) return;
@@ -74,25 +75,31 @@
         return selectedTemplate;
     }
 
+    function getEffectiveQrPrefix(opts = {}) {
+        if (selectedTemplate?.qrPrefix) return selectedTemplate.qrPrefix;
+        return opts.qrIdPrefix || genConfig.qrIdPrefix;
+    }
+
     function buildQrCaption(defaultLabel) {
         if (!selectedTemplate) return defaultLabel || 'QRTagAll QR';
         const sheet = selectedTemplate.masterTemplateSheet || '';
         const title = selectedTemplate.title || selectedTemplate.num || '';
+        const prefix = (selectedTemplate.qrPrefix || '').replace(/_$/, '');
         const parts = [title];
+        if (prefix) parts.push(`ID prefix: ${prefix}`);
         if (sheet) parts.push(`Template: ${sheet}`);
         return parts.join('\n');
     }
 
+    function needsRoutingFallback(id) {
+        return id && !id.startsWith('TMP1_');
+    }
+
     function buildProcessUrl(id, processUrl) {
         const base = (processUrl || 'https://process.qrtagall.com').replace(/\/$/, '');
-        const prefix = (genConfig.qrIdPrefix || '').replace(/_$/, '');
-        const isNonMainPrefix =
-            prefix &&
-            prefix !== 'TMP1' &&
-            id.startsWith(prefix + '_');
 
         let url = `${base}?id=${encodeURIComponent(id)}`;
-        if (isNonMainPrefix && genConfig.routingFallbackPrefix) {
+        if (needsRoutingFallback(id) && genConfig.routingFallbackPrefix) {
             url += `&fallback=${encodeURIComponent(genConfig.routingFallbackPrefix)}`;
         }
         if (selectedTemplate?.num) {
@@ -101,11 +108,44 @@
         if (selectedTemplate?.masterTemplateSheet) {
             url += `&tplSheet=${encodeURIComponent(selectedTemplate.masterTemplateSheet)}`;
         }
+        if (selectedTemplate?.qrPrefix) {
+            url += `&qrPrefix=${encodeURIComponent(selectedTemplate.qrPrefix.replace(/_$/, ''))}`;
+        }
         return url;
     }
 
+    function showTemplatePickState(opts = {}) {
+        const spinner = document.getElementById('qrSpinner');
+        const popupQR = document.getElementById('popupQR');
+        const qrUrl = document.getElementById('qrUrl');
+        const popupButtons = document.getElementById('popupButtons');
+        const qrPopupHeading = document.getElementById('qrPopupHeading');
+        const qrIdLabel = document.getElementById('qrIdLabel');
+        const qrCaption = document.getElementById('qrCaption');
+        const tplSelect = document.getElementById('qrTemplateSelect');
+
+        if (qrPopupHeading) {
+            qrPopupHeading.innerText = opts.pickTemplateHeading || 'Choose a use case below';
+            qrPopupHeading.style.display = 'block';
+        }
+        if (qrIdLabel) qrIdLabel.style.display = 'none';
+        if (spinner) spinner.style.display = 'none';
+        if (popupQR) popupQR.style.display = 'none';
+        if (qrUrl) qrUrl.style.display = 'none';
+        if (popupButtons) popupButtons.style.display = 'none';
+        if (qrCaption) {
+            qrCaption.innerText = opts.pickTemplateHint || 'Select a template — ID prefix is set per use case (e.g. SERA, SERB).';
+        }
+        if (tplSelect) tplSelect.focus();
+    }
+
     async function generateSecureQR(opts = {}) {
-        const prefix = opts.qrIdPrefix || genConfig.qrIdPrefix;
+        const prefix = getEffectiveQrPrefix(opts);
+        if (!prefix) {
+            showTemplatePickState(opts);
+            return;
+        }
+
         const timestamp = prefix + getReadableTimestamp();
         const processUrl = opts.processUrl || 'https://process.qrtagall.com';
         const defaultCaption = opts.defaultCaption || 'General QR';
@@ -171,7 +211,12 @@
     }
 
     function openQRModal(opts = {}) {
+        modalGenOpts = { ...opts };
         document.getElementById('popupModal').style.display = 'flex';
+        if (opts.requireTemplate && !getSelectedTemplate()) {
+            showTemplatePickState(opts);
+            return;
+        }
         generateSecureQR(opts);
     }
 
@@ -183,7 +228,7 @@
     function goNext(processUrl) {
         const id = document.getElementById('qrIdLabel')?.innerText?.trim();
         if (!id) {
-            alert('QR ID not found. Please generate first.');
+            alert('QR ID not found. Please select a use case and generate first.');
             return;
         }
         window.location.href = buildProcessUrl(id, processUrl);
@@ -254,6 +299,8 @@
     }
 
     function wireModal(opts = {}) {
+        modalGenOpts = { ...opts };
+
         ['startBtn', 'startBtnHero', 'startBtnMob', 'startBtnCta'].forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('click', () => openQRModal(opts));
@@ -272,11 +319,16 @@
                 const num = tplSelect.value;
                 if (!num) {
                     setSelectedTemplate(null);
+                    if (modal?.style.display === 'flex') showTemplatePickState(modalGenOpts);
                     return;
                 }
-                const tpl = global.QRJConfig?.getTemplateForUseCase(num);
-                const title = tplSelect.options[tplSelect.selectedIndex]?.text || num;
+                const tpl = global.QRJConfig?.getTemplateForUseCase(num, modalGenOpts.categoryCode);
+                const opt = tplSelect.options[tplSelect.selectedIndex];
+                const title = opt?.dataset?.ucTitle || opt?.text || num;
                 setSelectedTemplate({ num, title, ...tpl });
+                if (modal?.style.display === 'flex') {
+                    generateSecureQR(modalGenOpts);
+                }
             });
         }
     }
@@ -285,6 +337,7 @@
         applyConfig,
         setSelectedTemplate,
         getSelectedTemplate,
+        getEffectiveQrPrefix,
         generateSecureQR,
         openQRModal,
         closeModal,
