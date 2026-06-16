@@ -571,7 +571,53 @@
             padding: 0 20px;
         }
         .uc-series-divider .uc-title { color: var(--text); }
-        .uc-series-divider .uc-title.uc-series-title-link { color: inherit; }
+        .uc-series-divider .uc-title.uc-series-title-link {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: currentColor;
+        }
+        .uc-series-title-link-external::after {
+            content: ' ↗';
+            font-size: .78em;
+            font-weight: 700;
+        }
+        .uc-series-embed-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+        .uc-series-embed-link {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            font-size: .72rem;
+            line-height: 1.35;
+            text-decoration: none;
+            border-left: 2px solid currentColor;
+            padding: 4px 0 4px 8px;
+            word-break: break-all;
+            color: inherit;
+            opacity: 0.88;
+        }
+        .uc-series-embed-link:hover {
+            text-decoration: underline;
+            opacity: 1;
+        }
+        .uc-series-embed-label {
+            font-weight: 700;
+            font-size: .64rem;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            opacity: 0.85;
+        }
+        .uc-series-embed-url {
+            font-weight: 600;
+            opacity: 0.92;
+        }
         .uc-series-divider-1 { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
         .uc-series-divider-2 { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
         .uc-series-divider-3 { background: #e3f5f1; border-color: #7ecbbc; color: #1a5248; }
@@ -846,12 +892,13 @@
 
         .uc-series-title-link {
             color: inherit;
-            text-decoration: none;
-            transition: opacity .2s, text-decoration .2s;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: currentColor;
+            transition: opacity .2s;
         }
         .uc-series-title-link:hover {
-            text-decoration: underline;
-            opacity: 0.88;
+            opacity: 0.82;
         }
 
         /* ===== HOW IT WORKS ===== */
@@ -1744,17 +1791,73 @@ function parseUseCasesPayload(raw) {
     return raw;
 }
 
+function youtubeWatchUrl(url) {
+    const embed = normaliseYouTubeEmbed(url);
+    if (embed) {
+        const m = embed.match(/\/embed\/([^/?]+)/);
+        if (m) return `https://youtu.be/${m[1]}`;
+    }
+    const u = String(url || '').trim();
+    if (!u) return '';
+    if (u.includes('youtu.be/')) return u.split('?')[0];
+    if (u.includes('watch?v=')) {
+        const id = u.split('watch?v=')[1].split('&')[0];
+        return `https://youtu.be/${id}`;
+    }
+    return u;
+}
+
+function truncateUrlLabel(url, maxLen = 48) {
+    const u = String(url || '').trim();
+    if (!u) return '';
+    if (u.length <= maxLen) return u;
+    return `${u.slice(0, maxLen - 1)}…`;
+}
+
+function getSeriesExternalUrl(s) {
+    return (s && s.ExternalUrl ? String(s.ExternalUrl).trim() : '');
+}
+
+function renderSeriesEmbeddedLinksHtml(s, externalUrl, external) {
+    const links = [];
+    if (externalUrl) {
+        const safe = escapeHtmlAttr(externalUrl);
+        const target = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+        links.push(`<a class="uc-series-embed-link" href="${safe}"${target}><span class="uc-series-embed-label">External link</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(externalUrl))}</span></a>`);
+    }
+    const video = getVideoUrl(s);
+    if (video) {
+        const watch = youtubeWatchUrl(video);
+        links.push(`<a class="uc-series-embed-link" href="${escapeHtmlAttr(watch)}" target="_blank" rel="noopener noreferrer"><span class="uc-series-embed-label">Demo video</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(watch))}</span></a>`);
+    }
+    const qr = (s.qr || '').trim();
+    if (qr) {
+        links.push(`<a class="uc-series-embed-link" href="${escapeHtmlAttr(qr)}" target="_blank" rel="noopener noreferrer"><span class="uc-series-embed-label">Live QR</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(qr))}</span></a>`);
+    }
+    const buy = (s.BuyLink || '').trim();
+    if (buy && /^https?:\/\//i.test(buy)) {
+        links.push(`<a class="uc-series-embed-link" href="${escapeHtmlAttr(buy)}" target="_blank" rel="noopener noreferrer"><span class="uc-series-embed-label">Buy</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(buy))}</span></a>`);
+    }
+    if (!links.length) return '';
+    return `<div class="uc-series-embed-links">${links.join('')}</div>`;
+}
+
 function seriesDividerHtml(s) {
     const item = { ...s, desc: s.subtitle || '' };
     const tagPills = (s.tags || []).map(t => `<span class="uc-series-tag">${t}</span>`).join('');
     const safeTitle = escapeHtmlAttr(s.title);
     const safeSub = escapeHtmlAttr(s.subtitle);
     const actionsHtml = renderUseCaseActionsHtml(item, 'openUCVideo', { actionClass: 'uc-series-actions' });
-    const exploreUrl = RJ_CATEGORY_URLS[s.id];
-    const exploreTarget = RJ_CATEGORY_URLS_EXTERNAL[s.id] ? ' target="_blank" rel="noopener"' : '';
-    const titleHtml = exploreUrl
-        ? `<a class="uc-title uc-series-title-link" href="${exploreUrl}"${exploreTarget} aria-label="Open ${safeTitle} category page">${safeTitle}</a>`
+    const externalUrl = getSeriesExternalUrl(s);
+    const external = !!externalUrl;
+    const exploreTarget = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+    const titleClass = externalUrl
+        ? `uc-title uc-series-title-link${external ? ' uc-series-title-link-external' : ''}`
+        : 'uc-title';
+    const titleHtml = externalUrl
+        ? `<a class="${titleClass}" href="${externalUrl}"${exploreTarget} aria-label="Open ${safeTitle} external page">${safeTitle}</a>`
         : `<div class="uc-title">${safeTitle}</div>`;
+    const embedLinksHtml = renderSeriesEmbeddedLinksHtml(s, externalUrl, external);
     return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
                 <div class="uc-series-head">
@@ -1766,6 +1869,7 @@ function seriesDividerHtml(s) {
                 <div class="uc-series-body">
                     <div class="uc-body-mid">
                         ${safeSub ? `<p class="uc-desc">${safeSub}</p>` : ''}
+                        ${embedLinksHtml}
                         ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
                     </div>
                 </div>
@@ -1826,27 +1930,6 @@ function ucTrackHtml(payload) {
     return html;
 }
 
-/* ---- Category branch URLs (site-config) ---- */
-const RJ_CATEGORY_URLS = {};
-const RJ_CATEGORY_URLS_EXTERNAL = {};
-
-async function initMainExploreLinks() {
-    try {
-        const res = await fetch('/data/site-config.json');
-        const cfg = await res.json();
-        const mode = cfg.categoryUrlMode || 'path';
-        for (const [id, cat] of Object.entries(cfg.categories || {})) {
-            const external = mode === 'subdomain';
-            RJ_CATEGORY_URLS_EXTERNAL[cat.seriesId] = external;
-            RJ_CATEGORY_URLS[cat.seriesId] = external
-                ? `https://${cat.subdomain}.${cfg.mainHost}/`
-                : `/categories/${id}/`;
-        }
-    } catch (e) {
-        console.warn('Could not load site-config for category links', e);
-    }
-}
-
 async function loadUseCases() {
     const track = document.getElementById('ucTrack');
     try {
@@ -1859,7 +1942,7 @@ async function loadUseCases() {
         console.error('Failed to load usecases.json', e);
     }
 }
-initMainExploreLinks().then(() => loadUseCases());
+loadUseCases();
 
 /* ---- Horizontal scroll buttons ---- */
 function shiftUC(dir) {

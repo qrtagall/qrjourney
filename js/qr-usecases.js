@@ -189,18 +189,87 @@
     </div>`;
     }
 
+    function youtubeWatchUrl(url) {
+        const embed = normaliseYouTubeEmbed(url);
+        if (embed) {
+            const m = embed.match(/\/embed\/([^/?]+)/);
+            if (m) return `https://youtu.be/${m[1]}`;
+        }
+        const u = String(url || '').trim();
+        if (!u) return '';
+        if (u.includes('youtu.be/')) return u.split('?')[0];
+        if (u.includes('watch?v=')) {
+            const id = u.split('watch?v=')[1].split('&')[0];
+            return `https://youtu.be/${id}`;
+        }
+        return u;
+    }
+
+    function truncateUrlLabel(url, maxLen = 48) {
+        const u = String(url || '').trim();
+        if (!u) return '';
+        if (u.length <= maxLen) return u;
+        return `${u.slice(0, maxLen - 1)}…`;
+    }
+
+    function getSeriesExternalUrl(s) {
+        return (s && s.ExternalUrl ? String(s.ExternalUrl).trim() : '');
+    }
+
+    function resolveSeriesExternalUrl(s, opts = {}) {
+        const fromJson = getSeriesExternalUrl(s);
+        if (fromJson) return { url: fromJson, external: true };
+        if (opts.exploreUrlForSeries) {
+            const url = opts.exploreUrlForSeries(s.id);
+            if (url) {
+                return {
+                    url,
+                    external: !!(opts.exploreExternalForSeries && opts.exploreExternalForSeries(s.id)),
+                };
+            }
+        }
+        return { url: '', external: false };
+    }
+
+    function renderSeriesEmbeddedLinksHtml(s, externalUrl, external) {
+        const links = [];
+        if (externalUrl) {
+            const safe = escapeHtmlAttr(externalUrl);
+            const target = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+            links.push(`<a class="uc-series-embed-link" href="${safe}"${target}><span class="uc-series-embed-label">External link</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(externalUrl))}</span></a>`);
+        }
+        const video = getVideoUrl(s);
+        if (video) {
+            const watch = youtubeWatchUrl(video);
+            links.push(`<a class="uc-series-embed-link" href="${escapeHtmlAttr(watch)}" target="_blank" rel="noopener noreferrer"><span class="uc-series-embed-label">Demo video</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(watch))}</span></a>`);
+        }
+        const qr = (s.qr || '').trim();
+        if (qr) {
+            links.push(`<a class="uc-series-embed-link" href="${escapeHtmlAttr(qr)}" target="_blank" rel="noopener noreferrer"><span class="uc-series-embed-label">Live QR</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(qr))}</span></a>`);
+        }
+        const buy = (s.BuyLink || '').trim();
+        if (buy && /^https?:\/\//i.test(buy)) {
+            links.push(`<a class="uc-series-embed-link" href="${escapeHtmlAttr(buy)}" target="_blank" rel="noopener noreferrer"><span class="uc-series-embed-label">Buy</span><span class="uc-series-embed-url">${escapeHtmlAttr(truncateUrlLabel(buy))}</span></a>`);
+        }
+        if (!links.length) return '';
+        return `<div class="uc-series-embed-links">${links.join('')}</div>`;
+    }
+
     function seriesDividerHtml(s, opts = {}) {
         const item = { ...s, desc: s.subtitle || '' };
         const tagPills = (s.tags || []).map((t) => `<span class="uc-series-tag">${t}</span>`).join('');
         const safeTitle = escapeHtmlAttr(s.title);
         const safeSub = escapeHtmlAttr(s.subtitle);
         const actionsHtml = renderUseCaseActionsHtml(item, 'QRJUseCases.openUCVideo', { actionClass: 'uc-series-actions' });
-        const exploreUrl = opts.exploreUrlForSeries ? opts.exploreUrlForSeries(s.id) : null;
-        const external = opts.exploreExternalForSeries ? opts.exploreExternalForSeries(s.id) : false;
-        const exploreTarget = external ? ' target="_blank" rel="noopener"' : '';
-        const titleHtml = exploreUrl
-            ? `<a class="uc-title uc-series-title-link" href="${escapeHtmlAttr(exploreUrl)}"${exploreTarget} aria-label="Open ${safeTitle} category page">${safeTitle}</a>`
+        const { url: externalUrl, external } = resolveSeriesExternalUrl(s, opts);
+        const exploreTarget = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+        const titleClass = externalUrl
+            ? `uc-title uc-series-title-link${external ? ' uc-series-title-link-external' : ''}`
+            : 'uc-title';
+        const titleHtml = externalUrl
+            ? `<a class="${titleClass}" href="${escapeHtmlAttr(externalUrl)}"${exploreTarget} aria-label="Open ${safeTitle} external page">${safeTitle}</a>`
             : `<div class="uc-title">${safeTitle}</div>`;
+        const embedLinksHtml = renderSeriesEmbeddedLinksHtml(s, externalUrl, external);
         return `
             <div class="uc-series-divider uc-series-divider-${s.id}">
                 <div class="uc-series-head">
@@ -212,6 +281,7 @@
                 <div class="uc-series-body">
                     <div class="uc-body-mid">
                         ${safeSub ? `<p class="uc-desc">${safeSub}</p>` : ''}
+                        ${embedLinksHtml}
                         ${tagPills ? `<div class="uc-series-tags">${tagPills}</div>` : ''}
                     </div>
                 </div>
@@ -354,6 +424,11 @@
         renderUseCaseBuyBtn,
         normaliseYouTubeEmbed,
         drawUseCaseQrs,
+        renderSeriesEmbeddedLinksHtml,
+        getSeriesExternalUrl,
+        resolveSeriesExternalUrl,
+        youtubeWatchUrl,
+        truncateUrlLabel,
         seriesDividerHtml,
         ucSeriesBase,
         ucSeriesClass,

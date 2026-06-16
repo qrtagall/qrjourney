@@ -555,7 +555,12 @@
             padding: 0 20px;
         }
         .uc-series-divider .uc-title { color: var(--text); }
-        .uc-series-divider .uc-title.uc-series-title-link { color: inherit; }
+        .uc-series-divider .uc-title.uc-series-title-link {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: currentColor;
+        }
         .uc-series-divider-1 { background: #e8f2fd; border-color: #9ec5ef; color: #1e4a7a; }
         .uc-series-divider-2 { background: #e6f7ef; border-color: #8fd4b4; color: #1a5c40; }
         .uc-series-divider-3 { background: #e3f5f1; border-color: #7ecbbc; color: #1a5248; }
@@ -1097,12 +1102,62 @@ body.qrj-category .nav-logo-sub { font-size: .72rem; font-weight: 600; color: rg
 .uc-series-divider .uc-series-explore { color: inherit; opacity: .9; }
 .uc-series-title-link {
     color: inherit;
-    text-decoration: none;
-    transition: opacity .2s, text-decoration .2s;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: currentColor;
+    transition: opacity .2s;
 }
 .uc-series-title-link:hover {
+    opacity: 0.82;
+}
+.uc-series-title-link-external::after {
+    content: ' ↗';
+    font-size: .78em;
+    font-weight: 700;
+}
+.uc-series-embed-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    width: 100%;
+    flex-shrink: 0;
+}
+.uc-series-embed-link {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: .72rem;
+    line-height: 1.35;
+    text-decoration: none;
+    border-left: 2px solid rgba(0, 119, 204, 0.45);
+    padding: 4px 0 4px 8px;
+    transition: border-color .18s, opacity .18s;
+    word-break: break-all;
+    color: inherit;
+}
+.uc-series-embed-link:hover {
     text-decoration: underline;
+    border-left-color: var(--primary);
+    opacity: 0.92;
+}
+.uc-series-embed-label {
+    font-weight: 700;
+    font-size: .64rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    opacity: 0.85;
+}
+.uc-series-embed-url {
+    font-weight: 600;
+    opacity: 0.92;
+}
+.uc-series-divider .uc-series-embed-link {
+    border-left-color: currentColor;
     opacity: 0.88;
+}
+.uc-series-divider .uc-series-embed-link:hover {
+    opacity: 1;
 }
 #qrTemplateSelect { width: 100%; max-width: 280px; margin: 8px auto 12px; padding: 8px 10px; font-size: .85rem; border: 1px solid var(--border); border-radius: var(--r-sm); font-family: inherit; }
 .qrj-tour-card { flex-shrink: 0; width: 328px; scroll-snap-align: start; }
