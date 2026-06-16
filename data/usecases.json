@@ -81,7 +81,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/1-safety-emergency/"
     },
     {
       "id": "2",
@@ -139,7 +140,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/2-craft-art-culture/"
     },
     {
       "id": "3",
@@ -194,7 +196,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/3-education-professional/"
     },
     {
       "id": "4",
@@ -264,7 +267,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/4-memory-celebrations/"
     },
     {
       "id": "5",
@@ -304,7 +308,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/5-plants-nature/"
     },
     {
       "id": "6",
@@ -403,7 +408,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/6-home-property/"
     },
     {
       "id": "7",
@@ -538,7 +544,8 @@
           "BuyLink": "",
           "EnableBuy": true
         }
-      ]
+      ],
+      "ExternalUrl": "https://qrtagall.com/categories/7-enterprise-operations/"
     }
   ]
 }
