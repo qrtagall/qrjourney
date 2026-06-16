@@ -31,9 +31,9 @@ python scripts/gen_category_pages.py
 - **`data/site-config.json`** — emails, QR prefixes, subdomain map, per-vertical copy, `useCaseTemplates` → MasterTemplate sheet names.
 - **`categories/{id}/overrides.json`** — optional per-use-case overrides (`EnableBuy`, `hidden`, etc.) without editing master `usecases.json`.
 
-## QR generation (interim)
+## QR generation
 
-Category pages mint IDs with vertical prefix (`SER_`, `CAC_`, …). Until IDConfig rows exist, process app routes non-`TMP1_` prefixes via **IN** fallback (`routingFallbackPrefix` in site-config). Template sheet hint is passed as query params (`template`, `tplSheet`) for future claim wiring.
+Category pages mint IDs with per-use-case prefix (`SERA_`, `SERB_`, …). Process app routes them via `git/qrprocess/config/cells.json` (`prefixAliases` → **IN** cell). Claim URLs are clean: `https://process.qrtagall.com?id=SERA_…` only.
 
 ## Shared assets
 

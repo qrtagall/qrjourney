@@ -91,27 +91,9 @@
         return parts.join('\n');
     }
 
-    function needsRoutingFallback(id) {
-        return id && !id.startsWith('TMP1_');
-    }
-
     function buildProcessUrl(id, processUrl) {
         const base = (processUrl || 'https://process.qrtagall.com').replace(/\/$/, '');
-
-        let url = `${base}?id=${encodeURIComponent(id)}`;
-        if (needsRoutingFallback(id) && genConfig.routingFallbackPrefix) {
-            url += `&fallback=${encodeURIComponent(genConfig.routingFallbackPrefix)}`;
-        }
-        if (selectedTemplate?.num) {
-            url += `&template=${encodeURIComponent(selectedTemplate.num)}`;
-        }
-        if (selectedTemplate?.masterTemplateSheet) {
-            url += `&tplSheet=${encodeURIComponent(selectedTemplate.masterTemplateSheet)}`;
-        }
-        if (selectedTemplate?.qrPrefix) {
-            url += `&qrPrefix=${encodeURIComponent(selectedTemplate.qrPrefix.replace(/_$/, ''))}`;
-        }
-        return url;
+        return `${base}?id=${encodeURIComponent(id)}`;
     }
 
     function showTemplatePickState(opts = {}) {
