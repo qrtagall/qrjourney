@@ -169,7 +169,7 @@
       "code": "SER",
       "subdomain": "safety",
       "qrPrefix": "SER_",
-      "contactEmail": "safety@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Safety & Emergency",
@@ -258,7 +258,7 @@
       "code": "CAC",
       "subdomain": "craft",
       "qrPrefix": "CAC_",
-      "contactEmail": "craft@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Craft, Art & Culture",
@@ -347,7 +347,7 @@
       "code": "EP",
       "subdomain": "education",
       "qrPrefix": "EP_",
-      "contactEmail": "education@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Education & Professional",
@@ -436,7 +436,7 @@
       "code": "MC",
       "subdomain": "memory",
       "qrPrefix": "MC_",
-      "contactEmail": "memory@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Memory & Celebrations",
@@ -525,7 +525,7 @@
       "code": "PN",
       "subdomain": "plants",
       "qrPrefix": "PN_",
-      "contactEmail": "plants@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Plants & Nature",
@@ -614,7 +614,7 @@
       "code": "HP",
       "subdomain": "home",
       "qrPrefix": "HP_",
-      "contactEmail": "home@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Home & Property",
@@ -703,7 +703,7 @@
       "code": "EO",
       "subdomain": "enterprise",
       "qrPrefix": "EO_",
-      "contactEmail": "enterprise@qrtagall.com",
+      "contactEmail": "qrtagall@gmail.com",
       "enabled": true,
       "content": {
         "pageTitle": "QRTagAll — Enterprise & Operations",
