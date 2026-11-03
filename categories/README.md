@@ -35,6 +35,10 @@ python scripts/gen_category_pages.py
 
 Category pages mint IDs with per-use-case prefix (`SERA_`, `SERB_`, …). Process app routes them via `git/qrprocess/config/cells.json` (`prefixAliases` → **IN** cell). Claim URLs are clean: `https://process.qrtagall.com?id=SERA_…` only.
 
+## After claim — link banner Description (B2)
+
+Owners edit banners on process.qrtagall.com. Useful tags include `<EXPAND>`, `<EXPAND=DISABLE>`, and `<EXPAND=AUTH=code>` (max 8 ASCII) — see [text-formatting-guide.html](https://process.qrtagall.com/text-formatting-guide.html) §11 and the root [README](../README.md).
+
 ## Shared assets
 
 - `css/qr-shared.css`
